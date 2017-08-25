@@ -3,6 +3,9 @@ csv2db.py
 
 This script should insert csv files into a table.
 
+This script will hang if the FlaskRESTful server is running.
+So I should shutdown the server before I run this script.
+
 Demo:
 . env.bash
 $PYTHON py/csv2db.py
@@ -11,13 +14,13 @@ $PYTHON py/csv2db.py
 import glob
 import pdb
 import os
-import pandas as pd
-from sqlalchemy import create_engine
+import pandas     as pd
+import sqlalchemy as sql
 
 # I should connect to the DB
 db_s = os.environ['PGURL']
 
-conn = create_engine(db_s).connect()
+conn = sql.create_engine(db_s).connect()
 
 sql_s = "drop table if exists tkrprices"
 conn.execute(sql_s)
