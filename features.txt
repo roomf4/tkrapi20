@@ -2,6 +2,8 @@
 
 NOT DONE YET:
 
+fix requirements.txt
+
 refactor sql_s so it uses %s rather than +str+
 
 /dbkeras/FB/3
