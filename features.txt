@@ -2,7 +2,11 @@
 
 NOT DONE YET:
 
+refactor sql_s so it uses %s rather than +str+
 
+/dbkeras/FB/3
+  get predictions from db , else get predictions from model
+  
 website:
   keras4.us
   keras4.herokuapp.com
