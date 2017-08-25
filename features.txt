@@ -2,23 +2,11 @@
 
 NOT DONE YET:
 
-remove tempfile code from predictions2db
-
-readme:
-  - meetup url
-  - virtualbox dl
-  - git clone
-  - git pull
-  - demos:
-    - demosql.py
-    - demoflask_restful.py
-    - demokeras.py
-    - flaskr.bash
-    - walk through urls
 
 website:
   keras4.us
-
+  keras4.herokuapp.com
+  
 heroku:
   - setup flask server
     serve predictions
@@ -114,3 +102,17 @@ questions:
 def check_features(f_s):
   return features_s
   
+remove tempfile code from predictions2db
+
+
+readme:
+  - meetup url
+  - virtualbox dl
+  - git clone
+  - git pull
+  - demos:
+    - demosql.py
+    - demoflask_restful.py
+    - demokeras.py
+    - flaskr.bash
+    - walk through urls
