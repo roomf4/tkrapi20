@@ -33,11 +33,12 @@ for csvf_s in sorted(glob.glob(os.environ['TKRCSVH']+'/*.csv')):
   # I should avoid files which are too small:
   sz_i = os.path.getsize(csvf_s)
   print(csvf_s, sz_i)
-  if (sz_i > 140):
-    tkr_s = csvf_s.split('/')[-1].split('.')[0] # should be something like 'IBM'
-    csv_df = pd.read_csv(csvf_s)
+  if (sz_i > 2123):
+    tkr_s   = csvf_s.split('/')[-1].split('.')[0] # should be something like 'IBM'
+    csvh_df = pd.read_csv(csvf_s)
     # I should convert to String and pick only two columns:
-    csvh_s = csv_df.to_csv(index=False,header=False,columns=('Date','Close'),float_format='%.3f')
+    csvh_s = csvh_df.to_csv(index=False,header=False,columns=('Date','Close'),float_format='%.3f')
+    # History should now be done. Dividends and Splits should be next:
     csvfd_s = os.environ['TKRCSVD']+'/'+tkr_s+'.csv'
     csvfs_s = os.environ['TKRCSVS']+'/'+tkr_s+'.csv'
     csvd_s  = pd.read_csv(csvfd_s).sort_values('Date').to_csv(index=False,header=False)
