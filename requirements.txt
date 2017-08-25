@@ -1,2 +1,8 @@
 flask
+flask-restful
 gunicorn
+keras
+numpy
+pandas
+psycopg2
+sqlalchemy

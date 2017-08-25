@@ -2,7 +2,7 @@
 
 NOT DONE YET:
 
-fix requirements.txt
+
 
 refactor sql_s so it uses %s rather than +str+
 
@@ -122,3 +122,5 @@ readme:
     - demokeras.py
     - flaskr.bash
     - walk through urls
+    
+fix requirements.txt
