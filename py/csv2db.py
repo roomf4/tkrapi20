@@ -38,16 +38,12 @@ for csvf_s in sorted(glob.glob(os.environ['TKRCSVH']+'/*.csv')):
     csv_df = pd.read_csv(csvf_s)
     # I should convert to String and pick only two columns:
     csv0_s = csv_df.to_csv(index=False,header=False,columns=('Date','Close'),float_format='%.3f')
-    csvh_s  = "'"+csv0_s+"'"
-    tkr_s   = "'"+tkr0_s+"'"
     csvfd_s = os.environ['TKRCSVD']+'/'+tkr0_s+'.csv'
     csvfs_s = os.environ['TKRCSVS']+'/'+tkr0_s+'.csv'
     csvd0_s = pd.read_csv(csvfd_s).sort_values('Date').to_csv(index=False,header=False)
     csvs0_s = pd.read_csv(csvfs_s).sort_values('Date').to_csv(index=False,header=False)
-    csvd_s  = "'"+csvd0_s+"'"
-    csvs_s  = "'"+csvs0_s+"'"
-    sql_s   = "insert into tkrprices(tkr,csvd,csvh,csvs)values("+tkr_s+","+csvd_s+","+csvh_s+","+csvs_s+")"
-    conn.execute(sql_s)
+    sql_s   = "insert into tkrprices(tkr,csvd,csvh,csvs)values(%s , %s, %s, %s)"
+    conn.execute(sql_s,[tkr0_s, csvd0_s, csv0_s, csvs0_s] )
 
 # I should check:
 # sql_s = "select tkr, csvh from tkrprices limit 1"
