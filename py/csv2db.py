@@ -34,16 +34,16 @@ for csvf_s in sorted(glob.glob(os.environ['TKRCSVH']+'/*.csv')):
   sz_i = os.path.getsize(csvf_s)
   print(csvf_s, sz_i)
   if (sz_i > 140):
-    tkr0_s = csvf_s.split('/')[-1].split('.')[0] # should be something like 'IBM'
+    tkr_s = csvf_s.split('/')[-1].split('.')[0] # should be something like 'IBM'
     csv_df = pd.read_csv(csvf_s)
     # I should convert to String and pick only two columns:
-    csv0_s = csv_df.to_csv(index=False,header=False,columns=('Date','Close'),float_format='%.3f')
-    csvfd_s = os.environ['TKRCSVD']+'/'+tkr0_s+'.csv'
-    csvfs_s = os.environ['TKRCSVS']+'/'+tkr0_s+'.csv'
-    csvd0_s = pd.read_csv(csvfd_s).sort_values('Date').to_csv(index=False,header=False)
-    csvs0_s = pd.read_csv(csvfs_s).sort_values('Date').to_csv(index=False,header=False)
+    csvh_s = csv_df.to_csv(index=False,header=False,columns=('Date','Close'),float_format='%.3f')
+    csvfd_s = os.environ['TKRCSVD']+'/'+tkr_s+'.csv'
+    csvfs_s = os.environ['TKRCSVS']+'/'+tkr_s+'.csv'
+    csvd_s  = pd.read_csv(csvfd_s).sort_values('Date').to_csv(index=False,header=False)
+    csvs_s  = pd.read_csv(csvfs_s).sort_values('Date').to_csv(index=False,header=False)
     sql_s   = "insert into tkrprices(tkr,csvd,csvh,csvs)values(%s , %s, %s, %s)"
-    conn.execute(sql_s,[tkr0_s, csvd0_s, csv0_s, csvs0_s] )
+    conn.execute(sql_s,[tkr_s, csvd_s, csvh_s, csvs_s] )
 
 # I should check:
 # sql_s = "select tkr, csvh from tkrprices limit 1"
@@ -52,6 +52,7 @@ for csvf_s in sorted(glob.glob(os.environ['TKRCSVH']+'/*.csv')):
 # for row in result:
 #     print(row['tkr'],row['csvh'].split(',')[-2:])
 
+# I should check via shell:
 # ../bin/psql.bash
 # select       tkr  from tkrprices;
 # select count(tkr) from tkrprices;
