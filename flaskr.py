@@ -169,12 +169,11 @@ class Tkrprices(fr.Resource):
   """
   def get(self, tkr):
     # I should get csvh from tkrprices in db:
-    sql_s       = '''select csvh from tkrprices
-      where tkr = %s  LIMIT 1'''
-    result      = conn.execute(sql_s,[tkr])
+    sql_s  = "select csvh from tkrprices where tkr = %s  LIMIT 1"
+    result = conn.execute(sql_s,[tkr])
     if not result.rowcount:
       return {'no': 'data found'}  
-    myrow       = [row for row in result][0]
+    myrow  = [row for row in result][0]
     return {'tkrprices': myrow.csvh.split()}
 api.add_resource(Tkrprices, '/tkrprices/<tkr>')
 
