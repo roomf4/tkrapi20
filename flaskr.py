@@ -66,6 +66,31 @@ class Demo11(fr.Resource):
     return {my_k_s: my_v_s}
 api.add_resource(Demo11, '/demo11.json')
 
+class Db1st(fr.Resource):
+  """
+  Return predictions from db, if none, predictions from model.
+  """
+  def get(self,algo,tkr,yrs,mnth):
+    features0_s = fl.request.args.get('features', 'pct_lag1,slope4,dow')
+    features_s    = features0_s.replace("'","").replace('"','')
+    hl_s          = fl.request.args.get('hl',      '2') # default 2
+    neurons_s     = fl.request.args.get('neurons', '4') # default 4
+    hl_i          = int(hl_s)
+    neurons_i     = int(neurons_s)
+    algo_params_s = str([hl_i, neurons_i])
+    # I should get predictions from db:
+    out_df = pgdb.dbpredictions(algo,tkr,yrs,mnth,features_s,algo_params_s)
+    if (out_df.size > 0):
+      out_d = get_out_d(out_df)
+    else:
+      if (algo == 'kerasnn'):
+        out_d = KerasNN().get(tkr,yrs,mnth) # features_s global to KerasNN()
+      elif (algo == 'keraslinear'):
+        out_d = KerasLinear().get(tkr,yrs,mnth,features_s)
+          
+    return {'predictions': out_d}
+api.add_resource(Db1st, '/db1st_model2nd/<algo>/<tkr>/<int:yrs>/<mnth>')
+
 class Db(fr.Resource):
   """
   This class should return predictions from db.
