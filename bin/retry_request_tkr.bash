@@ -31,4 +31,11 @@ done
 
 date
 
+# I should retry to request based on grep rather than size:
+
+grep cookie */*csv|awk -F / '{print $2}'|awk -F . '{print $1}'|sort -u|while read TKR
+do
+    $PYTHON ${PYTHONPATH}/request_tkr.py $TKR
+done
+
 exit
