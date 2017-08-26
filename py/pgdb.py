@@ -167,13 +167,13 @@ def dbpredictions(tkr   = 'FB'
   sql_s  = '''SELECT tkr, csv
     FROM predictions
     WHERE tkr         = %s
-    AND yrs           = %s
+    AND   yrs         = %s
     AND   mnth        = %s
     AND   features    = %s
     AND   algo        = %s
     AND   algo_params = %s
     '''
-  result = conn.execute(sql_s,[tkr])
+  result = conn.execute(sql_s,[tkr,yrs,mnth,features,algo,algo_params])
   if not result.rowcount:
     return pd.DataFrame() # Maybe no predictions in db now.
   myrow  = [row for row in result][0]
