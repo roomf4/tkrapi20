@@ -25,7 +25,7 @@ import pgdb
 import kerastkr
 import sktkr
 
-out_df = kerastkr.load_predict_keraslinear()
+out_df = kerastkr.learn_predict_kerasnn_tkr('FB',4)
 print(out_df)
 
 'bye'
