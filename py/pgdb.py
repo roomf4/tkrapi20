@@ -31,7 +31,9 @@ def getfeat(tkr):
   return feat_df
 
 def getfeatures():
-  """This function should return a list of features."""
+  """This function should return a list of valid features."""
+  # I should get list from data rather than a software-constant.
+  # This feels more DRY if I add features in the future:
   sql_s  = "SELECT csv FROM features WHERE tkr = 'FB' LIMIT 1"
   result = conn.execute(sql_s)
   if not result.rowcount:
@@ -165,6 +167,7 @@ def dbpredictions(algo  = 'sklinear'
            ,algo_params = 'None Needed'
            ):
   """This function should return saved predictions."""
+  features_s = check_features(features)
   sql_s  = '''SELECT tkr, csv
     FROM predictions
     WHERE tkr         = %s
@@ -176,7 +179,7 @@ def dbpredictions(algo  = 'sklinear'
     '''
   if (algo != 'kerasnn'):
     algo_params = 'None Needed'
-  result = conn.execute(sql_s,[tkr,yrs,mnth,features,algo,algo_params])
+  result = conn.execute(sql_s,[tkr,yrs,mnth,features_s,algo,algo_params])
   if not result.rowcount:
     return pd.DataFrame() # Maybe no predictions in db now.
   myrow  = [row for row in result][0]
