@@ -164,7 +164,15 @@ def dbpredictions(tkr   = 'FB'
            ,algo_params = 'None Needed'
            ):
   """This function should return saved predictions."""
-  sql_s  = "SELECT tkr, csv FROM predictions WHERE tkr = %s LIMIT 1"
+  sql_s  = '''SELECT tkr, csv
+    FROM predictions
+    WHERE tkr         = %s
+    AND yrs           = %s
+    AND   mnth        = %s
+    AND   features    = %s
+    AND   algo        = %s
+    AND   algo_params = %s
+    '''
   result = conn.execute(sql_s,[tkr])
   if not result.rowcount:
     return pd.DataFrame() # Maybe no predictions in db now.
@@ -172,7 +180,7 @@ def dbpredictions(tkr   = 'FB'
   out_df = pd.read_csv(io.StringIO(myrow.csv))
   return out_df
 
-def trydb_thenml(tkr   = 'FB'
+def trydb_thenml(tkr    = 'FB'
            ,yrs         = 3 # years to train
            ,mnth        = '2017-08'
            ,features    = 'pct_lag1,slope4,moy'
@@ -184,8 +192,23 @@ def trydb_thenml(tkr   = 'FB'
   if (out_df.size > 0):
     return out_df
   else:
-    # for now, sklinear. later add keras.
-    out_df = sktkr.learn_predict_sklinear(tkr, yrs, mnth, features)
+    if (algo   == 'sklinear'):
+      out_df = sktkr.learn_predict_sklinear(      tkr, yrs, mnth, features)
+    elif (algo == 'keraslinear'):
+      out_df = kerastkr.learn_predict_keraslinear(tkr, yrs, mnth, features)
+    else: # algo    s.b. kerasnn
+      # algo_params s.b a string like this: '[2,4]'
+      # Which specifies 2 hidden layers with 4 neurons in each.
+      pattern_re = r'(\[)(\d+)(,)(\d+)(\])'
+      pattern_ma = re.search(pattern_re,algo_params)
+      hl_i       = int(pattern_ma[2])
+      neurons_i  = int(pattern_ma[4])
+      out_df     = kerastkr.learn_predict_kerasnn(tkr
+                                              ,yrs
+                                              ,mnth
+                                              ,features
+                                              ,hl_i
+                                              ,nerurons_i)
     return out_df
   
 'bye'
