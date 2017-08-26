@@ -2,11 +2,10 @@
 
 NOT DONE YET:
 
+/db/sklinear/FB/3
+  get predictions from db
 
-
-refactor sql_s so it uses %s rather than +str+
-
-/dbkeras/FB/3
+/db_sklinear/FB/3
   get predictions from db , else get predictions from model
   
 website:
@@ -124,3 +123,5 @@ readme:
     - walk through urls
     
 fix requirements.txt
+
+refactor sql_s so it uses %s rather than +str+

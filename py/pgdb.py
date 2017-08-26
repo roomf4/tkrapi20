@@ -5,11 +5,9 @@ This script should provide sytnax to connect flask-restful to a postgres db.
 
 """
 
-import codecs
 import io
 import pdb
 import os
-import tempfile
 import numpy         as np
 import pandas        as pd
 import sqlalchemy    as sql
@@ -17,6 +15,15 @@ import sqlalchemy    as sql
 # I should connect to the DB
 db_s = os.environ['PGURL']
 conn = sql.create_engine(db_s).connect()
+
+
+def dbalgo(tkr       = 'FB'
+           ,yrs      = 3 # years to train
+           ,features = 'pct_lag1,slope4,moy'
+           ):
+  """This function should return saved predictions."""
+  out_df = pd.DataFrame()
+  return out_df
 
 def getfeat(tkr):
   """This function should return a DataFrame full of features for a tkr."""
