@@ -75,7 +75,10 @@ class Db(fr.Resource):
     hl_s       = fl.request.args.get('hl',      '2') # default 2
     neurons_s  = fl.request.args.get('neurons', '4') # default 4
     hl_i       = int(hl_s)
-    neurons_i  = int(neurons_s) 
+    neurons_i  = int(neurons_s)
+    algo_params_s = str([hl_i, neurons_i])
+    out_df = pgdb.dbpredictions(algo,tkr,yrs,mnth,features_s,algo_params_s)
+    out_d  = get_out_d(out_df)
     return {'hello':'db'
             ,'algo': algo
             ,'tkr': tkr
@@ -84,6 +87,8 @@ class Db(fr.Resource):
             ,'features': features_s
             ,'hl':       hl_i
             ,'neurons':  neurons_i
+            ,'algo_params': algo_params_s
+            ,'predictions': out_d
     }
 api.add_resource(Db, '/db/<algo>/<tkr>/<int:yrs>/<mnth>')
 

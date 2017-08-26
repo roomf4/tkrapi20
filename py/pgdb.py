@@ -157,11 +157,11 @@ def predictions2db(tkr,yrs,mnth,features,algo,predictions_df,kmodel,algo_params=
     tkr, yrs,mnth,features,algo,algo_params,csv_s,kmodel_h5])
   return True
 
-def dbpredictions(tkr   = 'FB'
+def dbpredictions(algo  = 'sklinear'
+           ,tkr         = 'FB'
            ,yrs         = 3 # years to train
            ,mnth        = '2017-08'
            ,features    = 'pct_lag1,slope4,moy'
-           ,algo        = 'sklinear'
            ,algo_params = 'None Needed'
            ):
   """This function should return saved predictions."""

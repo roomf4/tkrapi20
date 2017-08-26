@@ -43,32 +43,37 @@ algo        = 'keraslinear'
 algo_params = 'None Needed'
 tkr = 'MSFT'
 
-out_df = pgdb.dbpredictions(tkr, yrs, mnth, features, algo, algo_params)
+out_df = pgdb.dbpredictions(algo, tkr, yrs, mnth, features, algo_params)
 print('This should be empty:')
 print(out_df)
+stophere
 
 print('I should see loss output:')
-out_df = pgdb.trydb_thenml(tkr, yrs, mnth, features, algo, algo_params)
+out_df = pgdb.trydb_thenml(algo, tkr, yrs, mnth, features, algo_params)
 print(out_df)
 
 print('s.b. faster...:')
-out_df = pgdb.trydb_thenml(tkr, yrs, mnth, features, algo, algo_params)
+out_df = pgdb.trydb_thenml(algo, tkr, yrs, mnth, features, algo_params)
 print(out_df)
 
 algo        = 'kerasnn'
 algo_params = '[3, 5]' # s.b. 1 space after comma!
 tkr = 'IBM'
 
-out_df = pgdb.dbpredictions(tkr, yrs, mnth, features, algo, algo_params)
+out_df = pgdb.dbpredictions(algo, tkr, yrs, mnth, features, algo_params)
 print('This should be empty:')
 print(out_df)
 
 print('I should see loss output:')
-out_df = pgdb.trydb_thenml(tkr, yrs, mnth, features, algo, algo_params)
+out_df = pgdb.trydb_thenml(algo, tkr, yrs, mnth, features, algo_params)
 print(out_df)
 
 print('s.b. faster...:')
-out_df = pgdb.trydb_thenml(tkr, yrs, mnth, features, algo, algo_params)
+out_df = pgdb.trydb_thenml(algo, tkr, yrs, mnth, features, algo_params)
+print(out_df)
+
+out_df = pgdb.dbpredictions(algo, tkr, yrs, mnth, features, algo_params)
+print('s.b. faster...:')
 print(out_df)
 
 
