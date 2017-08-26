@@ -188,11 +188,11 @@ def trydb_thenml(tkr    = 'FB'
            ,algo        = 'sklinear'
            ,algo_params = 'None Needed'
            ):
-  """This function should return predictions from db first, then ML."""
+  """Predictions from db first, if none, then ML."""
   out_df = dbpredictions(tkr, yrs, mnth, features, algo, algo_params)
   if (out_df.size > 0):
     return out_df
-  else:
+  else: # then ML:
     if (algo   == 'sklinear'):
       out_df = sktkr.learn_predict_sklinear(      tkr, yrs, mnth, features)
     elif (algo == 'keraslinear'):
