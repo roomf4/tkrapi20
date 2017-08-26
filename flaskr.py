@@ -72,25 +72,16 @@ class Db(fr.Resource):
   """
   def get(self,algo,tkr,yrs,mnth):
     features0_s = fl.request.args.get('features', 'pct_lag1,slope4,dow')
-    features_s = features0_s.replace("'","").replace('"','')
-    hl_s       = fl.request.args.get('hl',      '2') # default 2
-    neurons_s  = fl.request.args.get('neurons', '4') # default 4
-    hl_i       = int(hl_s)
-    neurons_i  = int(neurons_s)
+    features_s    = features0_s.replace("'","").replace('"','')
+    hl_s          = fl.request.args.get('hl',      '2') # default 2
+    neurons_s     = fl.request.args.get('neurons', '4') # default 4
+    hl_i          = int(hl_s)
+    neurons_i     = int(neurons_s)
     algo_params_s = str([hl_i, neurons_i])
+    # I should get predictions from db:
     out_df = pgdb.dbpredictions(algo,tkr,yrs,mnth,features_s,algo_params_s)
     out_d  = get_out_d(out_df)
-    return {'hello':'db'
-            ,'algo': algo
-            ,'tkr': tkr
-            ,'yrs': yrs
-            ,'mnth':mnth
-            ,'features': features_s
-            ,'hl':       hl_i
-            ,'neurons':  neurons_i
-            ,'algo_params': algo_params_s
-            ,'predictions': out_d
-    }
+    return {'predictions': out_d}
 api.add_resource(Db, '/db/<algo>/<tkr>/<int:yrs>/<mnth>')
 
 class AlgoDemos(fr.Resource):
