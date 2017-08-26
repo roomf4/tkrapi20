@@ -54,7 +54,6 @@ print(out_df)
 print('s.b. faster...:')
 out_df = pgdb.trydb_thenml(algo, tkr, yrs, mnth, features, algo_params)
 print(out_df)
-stophere
 
 algo        = 'kerasnn'
 algo_params = '[3, 5]' # s.b. 1 space after comma!
