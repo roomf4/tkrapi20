@@ -25,6 +25,13 @@ import pgdb
 import kerastkr
 import sktkr
 
+
+# I should connect to the DB
+db_s = os.environ['PGURL']
+conn = sql.create_engine(db_s).connect()
+sql_s = 'drop table if exists predictions'
+
+
 tkr='FB'; yrs=3; mnth='2017-08'; features='pct_lag1,slope4,moy'
 out_df = sktkr.learn_predict_sklinear(tkr, yrs, mnth, features)
 print(out_df)
@@ -32,7 +39,12 @@ print(out_df)
 algo        = 'sklinear'
 algo_params = 'None Needed'
 
-out_df = pgdb.dbalgo(tkr, yrs, mnth, features, algo, algo_params)
+out_df = pgdb.dbpredictions(tkr, yrs, mnth, features, algo, algo_params)
 print(out_df)
+
+out_df = pgdb.trydb_thenml(tkr, yrs, mnth, features, algo, algo_params)
+print(out_df)
+
+
 
 'bye'

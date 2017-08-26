@@ -153,7 +153,7 @@ def predictions2db(tkr,yrs,mnth,features,algo,predictions_df,kmodel,algo_params=
     tkr, yrs,mnth,features,algo,algo_params,csv_s,kmodel_h5])
   return True
 
-def dbalgo(tkr          = 'FB'
+def dbpredictions(tkr   = 'FB'
            ,yrs         = 3 # years to train
            ,mnth        = '2017-08'
            ,features    = 'pct_lag1,slope4,moy'
@@ -164,9 +164,25 @@ def dbalgo(tkr          = 'FB'
   sql_s  = "SELECT tkr, csv FROM predictions WHERE tkr = %s LIMIT 1"
   result = conn.execute(sql_s,[tkr])
   if not result.rowcount:
-    return pd.DataFrame()
+    return pd.DataFrame() # Maybe no predictions in db now.
   myrow  = [row for row in result][0]
   out_df = pd.read_csv(io.StringIO(myrow.csv))
   return out_df
 
+def trydb_thenml(tkr   = 'FB'
+           ,yrs         = 3 # years to train
+           ,mnth        = '2017-08'
+           ,features    = 'pct_lag1,slope4,moy'
+           ,algo        = 'sklinear'
+           ,algo_params = 'None Needed'
+           ):
+  """This function should return predictions from db first, then ML."""
+  out_df = dbpredictions(tkr, yrs, mnth, features, algo, algo_params)
+  if (out_df.size > 0):
+    return out_df
+  else:
+    # for now, sklinear. later add keras.
+    out_df = sktkr.learn_predict_sklinear(tkr, yrs, mnth, features)
+    return out_df
+  
 'bye'
