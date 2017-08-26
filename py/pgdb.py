@@ -153,9 +153,12 @@ def predictions2db(tkr,yrs,mnth,features,algo,predictions_df,kmodel,algo_params=
     tkr, yrs,mnth,features,algo,algo_params,csv_s,kmodel_h5])
   return True
 
-def dbalgo(tkr       = 'FB'
-           ,yrs      = 3 # years to train
-           ,features = 'pct_lag1,slope4,moy'
+def dbalgo(tkr          = 'FB'
+           ,yrs         = 3 # years to train
+           ,mnth        = '2017-08'
+           ,features    = 'pct_lag1,slope4,moy'
+           ,algo        = 'sklinear'
+           ,algo_params = 'None Needed'
            ):
   """This function should return saved predictions."""
   sql_s  = "SELECT tkr, csv FROM predictions WHERE tkr = %s LIMIT 1"

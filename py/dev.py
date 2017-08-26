@@ -25,7 +25,14 @@ import pgdb
 import kerastkr
 import sktkr
 
-out_df = pgdb.dbalgo()
+tkr='FB'; yrs=3; mnth='2017-08'; features='pct_lag1,slope4,moy'
+out_df = sktkr.learn_predict_sklinear(tkr, yrs, mnth, features)
+print(out_df)
+
+algo        = 'sklinear'
+algo_params = 'None Needed'
+
+out_df = pgdb.dbalgo(tkr, yrs, mnth, features, algo, algo_params)
 print(out_df)
 
 'bye'
