@@ -56,7 +56,7 @@ out_df = pgdb.trydb_thenml(tkr, yrs, mnth, features, algo, algo_params)
 print(out_df)
 
 algo        = 'kerasnn'
-algo_params = '[3,5]'
+algo_params = '[3, 5]' # s.b. 1 space after comma!
 tkr = 'IBM'
 
 out_df = pgdb.dbpredictions(tkr, yrs, mnth, features, algo, algo_params)

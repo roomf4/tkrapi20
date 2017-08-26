@@ -200,8 +200,9 @@ def trydb_thenml(tkr    = 'FB'
     else: # algo    s.b. kerasnn
       # algo_params s.b a string like this: '[2,4]'
       # Which specifies 2 hidden layers with 4 neurons in each.
-      pattern_re = r'(\[)(\d+)(,)(\d+)(\])'
+      pattern_re = r'(\[)(\d+)(, )(\d+)(\])'
       pattern_ma = re.search(pattern_re,algo_params)
+      pdb.set_trace()
       hl_i       = int(pattern_ma[2])
       neurons_i  = int(pattern_ma[4])
       out_df     = kerastkr.learn_predict_kerasnn(tkr
