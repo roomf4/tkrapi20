@@ -24,10 +24,6 @@ do
 done
 date
 
-#debug
-exit
-#debug
-
 ${SCRIPTPATH}/retry_request_tkr.bash
 ${SCRIPTPATH}/retry_request_tkr.bash
 ${SCRIPTPATH}/retry_request_tkr.bash
