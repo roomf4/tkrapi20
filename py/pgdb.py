@@ -181,15 +181,15 @@ def dbpredictions(algo  = 'sklinear'
   out_df = pd.read_csv(io.StringIO(myrow.csv))
   return out_df
 
-def trydb_thenml(tkr    = 'FB'
+def trydb_thenml(algo   = 'sklinear'
+           ,tkr         = 'FB'
            ,yrs         = 3 # years to train
            ,mnth        = '2017-08'
            ,features    = 'pct_lag1,slope4,moy'
-           ,algo        = 'sklinear'
            ,algo_params = 'None Needed'
            ):
   """Predictions from db first, if none, then ML."""
-  out_df = dbpredictions(tkr, yrs, mnth, features, algo, algo_params)
+  out_df = dbpredictions(algo, tkr, yrs, mnth, features, algo_params)
   if (out_df.size > 0):
     return out_df
   else: # then ML:
@@ -202,7 +202,6 @@ def trydb_thenml(tkr    = 'FB'
       # Which specifies 2 hidden layers with 4 neurons in each.
       pattern_re = r'(\[)(\d+)(, )(\d+)(\])'
       pattern_ma = re.search(pattern_re,algo_params)
-      pdb.set_trace()
       hl_i       = int(pattern_ma[2])
       neurons_i  = int(pattern_ma[4])
       out_df     = kerastkr.learn_predict_kerasnn(tkr
