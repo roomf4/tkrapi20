@@ -30,26 +30,44 @@ import sktkr
 db_s = os.environ['PGURL']
 conn = sql.create_engine(db_s).connect()
 sql_s = 'drop table if exists predictions'
+conn.execute(sql_s)
 
+tkr = 'FB'
+yrs=3; mnth='2017-08'; features='pct_lag1,slope4,moy'
+algo        = 'sklinear'
 
-tkr='FB'; yrs=3; mnth='2017-08'; features='pct_lag1,slope4,moy'
-out_df = sktkr.learn_predict_sklinear(tkr, yrs, mnth, features)
-print(out_df)
+sktkr.learn_predict_sklinear(tkr, yrs, mnth, features)
+# I should have a predictions table now
 
-#algo        = 'sklinear'
 algo        = 'keraslinear'
 algo_params = 'None Needed'
-
-out_df = pgdb.dbpredictions(tkr, yrs, mnth, features, algo, algo_params)
-print(out_df)
-
 tkr = 'MSFT'
 
-# should be slower:
+out_df = pgdb.dbpredictions(tkr, yrs, mnth, features, algo, algo_params)
+print('This should be empty:')
+print(out_df)
+
+print('I should see loss output:')
 out_df = pgdb.trydb_thenml(tkr, yrs, mnth, features, algo, algo_params)
 print(out_df)
 
-# should be faster:
+print('s.b. faster...:')
+out_df = pgdb.trydb_thenml(tkr, yrs, mnth, features, algo, algo_params)
+print(out_df)
+
+algo        = 'kerasnn'
+algo_params = '[3,5]'
+tkr = 'IBM'
+
+out_df = pgdb.dbpredictions(tkr, yrs, mnth, features, algo, algo_params)
+print('This should be empty:')
+print(out_df)
+
+print('I should see loss output:')
+out_df = pgdb.trydb_thenml(tkr, yrs, mnth, features, algo, algo_params)
+print(out_df)
+
+print('s.b. faster...:')
 out_df = pgdb.trydb_thenml(tkr, yrs, mnth, features, algo, algo_params)
 print(out_df)
 

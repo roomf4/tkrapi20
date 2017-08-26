@@ -6,8 +6,9 @@ This script should provide sytnax to connect flask-restful to a postgres db.
 """
 
 import io
-import pdb
 import os
+import pdb
+import re
 import numpy         as np
 import pandas        as pd
 import sqlalchemy    as sql
@@ -208,7 +209,7 @@ def trydb_thenml(tkr    = 'FB'
                                               ,mnth
                                               ,features
                                               ,hl_i
-                                              ,nerurons_i)
+                                              ,neurons_i)
     return out_df
   
 'bye'
