@@ -70,7 +70,7 @@ class Db(fr.Resource):
   """
   This class should return predictions from db.
   """
-  def get(self):
+  def get(self,tkr,yrs):
     return {'hello':'db'}
 api.add_resource(Db, '/db/<tkr>/<int:yrs>')
 
