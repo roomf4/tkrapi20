@@ -66,6 +66,14 @@ class Demo11(fr.Resource):
     return {my_k_s: my_v_s}
 api.add_resource(Demo11, '/demo11.json')
 
+class Db(fr.Resource):
+  """
+  This class should return predictions from db.
+  """
+  def get(self):
+    return {'hello':'db'}
+api.add_resource(Db, '/db/<tkr>/<int:yrs>')
+
 class AlgoDemos(fr.Resource):
   """
   This class should return a list of Algo Demos.
