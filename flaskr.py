@@ -71,7 +71,8 @@ class Db(fr.Resource):
   This class should return predictions from db.
   """
   def get(self,algo,tkr,yrs,mnth):
-    features_s = fl.request.args.get('features', 'pct_lag1,slope4,dow')
+    features0_s = fl.request.args.get('features', 'pct_lag1,slope4,dow')
+    features_s = features0_s.replace("'","").replace('"','')
     hl_s       = fl.request.args.get('hl',      '2') # default 2
     neurons_s  = fl.request.args.get('neurons', '4') # default 4
     hl_i       = int(hl_s)

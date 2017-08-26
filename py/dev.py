@@ -74,6 +74,8 @@ print(out_df)
 out_df = pgdb.dbpredictions(algo, tkr, yrs, mnth, features, algo_params)
 print('s.b. faster...:')
 print(out_df)
+print((algo, tkr, yrs, mnth, features, algo_params))
 
+# curl "localhost:5011/db/kerasnn/IBM/3/2017-08?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
 
 'bye'
