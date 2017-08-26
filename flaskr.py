@@ -70,9 +70,22 @@ class Db(fr.Resource):
   """
   This class should return predictions from db.
   """
-  def get(self,tkr,yrs):
-    return {'hello':'db'}
-api.add_resource(Db, '/db/<tkr>/<int:yrs>')
+  def get(self,algo,tkr,yrs,mnth):
+    features_s = fl.request.args.get('features', 'pct_lag1,slope4,dow')
+    hl_s       = fl.request.args.get('hl',      '2') # default 2
+    neurons_s  = fl.request.args.get('neurons', '4') # default 4
+    hl_i       = int(hl_s)
+    neurons_i  = int(neurons_s) 
+    return {'hello':'db'
+            ,'algo': algo
+            ,'tkr': tkr
+            ,'yrs': yrs
+            ,'mnth':mnth
+            ,'features': features_s
+            ,'hl':       hl_i
+            ,'neurons':  neurons_i
+    }
+api.add_resource(Db, '/db/<algo>/<tkr>/<int:yrs>/<mnth>')
 
 class AlgoDemos(fr.Resource):
   """
