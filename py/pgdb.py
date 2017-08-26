@@ -16,15 +16,6 @@ import sqlalchemy    as sql
 db_s = os.environ['PGURL']
 conn = sql.create_engine(db_s).connect()
 
-
-def dbalgo(tkr       = 'FB'
-           ,yrs      = 3 # years to train
-           ,features = 'pct_lag1,slope4,moy'
-           ):
-  """This function should return saved predictions."""
-  out_df = pd.DataFrame()
-  return out_df
-
 def getfeat(tkr):
   """This function should return a DataFrame full of features for a tkr."""
   sql_s  = "SELECT csv FROM features WHERE tkr = %s LIMIT 1"
@@ -161,5 +152,18 @@ def predictions2db(tkr,yrs,mnth,features,algo,predictions_df,kmodel,algo_params=
   conn.execute(sql_s,[
     tkr, yrs,mnth,features,algo,algo_params,csv_s,kmodel_h5])
   return True
+
+def dbalgo(tkr       = 'FB'
+           ,yrs      = 3 # years to train
+           ,features = 'pct_lag1,slope4,moy'
+           ):
+  """This function should return saved predictions."""
+  sql_s  = "SELECT tkr, csv FROM predictions WHERE tkr = %s LIMIT 1"
+  result = conn.execute(sql_s,[tkr])
+  if not result.rowcount:
+    return pd.DataFrame()
+  myrow  = [row for row in result][0]
+  out_df = pd.read_csv(io.StringIO(myrow.csv))
+  return out_df
 
 'bye'
