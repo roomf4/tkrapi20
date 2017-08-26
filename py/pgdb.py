@@ -48,7 +48,7 @@ def check_features(f_s):
   features_s       = f_s.replace("'","").replace('"','')
   features_st      = set(features_s.split(','))
   goodfeatures_st  = set(valid_features_l).intersection(features_st)
-  goodfeatures_s   = ','.join(goodfeatures_st)
+  goodfeatures_s   = ','.join(sorted(goodfeatures_st))
   return goodfeatures_s
 
 def tkrinfo(tkr):
@@ -174,6 +174,8 @@ def dbpredictions(algo  = 'sklinear'
     AND   algo        = %s
     AND   algo_params = %s
     '''
+  if (algo != 'kerasnn'):
+    algo_params = 'None Needed'
   result = conn.execute(sql_s,[tkr,yrs,mnth,features,algo,algo_params])
   if not result.rowcount:
     return pd.DataFrame() # Maybe no predictions in db now.
