@@ -11,6 +11,9 @@ import os
 import numpy         as np
 import pandas        as pd
 import sqlalchemy    as sql
+# modules in the py folder:
+import sktkr
+import kerastkr
 
 # I should connect to the DB
 db_s = os.environ['PGURL']

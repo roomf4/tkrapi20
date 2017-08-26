@@ -42,9 +42,15 @@ algo_params = 'None Needed'
 out_df = pgdb.dbpredictions(tkr, yrs, mnth, features, algo, algo_params)
 print(out_df)
 
+tkr = 'MSFT'
+
+# should be slower:
 out_df = pgdb.trydb_thenml(tkr, yrs, mnth, features, algo, algo_params)
 print(out_df)
 
+# should be faster:
+out_df = pgdb.trydb_thenml(tkr, yrs, mnth, features, algo, algo_params)
+print(out_df)
 
 
 'bye'
