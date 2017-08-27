@@ -13,10 +13,10 @@ cd ${SCRIPTPATH}/../
 # ${SCRIPTPATH}/curl_tkrs.bash # bash, curl, and sed
 ${SCRIPTPATH}/request_tkr.bash # bash and Python
 
-# I should load prices into db:
-$PYTHON ${PYTHONPATH}/csv2db.py
-
 # I should rm bad csv files:
 ${SCRIPTPATH}/rmbad_cookies.bash
+
+# I should load prices into db:
+$PYTHON ${PYTHONPATH}/csv2db.py
 
 exit
