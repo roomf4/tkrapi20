@@ -22,8 +22,9 @@ import pgdb
 
 def learn_predict_sklinear(tkr='ABC',yrs=20,mnth='2016-11', features='pct_lag1,slope4,moy'):
   """This function should use sklearn to learn, predict."""
+  features_s = pgdb.check_features(features)
   linr_model = skl.LinearRegression()
-  xtrain_a, ytrain_a, xtest_a, out_df = pgdb.get_train_test(tkr,yrs,mnth,features)
+  xtrain_a, ytrain_a, xtest_a, out_df = pgdb.get_train_test(tkr,yrs,mnth,features_s)
   if ((xtrain_a.size == 0) or (ytrain_a.size == 0) or (xtest_a.size == 0)):
     return out_df # probably empty too.
   # I should fit a model to xtrain_a, ytrain_a
@@ -35,7 +36,7 @@ def learn_predict_sklinear(tkr='ABC',yrs=20,mnth='2016-11', features='pct_lag1,s
   algo   = 'sklinear'
   kmodel = None # sklearn has no kmodel, keras does.
   # I should save work to the db:
-  pgdb.predictions2db(tkr,yrs,mnth,features,algo,out_df,kmodel)
+  pgdb.predictions2db(tkr,yrs,mnth,features_s,algo,out_df,kmodel)
   return out_df
 
 def learn_predict_sklinear_yr(tkr='ABC',yrs=20,yr=2016, features='pct_lag1,slope4,moy'):

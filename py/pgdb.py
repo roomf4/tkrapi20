@@ -186,6 +186,43 @@ def dbpredictions(algo  = 'sklinear'
   out_df = pd.read_csv(io.StringIO(myrow.csv))
   return out_df
 
+def dbpredictions_yr(algo  = 'sklinear'
+           ,tkr         = 'FB'
+           ,yrs         = 3 # years to train
+           ,yr          = '2017'
+           ,features    = 'pct_lag1,slope4,moy'
+           ,algo_params = 'None Needed'
+           ):
+  """This function should return saved predictions."""
+  features_s = check_features(features)
+  sql_s  = '''SELECT tkr, csv
+    FROM predictions
+    WHERE tkr         = %s
+    AND   yrs         = %s
+    AND   mnth like     %s
+    AND   features    = %s
+    AND   algo        = %s
+    AND   algo_params = %s
+    '''
+  if (algo != 'kerasnn'):
+    algo_params = 'None Needed'
+  yrpat_s = str(yr)+'%'
+  pdb.set_trace()
+  result  = conn.execute(sql_s,[tkr,yrs,yrpat_s,features_s,algo,algo_params])
+  if not result.rowcount:
+    return pd.DataFrame() # Maybe no predictions in db now.
+  """
+  myrow  = [row for row in result][0]
+  out_df = pd.read_csv(io.StringIO(myrow.csv))
+  return out_df
+  """
+  # I should loop through result to collect DataFrames:
+  empty_df = pd.DataFrame()
+  yr_l     = [empty_df, empty_df] # Ready for pd.concat()
+  # I should gather the monthy predictions:
+  yr_df = pd.concat(yr_l, ignore_index=True)
+  return yr_df
+
 def trydb_thenml(algo   = 'sklinear'
            ,tkr         = 'FB'
            ,yrs         = 3 # years to train

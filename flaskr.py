@@ -24,6 +24,9 @@ curl localhost:5011/sklinear_tkr/IBM/20/'pct_lag1,slope3,dow,moy'
 curl localhost:5011/keraslinear_yr/IBM/20/2016/'pct_lag1,slope3,dow,moy'
 curl localhost:5011/keras_nn_yr/IBM/20/2016/'pct_lag1,slope3,dow,moy'
 curl localhost:5011/keraslinear_tkr/IBM/20/'pct_lag1,slope3,dow,moy'
+curl "localhost:5011/db/kerasnn/IBM/3/2017-08?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
+curl "localhost:5011/db1st_model2nd/kerasnn/WFC/4/2017-08?features='pct_lag1,slope3,moy'&hl=3&neurons=4"
+curl "localhost:5011/dbyr/kerasnn/IBM/3/2017?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
 """
 
 import io
@@ -109,6 +112,24 @@ class Db(fr.Resource):
     return {'predictions': out_d}
 api.add_resource(Db, '/db/<algo>/<tkr>/<int:yrs>/<mnth>')
 
+class Dbyr(fr.Resource):
+  """
+  This class should return predictions from db for a year.
+  """
+  def get(self,algo,tkr,yrs,yr):
+    features0_s = fl.request.args.get('features', 'pct_lag1,slope4,dow')
+    features_s    = features0_s.replace("'","").replace('"','')
+    hl_s          = fl.request.args.get('hl',      '2') # default 2
+    neurons_s     = fl.request.args.get('neurons', '4') # default 4
+    hl_i          = int(hl_s)
+    neurons_i     = int(neurons_s)
+    algo_params_s = str([hl_i, neurons_i])
+    # I should get predictions from db:
+    out_df = pgdb.dbpredictions_yr(algo,tkr,yrs,yr,features_s,algo_params_s)
+    out_d  = get_out_d(out_df)
+    return {'predictions': out_d}
+api.add_resource(Dbyr, '/dbyr/<algo>/<tkr>/<int:yrs>/<int:yr>')
+
 class AlgoDemos(fr.Resource):
   """
   This class should return a list of Algo Demos.
@@ -149,6 +170,9 @@ class Demos(fr.Resource):
       ,"/demo11.json"
       ,"/static/hello.json"
       ,AlgoDemos().get()
+      ,{'database_demos':
+        ["/db/kerasnn/IBM/3/2017-08?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
+        ,"/db1st_model2nd/kerasnn/WFC/4/2017-08?features='pct_lag1,slope3,moy'&hl=3&neurons=4"]}
     ]
     return {'demos': demos_l}
 api.add_resource(Demos, '/demos')

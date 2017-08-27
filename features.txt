@@ -2,9 +2,6 @@
 
 NOT DONE YET:
 
-/db1st_model2nd/kerasnn/IBM/3/2017-08?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
-  get predictions from db , else get predictions from model
-  
 website:
   keras4.us
   keras4.herokuapp.com
@@ -126,4 +123,8 @@ refactor sql_s so it uses %s rather than +str+
 
 localhost:5011/db/kerasnn/IBM/3/2017-08?features='pct_lag1,slope4,moy'&hl=3&neurons=5
   get predictions from db
+  
+
+/db1st_model2nd/kerasnn/IBM/3/2017-08?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
+  get predictions from db , else get predictions from model
   

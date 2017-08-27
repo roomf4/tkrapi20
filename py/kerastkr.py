@@ -24,15 +24,16 @@ epochs_i     = 128 # Doc: Number of epochs to train the model.
 
 def learn_predict_keraslinear(tkr='ABC',yrs=20,mnth='2016-11', features='pct_lag1,slope4,moy'):
   """This function should use keras to learn, predict."""
+  features_s = pgdb.check_features(features)
   # I should get train, test data.
   # Also get copy of test data in a DataFrame for later reporting:
-  xtrain_a, ytrain_a, xtest_a, out_df = pgdb.get_train_test(tkr,yrs,mnth,features)
+  xtrain_a, ytrain_a, xtest_a, out_df = pgdb.get_train_test(tkr,yrs,mnth,features_s)
   if ((xtrain_a.size == 0) or (ytrain_a.size == 0) or (xtest_a.size == 0)):
     return out_df # probably empty too.
   # Start using Keras here.
   kmodel     = keras.models.Sequential()
   # I should fit a Keras model to xtrain_a, ytrain_a
-  features_l = features.split(',')
+  features_l = features_s.split(',')
   features_i = len(features_l)
   kmodel.add(keras.layers.core.Dense(features_i, input_shape=(features_i,)))
   # https://keras.io/activations/
@@ -51,7 +52,7 @@ def learn_predict_keraslinear(tkr='ABC',yrs=20,mnth='2016-11', features='pct_lag
   out_df['accuracy']      = (1+np.sign(out_df.effectiveness))/2
   algo                    = 'keraslinear'
   # I should save my work to the db:
-  pgdb.predictions2db(tkr,yrs,mnth,features,algo,out_df,kmodel)
+  pgdb.predictions2db(tkr,yrs,mnth,features_s,algo,out_df,kmodel)
   # I should return a DataFrame useful for reporting on the predictions.
   return out_df
   
@@ -127,15 +128,16 @@ def learn_predict_kerasnn(tkr       = 'IBM'
                           ,neurons  = 4 # neurons in each hl
                           ):
   """This function should use keras to learn, predict."""
+  features_s = pgdb.check_features(features)
   # I should get train, test data.
   # Also get copy of test data in a DataFrame for later reporting:
-  xtrain_a, ytrain_a, xtest_a, out_df = pgdb.get_train_test(tkr,yrs,mnth,features)
+  xtrain_a, ytrain_a, xtest_a, out_df = pgdb.get_train_test(tkr,yrs,mnth,features_s)
   if ((xtrain_a.size == 0) or (ytrain_a.size == 0) or (xtest_a.size == 0)):
     return out_df # probably empty too.
   # Start using Keras here.
   kmodel     = keras.models.Sequential()
   # I should fit a Keras model to xtrain_a, ytrain_a
-  features_l = features.split(',')
+  features_l = features_s.split(',')
   features_i = len(features_l)
   kmodel.add(keras.layers.core.Dense(features_i, input_shape=(features_i,)))
   # https://keras.io/activations/
@@ -167,7 +169,7 @@ def learn_predict_kerasnn(tkr       = 'IBM'
   algo                    = 'kerasnn'
   algo_params             = str([hl,neurons])
   # I should save my work to the db:
-  pgdb.predictions2db(tkr,yrs,mnth,features,algo,out_df,kmodel,algo_params)
+  pgdb.predictions2db(tkr,yrs,mnth,features_s,algo,out_df,kmodel,algo_params)
   # I should return a DataFrame useful for reporting on the predictions.
   return out_df
 
