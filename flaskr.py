@@ -28,6 +28,7 @@ curl "localhost:5011/db/kerasnn/IBM/3/2017-08?features='pct_lag1,slope4,moy'&hl=
 curl "localhost:5011/db1st_model2nd/kerasnn/WFC/4/2017-08?features='pct_lag1,slope3,moy'&hl=3&neurons=4"
 curl "localhost:5011/dbyr/kerasnn/IBM/3/2017?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
 curl "localhost:5011/dbtkr/kerasnn/IBM/3?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
+curl "localhost:5011/db1st_model2nd_yr/kerasnn/WFC/4/2017?features='pct_lag1,slope3,moy'&hl=3&neurons=4"
 """
 
 import io
@@ -91,9 +92,34 @@ class Db1st(fr.Resource):
         out_d = KerasNN().get(tkr,yrs,mnth) # features_s global to KerasNN()
       elif (algo == 'keraslinear'):
         out_d = KerasLinear().get(tkr,yrs,mnth,features_s)
-          
     return {'predictions': out_d}
 api.add_resource(Db1st, '/db1st_model2nd/<algo>/<tkr>/<int:yrs>/<mnth>')
+
+class Db1stYr(fr.Resource):
+  """
+  Return predictions from db, if none, predictions from model for a year.
+  """
+  def get(self,algo,tkr,yrs,yr):
+    features0_s = fl.request.args.get('features','pct_lag1,slope4,dow')
+    features_s    = features0_s.replace("'","").replace('"','')
+    hl_s          = fl.request.args.get('hl',      '2') # default 2
+    neurons_s     = fl.request.args.get('neurons', '4') # default 4
+    hl_i          = int(hl_s)
+    neurons_i     = int(neurons_s)
+    algo_params_s = str([hl_i, neurons_i])
+    # I should get predictions from db:
+    out_df = pgdb.dbpredictions_yr(algo,tkr,yrs,yr,features_s,algo_params_s)
+    if (out_df.size > 0):
+      out_d = get_out_d(out_df)
+    else:
+      if (algo == 'kerasnn'):
+        out_d = KerasNNYr().get(tkr,yrs,yr) # features_s global to KerasNN()
+      elif (algo == 'keraslinear'):
+        out_d = KerasLinearYr().get(tkr,yrs,yr,features_s)
+      else:
+        out_d = SklinearYr().get(tkr,yrs,yr,features_s)
+    return {'predictions': out_d}
+api.add_resource(Db1stYr, '/db1st_model2nd_yr/<algo>/<tkr>/<int:yrs>/<int:yr>')
 
 class Db(fr.Resource):
   """

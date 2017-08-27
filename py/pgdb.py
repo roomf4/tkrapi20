@@ -249,7 +249,7 @@ def dbpredictions_tkr(algo  = 'sklinear'
   yr_df = pd.concat(yr_l, ignore_index=True)
   return yr_df
 
-def trydb_thenml(algo   = 'sklinear'
+def db1st_model2nd(algo   = 'sklinear'
            ,tkr         = 'FB'
            ,yrs         = 3 # years to train
            ,mnth        = '2017-08'
