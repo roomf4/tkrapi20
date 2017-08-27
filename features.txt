@@ -2,6 +2,7 @@
 
 NOT DONE YET:
 
+
 website:
   keras4.us
   keras4.herokuapp.com
@@ -32,11 +33,6 @@ Site should have list of behaviorial dimensions:
   - join candidates: gspc, gld, tlt, rut, xom
   - prediction types: pct_lead-1day, pct_lead-2day, pct_lead-5day
   - tkr
-  
-Site should have README.md
-The README should list installation steps
-Site should have features.txt
-
 
 
 SHOULD BE DONE NOW:
@@ -128,3 +124,8 @@ localhost:5011/db/kerasnn/IBM/3/2017-08?features='pct_lag1,slope4,moy'&hl=3&neur
 /db1st_model2nd/kerasnn/IBM/3/2017-08?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
   get predictions from db , else get predictions from model
   
+  
+Site should have README.md
+The README should list installation steps
+Site should have features.txt
+
