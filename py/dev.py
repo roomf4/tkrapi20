@@ -32,16 +32,16 @@ conn = sql.create_engine(db_s).connect()
 sql_s = 'drop table if exists predictions'
 conn.execute(sql_s)
 
-# I should predict FB for 2017
+# I should predict FB
 
 tkr = 'FB'
 yrs=3; yr=2017; features='pct_lag1,slope4,moy'
 
-out_df = sktkr.learn_predict_sklinear_yr(tkr, yrs, yr, features)
+out_df = sktkr.learn_predict_sklinear_tkr(tkr, yrs, features)
 # I should have a predictions table now
 
 algo        = 'sklinear'
-yr_df = pgdb.dbpredictions_yr(algo,tkr,yrs,yr,features)
+yr_df = pgdb.dbpredictions_tkr(algo,tkr,yrs,features)
 print(yr_df.head())
 print(yr_df.tail())
 stophere
