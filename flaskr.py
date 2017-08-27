@@ -46,6 +46,7 @@ import sklearn.linear_model as skl
 import pgdb
 import sktkr
 import kerastkr
+import flaskclasses as flc
 
 # I should connect to the DB
 db_s = os.environ['PGURL']
@@ -61,16 +62,10 @@ with open('years.txt') as fh:
   
 with open('tkrlist.txt') as fh:
   tkrlist_l = fh.read().split()
-  
-class Demo11(fr.Resource):
-  """
-  This class should be a simple syntax demo.
-  """
-  def get(self):
-    my_k_s = 'hello'
-    my_v_s = 'world'
-    return {my_k_s: my_v_s}
-api.add_resource(Demo11, '/demo11.json')
+
+# I should add classes and resources:
+
+api.add_resource(flc.Demo11, '/demo11.json')
 
 class Db1st(fr.Resource):
   """
