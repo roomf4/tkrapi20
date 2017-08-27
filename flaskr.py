@@ -65,83 +65,10 @@ with open('tkrlist.txt') as fh:
 
 # I should add classes and resources:
 
-api.add_resource(flc.Demo11, '/demo11.json')
-
-class Db1st(fr.Resource):
-  """
-  Return predictions from db, if none, predictions from model.
-  """
-  def get(self,algo,tkr,yrs,mnth):
-    features0_s = fl.request.args.get('features', 'pct_lag1,slope4,dow')
-    features_s    = features0_s.replace("'","").replace('"','')
-    hl_s          = fl.request.args.get('hl',      '2') # default 2
-    neurons_s     = fl.request.args.get('neurons', '4') # default 4
-    hl_i          = int(hl_s)
-    neurons_i     = int(neurons_s)
-    algo_params_s = str([hl_i, neurons_i])
-    # I should get predictions from db:
-    out_df = pgdb.dbpredictions(algo,tkr,yrs,mnth,features_s,algo_params_s)
-    if (out_df.size > 0):
-      out_d = get_out_d(out_df)
-    else:
-      if (algo == 'kerasnn'):
-        out_d = KerasNN().get(tkr,yrs,mnth) # features_s global to KerasNN()
-      elif (algo == 'keraslinear'):
-        out_d = KerasLinear().get(tkr,yrs,mnth,features_s)
-    return {'predictions': out_d}
-api.add_resource(Db1st, '/db1st_model2nd/<algo>/<tkr>/<int:yrs>/<mnth>')
-
-class Db1stYr(fr.Resource):
-  """
-  Return predictions from db, if none, predictions from model for a year.
-  """
-  def get(self,algo,tkr,yrs,yr):
-    features0_s = fl.request.args.get('features','pct_lag1,slope4,dow')
-    features_s    = features0_s.replace("'","").replace('"','')
-    hl_s          = fl.request.args.get('hl',      '2') # default 2
-    neurons_s     = fl.request.args.get('neurons', '4') # default 4
-    hl_i          = int(hl_s)
-    neurons_i     = int(neurons_s)
-    algo_params_s = str([hl_i, neurons_i])
-    # I should get predictions from db:
-    out_df = pgdb.dbpredictions_yr(algo,tkr,yrs,yr,features_s,algo_params_s)
-    if (out_df.size > 0):
-      out_d = get_out_d(out_df)
-    else:
-      if (algo == 'kerasnn'):
-        out_d = KerasNNYr().get(tkr,yrs,yr) # features_s global to KerasNN()
-      elif (algo == 'keraslinear'):
-        out_d = KerasLinearYr().get(tkr,yrs,yr,features_s)
-      else:
-        out_d = SklinearYr().get(tkr,yrs,yr,features_s)
-    return {'predictions': out_d}
-api.add_resource(Db1stYr, '/db1st_model2nd_yr/<algo>/<tkr>/<int:yrs>/<int:yr>')
-
-class Db1stTkr(fr.Resource):
-  """
-  Return predictions from db, if none, predictions from model for a year.
-  """
-  def get(self,algo,tkr,yrs):
-    features0_s = fl.request.args.get('features','pct_lag1,slope4,dow')
-    features_s    = features0_s.replace("'","").replace('"','')
-    hl_s          = fl.request.args.get('hl',      '2') # default 2
-    neurons_s     = fl.request.args.get('neurons', '4') # default 4
-    hl_i          = int(hl_s)
-    neurons_i     = int(neurons_s)
-    algo_params_s = str([hl_i, neurons_i])
-    # I should get predictions from db:
-    out_df = pgdb.dbpredictions_tkr(algo,tkr,yrs,features_s,algo_params_s)
-    if (out_df.size > 0):
-      out_d = get_out_d(out_df)
-    else:
-      if (algo == 'kerasnn'):
-        out_d = KerasNNTkr().get(tkr,yrs) # features_s global to KerasNN()
-      elif (algo == 'keraslinear'):
-        out_d = KerasLinearTkr().get(tkr,yrs,features_s)
-      else:
-        out_d = SklinearTkr().get(tkr,yrs,features_s)
-    return {'predictions': out_d}
-api.add_resource(Db1stTkr, '/db1st_model2nd_tkr/<algo>/<tkr>/<int:yrs>')
+api.add_resource(flc.Demo11,   '/demo11.json')
+api.add_resource(flc.Db1st,    '/db1st_model2nd/<algo>/<tkr>/<int:yrs>/<mnth>')
+api.add_resource(flc.Db1stYr,  '/db1st_model2nd_yr/<algo>/<tkr>/<int:yrs>/<int:yr>')
+api.add_resource(flc.Db1stTkr, '/db1st_model2nd_tkr/<algo>/<tkr>/<int:yrs>')
 
 class Db(fr.Resource):
   """
@@ -310,38 +237,7 @@ class Tkrprices(fr.Resource):
     myrow  = [row for row in result][0]
     return {'tkrprices': myrow.csvh.split()}
 api.add_resource(Tkrprices, '/tkrprices/<tkr>')
-
-def get_out_d(out_df):
-  """This function should convert out_df to a readable format when in JSON."""
-  out_l = []
-  if out_df.empty :
-    return {'sorry, no':'predictions'}
-  for row in out_df.itertuples():
-    row_d       = {
-      'date,price':[row.cdate,row.cp]
-      ,'pct_lead': row.pct_lead
-      ,'prediction,effectiveness,accuracy':[row.prediction,row.effectiveness,row.accuracy]
-    }
-    out_l.append(row_d)
-    lo_acc = sum((1+np.sign(out_df.pct_lead))/2) / out_df.accuracy.size
-    out_d  = {'Long-Only-Accuracy': lo_acc }
-    out_d['Long-Only-Effectivness'] = sum(out_df.pct_lead)
-    out_d['Model-Effectivness']     = sum(out_df.effectiveness)
-    out_d['Model-Accuracy']         = sum(out_df.accuracy) / out_df.accuracy.size
-    out_d['Prediction-Count']       = out_df.prediction.size
-    out_d['Prediction-Details']     = out_l
-  return out_d
-
-class Sklinear(fr.Resource):
-  """
-  This class should return predictions from sklearn.
-  """
-  def get(self, tkr,yrs,mnth,features):
-    features_s = pgdb.check_features(features)
-    out_df = sktkr.learn_predict_sklinear(tkr,yrs,mnth,features_s)
-    out_d  = get_out_d(out_df)
-    return {'predictions': out_d}
-api.add_resource(Sklinear, '/sklinear/<tkr>/<int:yrs>/<mnth>/<features>')
+api.add_resource(flc.Sklinear, '/sklinear/<tkr>/<int:yrs>/<mnth>/<features>')
 
 class KerasLinear(fr.Resource):
   """
@@ -379,7 +275,7 @@ class SklinearYr(fr.Resource):
     out_df = sktkr.learn_predict_sklinear_yr(tkr,yrs,yr,features_s)
     out_d  = get_out_d(out_df)
     return {'predictions': out_d}
-api.add_resource(SklinearYr, '/sklinear_yr/<tkr>/<int:yrs>/<int:yr>/<features>')
+api.add_resource(flc.SklinearYr, '/sklinear_yr/<tkr>/<int:yrs>/<int:yr>/<features>')
 
 class KeraslinearYr(fr.Resource):
   """
@@ -408,16 +304,7 @@ class KerasNNYr(fr.Resource):
     return {'predictions': out_d}
 api.add_resource(KerasNNYr, '/keras_nn_yr/<tkr>/<int:yrs>/<int:yr>')
 
-class SklinearTkr(fr.Resource):
-  """
-  This class should return all predictions from sklearn for a tkr.
-  """
-  def get(self, tkr,yrs,features):
-    features_s = pgdb.check_features(features)
-    out_df = sktkr.learn_predict_sklinear_tkr(tkr,yrs,features_s)
-    out_d  = get_out_d(out_df)
-    return {'predictions': out_d}
-api.add_resource(SklinearTkr, '/sklinear_tkr/<tkr>/<int:yrs>/<features>')
+api.add_resource(flc.SklinearTkr, '/sklinear_tkr/<tkr>/<int:yrs>/<features>')
 
 class KeraslinearTkr(fr.Resource):
   """
