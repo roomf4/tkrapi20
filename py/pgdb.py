@@ -208,8 +208,7 @@ def dbpredictions_yr(algo  = 'sklinear'
   yr_l     = [empty_df, empty_df] # Ready for pd.concat()
   if (algo != 'kerasnn'):
     algo_params = 'None Needed'
-  yrpat_s = str(yr)+'%'
-  pdb.set_trace()
+  yrpat_s = str(yr)+'%' # s.b. like '2017%'
   result  = conn.execute(sql_s,[tkr,yrs,yrpat_s,features_s,algo,algo_params])
   if not result.rowcount:
     return pd.DataFrame() # Maybe no predictions in db now.

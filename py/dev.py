@@ -42,8 +42,11 @@ out_df = sktkr.learn_predict_sklinear_yr(tkr, yrs, yr, features)
 
 algo        = 'sklinear'
 yr_df = pgdb.dbpredictions_yr(algo,tkr,yrs,yr,features)
-
+print(yr_df.head())
+print(yr_df.tail())
 stophere
+
+
 tkr = 'FB'
 yrs=3; mnth='2017-08'; features='pct_lag1,slope4,moy'
 algo        = 'sklinear'
