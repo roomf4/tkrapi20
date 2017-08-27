@@ -204,6 +204,8 @@ def dbpredictions_yr(algo  = 'sklinear'
     AND   algo        = %s
     AND   algo_params = %s
     '''
+  empty_df = pd.DataFrame()
+  yr_l     = [empty_df, empty_df] # Ready for pd.concat()
   if (algo != 'kerasnn'):
     algo_params = 'None Needed'
   yrpat_s = str(yr)+'%'
@@ -211,15 +213,10 @@ def dbpredictions_yr(algo  = 'sklinear'
   result  = conn.execute(sql_s,[tkr,yrs,yrpat_s,features_s,algo,algo_params])
   if not result.rowcount:
     return pd.DataFrame() # Maybe no predictions in db now.
-  """
-  myrow  = [row for row in result][0]
-  out_df = pd.read_csv(io.StringIO(myrow.csv))
-  return out_df
-  """
-  # I should loop through result to collect DataFrames:
-  empty_df = pd.DataFrame()
-  yr_l     = [empty_df, empty_df] # Ready for pd.concat()
-  # I should gather the monthy predictions:
+  # I should loop through result to collect a DataFrame for each month:
+  for row in result:
+    out_df = pd.read_csv(io.StringIO(row.csv))
+    yr_l.append(out_df)
   yr_df = pd.concat(yr_l, ignore_index=True)
   return yr_df
 
