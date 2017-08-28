@@ -129,6 +129,13 @@ class Tkrs(fr.Resource):
   def get(self):
     return {'tkrs': tkrlist_l}
 
+class DbTkrs(fr.Resource):
+  """
+  This class should list all the tkrs in tkrprices.
+  """
+  def get(self):
+    dbtkrs_l = pgdb.dbtkrs()
+    return {'tkrs': dbtkrs_l, 'tkrcount': len(dbtkrs_l)}
 
 class Istkr(fr.Resource):
   """

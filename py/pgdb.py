@@ -20,6 +20,13 @@ import kerastkr
 db_s = os.environ['PGURL']
 conn = sql.create_engine(db_s).connect()
 
+def dbtkrs():
+  """This function should return a list of tickers from db."""
+  sql_s    = 'select tkr from tkrprices order by tkr'
+  result   = conn.execute(sql_s)
+  dbtkrs_l = [row.tkr for row in result]
+  return dbtkrs_l
+
 def getfeat(tkr):
   """This function should return a DataFrame full of features for a tkr."""
   sql_s  = "SELECT csv FROM features WHERE tkr = %s LIMIT 1"

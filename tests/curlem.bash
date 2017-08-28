@@ -6,6 +6,9 @@
 
 set -x
 
+curl -v localhost:5011/dbtkrs	      > /tmp/test29.txt
+
+
 curl -v localhost:5011/demo11.json    > /tmp/test20.txt
 curl -v localhost:5011/algo_demos     > /tmp/test21.txt
 curl -v localhost:5011/demos	      > /tmp/test22.txt
