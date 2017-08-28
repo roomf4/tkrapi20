@@ -32,3 +32,17 @@ group by algo,tkr,yrs,features,substring(mnth for 4)
 order by algo,tkr,yrs,features,substring(mnth for 4)
 ;
 
+
+select
+algo
+,tkr
+,yrs                   training_yrs
+,features              feature_group
+,substring(mnth for 4) yr
+,count(tkr)            count_tkr
+from predictions
+where algo = 'kerasnn'
+group by algo,tkr,yrs,features,substring(mnth for 4)
+order by algo,tkr,yrs,features,substring(mnth for 4)
+;
+
