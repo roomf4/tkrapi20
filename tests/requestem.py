@@ -19,10 +19,6 @@ def request_this(url_s, params={'hl':2,'neurons':4}):
 features_s = 'pct_lag1,slope3,dow,moy'
 params     = {'features':features_s, 'hl': 2,'neurons':4}
 
-
-
-stopheer
-
 request_this('http://localhost:5011/demos')
 request_this('http://localhost:5011/algo_demos')
 request_this('http://localhost:5011/demos')
