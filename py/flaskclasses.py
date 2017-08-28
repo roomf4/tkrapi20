@@ -382,4 +382,11 @@ class Db1stTkr(fr.Resource):
         out_d = SklinearTkr().get(tkr,yrs,features_s)
     return {'predictions': out_d}
 
+class PredictionCounts(fr.Resource):
+  """
+  Return prediction counts from db.
+  """
+  def get(self):
+    # I should get prediction counts from pgdb.
+    return {'not': 'done yet'}
 'bye'
