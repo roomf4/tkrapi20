@@ -4,10 +4,16 @@
 
 # This script should use curl to run some simple tests.
 
-set -x
-
-curl -v localhost:5011/dbtkrs	      > /tmp/test29.txt
-
+curl -v localhost:5011/demo11.json    
+curl -v localhost:5011/algo_demos     
+curl -v localhost:5011/demos	      
+curl -v localhost:5011/features	      
+curl -v localhost:5011/tkrinfo/AAPL   
+curl -v localhost:5011/tkrlist	      
+curl -v localhost:5011/tkrs	      
+curl -v localhost:5011/istkr/AAPL     
+curl -v localhost:5011/tkrprices/SNAP
+curl -v localhost:5011/dbtkrs	      
 
 curl -v localhost:5011/demo11.json    > /tmp/test20.txt
 curl -v localhost:5011/algo_demos     > /tmp/test21.txt
@@ -18,6 +24,7 @@ curl -v localhost:5011/tkrlist	      > /tmp/test25.txt
 curl -v localhost:5011/tkrs	      > /tmp/test26.txt
 curl -v localhost:5011/istkr/AAPL     > /tmp/test27.txt
 curl -v localhost:5011/tkrprices/AAPL > /tmp/test28.txt
+curl -v localhost:5011/dbtkrs	      > /tmp/test29.txt
 
 exit
 

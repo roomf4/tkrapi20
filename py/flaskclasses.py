@@ -120,14 +120,14 @@ class Tkrlist(fr.Resource):
   This class should list all the tkrs in tkrlist.txt
   """
   def get(self):
-    return {'tkrlist': tkrlist_l}
+    return {'tkrlist': tkrlist_l, 'tkrcount': len(tkrlist_l)}
 
 class Tkrs(fr.Resource):
   """
   This class should list all the tkrs in tkrlist.txt
   """
   def get(self):
-    return {'tkrs': tkrlist_l}
+    return {'tkrs': tkrlist_l, 'tkrcount': len(tkrlist_l)}
 
 class DbTkrs(fr.Resource):
   """
@@ -150,13 +150,7 @@ class Tkrprices(fr.Resource):
   This class should list prices for a tkr.
   """
   def get(self, tkr):
-    # I should get csvh from tkrprices in db:
-    sql_s  = "select csvh from tkrprices where tkr = %s  LIMIT 1"
-    result = conn.execute(sql_s,[tkr])
-    if not result.rowcount:
-      return {'no': 'data found'}  
-    myrow  = [row for row in result][0]
-    return {'tkrprices': myrow.csvh.split()}
+    return {tkr: pgdb.tkrprices(tkr)}
 
 class Sklinear(fr.Resource):
   """

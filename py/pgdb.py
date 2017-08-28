@@ -20,6 +20,15 @@ import kerastkr
 db_s = os.environ['PGURL']
 conn = sql.create_engine(db_s).connect()
 
+def tkrprices(tkr):
+  """This function should return prices for a tkr."""
+  sql_s  = "select csvh from tkrprices where tkr = %s  LIMIT 1"
+  result = conn.execute(sql_s,[tkr])
+  if not result.rowcount:
+    return {'no': 'data found'}
+  myrow  = [row for row in result][0]
+  return {'tkrprices': myrow.csvh.split()}
+  
 def dbtkrs():
   """This function should return a list of tickers from db."""
   sql_s    = 'select tkr from tkrprices order by tkr'
