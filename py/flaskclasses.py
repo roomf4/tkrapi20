@@ -19,6 +19,9 @@ import sklearn.linear_model as skl
 import pgdb
 import sktkr
 import kerastkr
+  
+with open('tkrlist.txt') as fh:
+  tkrlist_l = fh.read().split()
 
 def get_out_d(out_df):
   """This function should convert out_df to a readable format when in JSON."""

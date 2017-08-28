@@ -55,9 +55,6 @@ conn = sql.create_engine(db_s).connect()
 # I should ready flask_restful:
 application = fl.Flask(__name__)
 api         = fr.Api(application)
-  
-with open('tkrlist.txt') as fh:
-  tkrlist_l = fh.read().split()
 
 # I should add classes and resources:
 
