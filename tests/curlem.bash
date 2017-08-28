@@ -22,7 +22,19 @@ curl -v localhost:5011/keraslinear/FB/3/2017-08/'pct_lag2,slope5,moy'           
 curl -v localhost:5011/keraslinear_yr/FB/3/2017/'pct_lag1,slope3,dow,moy'                    > /tmp/test25.txt
 curl -v localhost:5011/keraslinear_tkr/FB/3/'pct_lag1,slope3,dow,moy'                        > /tmp/test26.txt
 curl -v localhost:5011"/keras_nn/FB/3/2017-08?features='pct_lag1,slope4,moy'&hl=2&neurons=4" > /tmp/test27.txt
-# slow curl -v localhost:5011"/keras_nn_yr/FB/3/2017?features='pct_lag1,slope4,moy'&hl=2&neurons=4" > /tmp/test28.txt
-# slow curl -v localhost:5011"/keras_nn_tkr/FB/3?features='pct_lag1,slope4,moy'&hl=2&neurons=4"     > /tmp/test29.txt
+slow curl -v localhost:5011"/keras_nn_yr/FB/3/2017?features='pct_lag1,slope4,moy'&hl=2&neurons=4" > /tmp/test28.txt
+slow curl -v localhost:5011"/keras_nn_tkr/FB/3?features='pct_lag1,slope4,moy'&hl=2&neurons=4"     > /tmp/test29.txt
+
+curl -v "localhost:5011/db/sklinear/FB/3/2017-08?features='pct_lag1,slope3,dow,moy'" > /tmp/test30.txt
+curl -v "localhost:5011/dbyr/sklinear/FB/3/2017?features='pct_lag1,slope3,dow,moy'"  > /tmp/test31.txt
+curl -v "localhost:5011/dbtkr/sklinear/FB/3?features='pct_lag1,slope3,dow,moy'"      > /tmp/test32.txt
+
+curl -v "localhost:5011/db/keraslinear/FB/3/2017-08?features='pct_lag1,slope3,dow,moy'" > /tmp/test33.txt
+curl -v "localhost:5011/dbyr/keraslinear/FB/3/2017?features='pct_lag1,slope3,dow,moy'"  > /tmp/test34.txt
+curl -v "localhost:5011/dbtkr/keraslinear/FB/3?features='pct_lag1,slope3,dow,moy'"      > /tmp/test35.txt
+
+curl -v "localhost:5011/db/keras_nn/FB/3/2017-08?features='pct_lag1,slope3,dow,moy'" > /tmp/test36.txt
+curl -v "localhost:5011/dbyr/keras_nn/FB/3/2017?features='pct_lag1,slope3,dow,moy'"  > /tmp/test37.txt
+curl -v "localhost:5011/dbtkr/keras_nn/FB/3?features='pct_lag1,slope3,dow,moy'"      > /tmp/test38.txt
 
 exit
