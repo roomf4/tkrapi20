@@ -9,6 +9,11 @@ $PYTHON requestem.py
 """
 
 import requests
+import pgdb
+
+# I should delete from predictions:
+pgdb.delete_predictions()
+
 print('Busy...')
 
 def request_this(url_s, params={'hl':2,'neurons':4}):
@@ -18,13 +23,6 @@ def request_this(url_s, params={'hl':2,'neurons':4}):
 
 features_s = 'pct_lag1,slope3,dow,moy'
 params     = {'features':features_s, 'hl': 2,'neurons':4}
-
-
-request_this("http://localhost:5011/db1st_model2nd/kerasnn/FB/3/2017-08", params)
-request_this("http://localhost:5011/db1st_model2nd_yr/kerasnn/FB/3/2017", params)
-request_this("http://localhost:5011/db1st_model2nd_tkr/kerasnn/FB/3"    , params)
-
-stophere
 
 request_this('http://localhost:5011/demos')
 request_this('http://localhost:5011/algo_demos')
@@ -60,6 +58,23 @@ request_this("http://localhost:5011/dbtkr/keraslinear/FB/3"     , params)
 request_this("http://localhost:5011/db/kerasnn/FB/3/2017-08", params)
 request_this("http://localhost:5011/dbyr/kerasnn/FB/3/2017" , params)
 request_this("http://localhost:5011/dbtkr/kerasnn/FB/3"     , params)
+
+
+#s.b. fast:
+request_this("http://localhost:5011/db1st_model2nd/kerasnn/FB/3/2017-08", params)
+request_this("http://localhost:5011/db1st_model2nd_yr/kerasnn/FB/3/2017", params)
+request_this("http://localhost:5011/db1st_model2nd_tkr/kerasnn/FB/3"    , params)
+
+params     = {'features':features_s, 'hl': 2,'neurons':3}
+#s.b. slow:
+request_this("http://localhost:5011/db1st_model2nd/kerasnn/FB/3/2017-08", params)
+request_this("http://localhost:5011/db1st_model2nd_yr/kerasnn/FB/3/2017", params)
+request_this("http://localhost:5011/db1st_model2nd_tkr/kerasnn/FB/3"    , params)
+
+#s.b. fast:
+request_this("http://localhost:5011/db1st_model2nd/kerasnn/FB/3/2017-08", params)
+request_this("http://localhost:5011/db1st_model2nd_yr/kerasnn/FB/3/2017", params)
+request_this("http://localhost:5011/db1st_model2nd_tkr/kerasnn/FB/3"    , params)
 
 print('No news is probably good news.')
 print('Done')

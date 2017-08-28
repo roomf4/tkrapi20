@@ -20,6 +20,12 @@ import kerastkr
 db_s = os.environ['PGURL']
 conn = sql.create_engine(db_s).connect()
 
+def delete_predictions():
+  """This function should delete all rows from predictions table."""
+  sql_s  = "delete from predictions"
+  conn.execute(sql_s)
+  return True
+
 def tkrprices(tkr):
   """This function should return prices for a tkr."""
   sql_s  = "select csvh from tkrprices where tkr = %s  LIMIT 1"
