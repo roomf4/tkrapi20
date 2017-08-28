@@ -2,7 +2,15 @@
 
 NOT DONE YET:
 
+prediction reports:
+  group by counts:
+    algo, tkr, yrs, yr, feature-group
 
+csv-servings:
+  tkrprices
+  features
+  predictions
+  
 website:
   keras4.us
   keras4.herokuapp.com
