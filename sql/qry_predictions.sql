@@ -21,13 +21,14 @@ order by tkr,yrs,mnth
 
 
 select
-tkr
+algo
+,tkr
 ,yrs                   training_yrs
 ,features              feature_group
 ,substring(mnth for 4) yr
 ,count(tkr)            count_tkr
 from predictions
-group by tkr,yrs,features,substring(mnth for 4)
-order by tkr,yrs,features,substring(mnth for 4)
+group by algo,tkr,yrs,features,substring(mnth for 4)
+order by algo,tkr,yrs,features,substring(mnth for 4)
 ;
 
