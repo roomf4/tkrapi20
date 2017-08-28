@@ -302,4 +302,20 @@ def db1st_model2nd(algo   = 'sklinear'
                                               ,neurons_i)
     return out_df
   
+def prediction_counts():
+  """This function should return aggregated prediction counts."""
+  sql_s = '''
+    select
+    algo
+    ,tkr
+    ,yrs                   training_yrs
+    ,features              feature_group
+    ,substring(mnth for 4) yr
+    ,count(tkr)            groups_of_predictions
+    from predictions
+    group by algo,tkr,yrs,features,substring(mnth for 4)
+    order by algo,tkr,yrs,features,substring(mnth for 4)
+    '''
+  return pd.read_sql(sql_s, conn)
+
 'bye'

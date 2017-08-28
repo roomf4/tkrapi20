@@ -6,6 +6,7 @@ This script holds reusable flask classes.
 """
 
 import io
+import json
 import pdb
 import os
 import datetime      as dt
@@ -387,6 +388,11 @@ class PredictionCounts(fr.Resource):
   Return prediction counts from db.
   """
   def get(self):
+    import json
     # I should get prediction counts from pgdb.
-    return {'not': 'done yet'}
+    pc_df      = pgdb.prediction_counts()
+    pc_df_json = pc_df.to_json(orient='index')
+    # flask_restful wants to serve a Dictionary:
+    pc_d       = json.loads(pc_df_json)
+    return pc_d
 'bye'
