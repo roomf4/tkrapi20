@@ -150,7 +150,7 @@ class Tkrprices(fr.Resource):
   This class should list prices for a tkr.
   """
   def get(self, tkr):
-    return {tkr: pgdb.tkrprices(tkr)}
+    return {'tkrprices': pgdb.tkrprices(tkr)}
 
 class Sklinear(fr.Resource):
   """

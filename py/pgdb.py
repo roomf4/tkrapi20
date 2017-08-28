@@ -27,7 +27,7 @@ def tkrprices(tkr):
   if not result.rowcount:
     return {'no': 'data found'}
   myrow  = [row for row in result][0]
-  return {'tkrprices': myrow.csvh.split()}
+  return {tkr: myrow.csvh.split()}
   
 def dbtkrs():
   """This function should return a list of tickers from db."""
