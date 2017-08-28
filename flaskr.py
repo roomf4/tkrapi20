@@ -18,11 +18,11 @@ curl localhost:5011/years
 curl localhost:5011/tkrprices/SNAP
 curl localhost:5011/sklinear/ABC/20/2016-12/'pct_lag1,slope3,dow,moy'
 curl localhost:5011/keraslinear/ABC/20/2016-12/'pct_lag2,slope5,dow,moy'
-curl "localhost:5011/keras_nn/IBM/25/2014-11?features='pct_lag1,slope4,moy'&hl=2&neurons=4"
+curl "localhost:5011/kerasnn/IBM/25/2014-11?features='pct_lag1,slope4,moy'&hl=2&neurons=4"
 curl localhost:5011/sklinear_yr/IBM/20/2016/'pct_lag1,slope3,dow,moy'
 curl localhost:5011/sklinear_tkr/IBM/20/'pct_lag1,slope3,dow,moy'
 curl localhost:5011/keraslinear_yr/IBM/20/2016/'pct_lag1,slope3,dow,moy'
-curl localhost:5011/keras_nn_yr/IBM/20/2016/'pct_lag1,slope3,dow,moy'
+curl localhost:5011/kerasnn_yr/IBM/20/2016/'pct_lag1,slope3,dow,moy'
 curl localhost:5011/keraslinear_tkr/IBM/20/'pct_lag1,slope3,dow,moy'
 curl "localhost:5011/db/kerasnn/IBM/3/2017-08?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
 curl "localhost:5011/db1st_model2nd/kerasnn/WFC/4/2017-08?features='pct_lag1,slope3,moy'&hl=3&neurons=4"
@@ -74,9 +74,9 @@ api.add_resource(flc.SklinearTkr, '/sklinear_tkr/<tkr>/<int:yrs>/<features>')
 api.add_resource(flc.KerasLinear,    '/keraslinear/<tkr>/<int:yrs>/<mnth>/<features>')
 api.add_resource(flc.KeraslinearYr,  '/keraslinear_yr/<tkr>/<int:yrs>/<int:yr>/<features>')
 api.add_resource(flc.KeraslinearTkr, '/keraslinear_tkr/<tkr>/<int:yrs>/<features>')
-api.add_resource(flc.KerasNN,    '/keras_nn/<tkr>/<int:yrs>/<mnth>')
-api.add_resource(flc.KerasNNYr,  '/keras_nn_yr/<tkr>/<int:yrs>/<int:yr>')
-api.add_resource(flc.KerasNNTkr, '/keras_nn_tkr/<tkr>/<int:yrs>')
+api.add_resource(flc.KerasNN,    '/kerasnn/<tkr>/<int:yrs>/<mnth>')
+api.add_resource(flc.KerasNNYr,  '/kerasnn_yr/<tkr>/<int:yrs>/<int:yr>')
+api.add_resource(flc.KerasNNTkr, '/kerasnn_tkr/<tkr>/<int:yrs>')
 api.add_resource(flc.Db,    '/db/<algo>/<tkr>/<int:yrs>/<mnth>')
 api.add_resource(flc.Dbyr,  '/dbyr/<algo>/<tkr>/<int:yrs>/<int:yr>')
 api.add_resource(flc.Dbtkr, '/dbtkr/<algo>/<tkr>/<int:yrs>')

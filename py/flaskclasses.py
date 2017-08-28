@@ -65,9 +65,9 @@ class AlgoDemos(fr.Resource):
       ,"/keraslinear/FB/3/2017-08/'pct_lag2,slope5,moy'"
       ,"/keraslinear_yr/IBM/20/2016/'pct_lag1,slope3,dow,moy'"
       ,"/keraslinear_tkr/IBM/20/'pct_lag1,slope3,dow,moy'"
-      ,"/keras_nn/FB/3/2017-07?features='pct_lag1,slope4,moy'&hl=2&neurons=4"
-      ,"/keras_nn_yr/FB/3/2017?features='pct_lag1,slope4,moy'&hl=2&neurons=4"
-      ,"/keras_nn_tkr/FB/3?features='pct_lag1,slope4,moy'&hl=2&neurons=4"
+      ,"/kerasnn/FB/3/2017-07?features='pct_lag1,slope4,moy'&hl=2&neurons=4"
+      ,"/kerasnn_yr/FB/3/2017?features='pct_lag1,slope4,moy'&hl=2&neurons=4"
+      ,"/kerasnn_tkr/FB/3?features='pct_lag1,slope4,moy'&hl=2&neurons=4"
     ]
     return {
       'algo_demos': algo_demos_l

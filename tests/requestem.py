@@ -20,9 +20,9 @@ features_s = 'pct_lag1,slope3,dow,moy'
 params     = {'features':features_s, 'hl': 2,'neurons':4}
 
 
-request_this("http://localhost:5011/db1st_model2nd/keras_nn/FB/3/2017-08", params)
-request_this("http://localhost:5011/db1st_model2nd_yr/keras_nn/FB/3/2017", params)
-request_this("http://localhost:5011/db1st_model2nd_tkr/keras_nn/FB/3"    , params)
+request_this("http://localhost:5011/db1st_model2nd/kerasnn/FB/3/2017-08", params)
+request_this("http://localhost:5011/db1st_model2nd_yr/kerasnn/FB/3/2017", params)
+request_this("http://localhost:5011/db1st_model2nd_tkr/kerasnn/FB/3"    , params)
 
 stophere
 
@@ -45,9 +45,9 @@ request_this("http://localhost:5011/keraslinear/FB/3/2017-08/"+features_s)
 request_this("http://localhost:5011/keraslinear_yr/FB/3/2017/"+features_s)
 request_this("http://localhost:5011/keraslinear_tkr/FB/3/"+features_s)
 
-request_this("http://localhost:5011/keras_nn/FB/3/2017-08", params)
-request_this("http://localhost:5011/keras_nn_yr/FB/3/2017", params)
-request_this("http://localhost:5011/keras_nn_tkr/FB/3"    , params)
+request_this("http://localhost:5011/kerasnn/FB/3/2017-08", params)
+request_this("http://localhost:5011/kerasnn_yr/FB/3/2017", params)
+request_this("http://localhost:5011/kerasnn_tkr/FB/3"    , params)
 
 request_this("http://localhost:5011/db/sklinear/FB/3/2017-08", params)
 request_this("http://localhost:5011/dbyr/sklinear/FB/3/2017" , params)
@@ -57,9 +57,9 @@ request_this("http://localhost:5011/db/keraslinear/FB/3/2017-08", params)
 request_this("http://localhost:5011/dbyr/keraslinear/FB/3/2017" , params)
 request_this("http://localhost:5011/dbtkr/keraslinear/FB/3"     , params)
 
-request_this("http://localhost:5011/db/keras_nn/FB/3/2017-08", params)
-request_this("http://localhost:5011/dbyr/keras_nn/FB/3/2017" , params)
-request_this("http://localhost:5011/dbtkr/keras_nn/FB/3"     , params)
+request_this("http://localhost:5011/db/kerasnn/FB/3/2017-08", params)
+request_this("http://localhost:5011/dbyr/kerasnn/FB/3/2017" , params)
+request_this("http://localhost:5011/dbtkr/kerasnn/FB/3"     , params)
 
 print('No news is probably good news.')
 print('Done')
