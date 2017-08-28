@@ -19,6 +19,13 @@ def request_this(url_s, params={'hl':2,'neurons':4}):
 features_s = 'pct_lag1,slope3,dow,moy'
 params     = {'features':features_s, 'hl': 2,'neurons':4}
 
+
+request_this("http://localhost:5011/db1st_model2nd/keras_nn/FB/3/2017-08", params)
+request_this("http://localhost:5011/db1st_model2nd_yr/keras_nn/FB/3/2017", params)
+request_this("http://localhost:5011/db1st_model2nd_tkr/keras_nn/FB/3"    , params)
+
+stophere
+
 request_this('http://localhost:5011/demos')
 request_this('http://localhost:5011/algo_demos')
 request_this('http://localhost:5011/demos')
