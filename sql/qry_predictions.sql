@@ -34,7 +34,7 @@ order by algo,tkr,yrs,features,substring(mnth for 4)
 
 
 select
-algo
+algo_params
 ,tkr
 ,yrs                   training_yrs
 ,features              feature_group
@@ -42,7 +42,7 @@ algo
 ,count(tkr)            count_tkr
 from predictions
 where algo = 'kerasnn'
-group by algo,tkr,yrs,features,substring(mnth for 4)
-order by algo,tkr,yrs,features,substring(mnth for 4)
+group by algo,algo_params,tkr,yrs,features,substring(mnth for 4)
+order by algo,algo_params,tkr,yrs,features,substring(mnth for 4)
 ;
 
