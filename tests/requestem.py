@@ -76,6 +76,11 @@ request_this("http://localhost:5011/db1st_model2nd/kerasnn/FB/3/2017-08", params
 request_this("http://localhost:5011/db1st_model2nd_yr/kerasnn/FB/3/2017", params)
 request_this("http://localhost:5011/db1st_model2nd_tkr/kerasnn/FB/3"    , params)
 
+#s.b. fast:
+request_this("http://localhost:5011/prediction_counts")
+request_this("http://localhost:5011/prediction_dimensions")
+request_this("http://localhost:5011/kerasnn_dimensions")
+
 print('No news is probably good news.')
 print('Done')
 'bye'

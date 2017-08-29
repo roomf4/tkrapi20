@@ -39,5 +39,6 @@ curl -v "localhost:5011/dbtkr/kerasnn/FB/3?features='pct_lag1,slope3,dow,moy'"  
 
 curl -v localhost:5011/prediction_counts     > /tmp/test40.txt
 curl -v localhost:5011/prediction_dimensions > /tmp/test41.txt
+curl -v localhost:5011/kerasnn_dimensions    > /tmp/test42.txt
 
 exit
