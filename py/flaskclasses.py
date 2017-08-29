@@ -31,12 +31,13 @@ def get_out_d(out_df):
   # pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.to_json.html
   pd_json = out_df.to_json(orient='records')
   pd_d    = json.loads(pd_json)
-  out_d   = {'Prediction-Details': pd_d}
-  out_d['Long-Only-Accuracy']     = lo_acc 
-  out_d['Long-Only-Effectivness'] = sum(out_df.pct_lead)
-  out_d['Model-Effectivness']     = sum(out_df.effectiveness)
-  out_d['Model-Accuracy']         = sum(out_df.accuracy) / out_df.accuracy.size
-  out_d['Prediction-Count']       = out_df.prediction.size
+  out_d   = {'Prediction-Details':pd_d
+    ,'Long-Only-Accuracy'    :np.round(lo_acc, 3)
+    ,'Long-Only-Effectivness':np.round(sum(out_df.pct_lead), 3)
+    ,'Model-Effectivness'    :np.round(sum(out_df.effectiveness), 3)
+    ,'Model-Accuracy'        :np.round(sum(out_df.accuracy) / out_df.accuracy.size, 3)
+    ,'Prediction-Count'      :out_df.prediction.size
+  }
   return out_d
 
 class Demo11(fr.Resource):
