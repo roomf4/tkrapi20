@@ -2,18 +2,8 @@
 
 NOT DONE YET:
 
-/prediction_dimensions
-
-select distinct tkr from predictions;
-select distinct yrs from predictions;
-select distinct mnth from predictions;
-select distinct algo from predictions;
-
-select distinct substring(mnth for 4) yr from predictions;
-select distinct algo_params from predictions where algo = 'kerasnn';
-
-
 csv-servings:
+  http://flask-restful.readthedocs.io/en/0.3.5/extending.html#response-formats
   tkrprices
   features
   predictions
@@ -166,3 +156,15 @@ from predictions
 group by algo,tkr,yrs,features,substring(mnth for 4)
 order by algo,tkr,yrs,features,substring(mnth for 4)
 ;
+
+
+
+/prediction_dimensions
+
+select distinct tkr from predictions;
+select distinct yrs from predictions;
+select distinct mnth from predictions;
+select distinct algo from predictions;
+
+select distinct substring(mnth for 4) yr from predictions;
+select distinct algo_params from predictions where algo = 'kerasnn';

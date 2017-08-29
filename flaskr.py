@@ -56,6 +56,28 @@ conn = sql.create_engine(db_s).connect()
 application = fl.Flask(__name__)
 api         = fr.Api(application)
 
+# try this
+# http://flask-restful.readthedocs.io/en/0.3.5/extending.html#response-formats
+
+@api.representation('text/csv')
+def output_csv(csv_data,code
+               ,csvf_s # filename to serve
+               ):
+  headers = {"Content-disposition":"attachment; filename="+csvf_s
+               ,"Content-Type"    : "text/csv; charset=utf-8"}
+  resp    = fl.make_response(csv_data, code, headers)
+  return resp
+
+class Mycsv(fr.Resource):
+  """
+  Returns some csv.
+  """
+  def get(self):
+    somecsv_s = "a,b,c\n1.1,2.2,3.3\n1.1,2.2,3.3\n"
+    respcode_i = 200
+    return output_csv(somecsv_s, respcode_i, 'my.csv')
+
+api.add_resource(Mycsv, '/my.csv')
 # I should add classes and resources:
 
 api.add_resource(flc.Demo11,    '/demo11.json')
