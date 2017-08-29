@@ -26,23 +26,17 @@ with open('tkrlist.txt') as fh:
 
 def get_out_d(out_df):
   """This function should convert out_df to a readable format when in JSON."""
-  out_l = []
-  if out_df.empty :
-    return {'sorry, no':'predictions'}
-  for row in out_df.itertuples():
-    row_d       = {
-      'date,price':[row.cdate,row.cp]
-      ,'pct_lead': row.pct_lead
-      ,'prediction,effectiveness,accuracy':[row.prediction,row.effectiveness,row.accuracy]
-    }
-    out_l.append(row_d)
-    lo_acc = sum((1+np.sign(out_df.pct_lead))/2) / out_df.accuracy.size
-    out_d  = {'Long-Only-Accuracy': lo_acc }
-    out_d['Long-Only-Effectivness'] = sum(out_df.pct_lead)
-    out_d['Model-Effectivness']     = sum(out_df.effectiveness)
-    out_d['Model-Accuracy']         = sum(out_df.accuracy) / out_df.accuracy.size
-    out_d['Prediction-Count']       = out_df.prediction.size
-    out_d['Prediction-Details']     = out_l
+  lo_acc  = sum((1+np.sign(out_df.pct_lead))/2) / out_df.accuracy.size
+  # ref:
+  # pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.to_json.html
+  pd_json = out_df.to_json(orient='records')
+  pd_d    = json.loads(pd_json)
+  out_d   = {'Prediction-Details': pd_d}
+  out_d['Long-Only-Accuracy']     = lo_acc 
+  out_d['Long-Only-Effectivness'] = sum(out_df.pct_lead)
+  out_d['Model-Effectivness']     = sum(out_df.effectiveness)
+  out_d['Model-Accuracy']         = sum(out_df.accuracy) / out_df.accuracy.size
+  out_d['Prediction-Count']       = out_df.prediction.size
   return out_d
 
 class Demo11(fr.Resource):
