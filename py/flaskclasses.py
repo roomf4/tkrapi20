@@ -25,7 +25,7 @@ with open('tkrlist.txt') as fh:
   tkrlist_l = fh.read().split()
 
 def get_out_d(out_df):
-  """This function should convert out_df to a readable format when in JSON."""
+  """This function should convert out_df to a dictionary."""
   lo_acc  = sum((1+np.sign(out_df.pct_lead))/2) / out_df.accuracy.size
   # ref:
   # pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.to_json.html
