@@ -85,6 +85,7 @@ api.add_resource(flc.Db1stYr,  '/db1st_model2nd_yr/<algo>/<tkr>/<int:yrs>/<int:y
 api.add_resource(flc.Db1stTkr, '/db1st_model2nd_tkr/<algo>/<tkr>/<int:yrs>')
 api.add_resource(flc.PredictionCounts,     '/prediction_counts')
 api.add_resource(flc.PredictionDimensions, '/prediction_dimensions')
+api.add_resource(flc.KerasnnDimensions,    '/kerasnn_dimensions')
 
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5000))

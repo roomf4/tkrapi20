@@ -338,4 +338,10 @@ def prediction_dimensions():
   tkr_d.update(features_d)
   return tkr_d
 
+def kerasnn_dimensions():
+  """This function should return prediction dimensions."""
+  sql_s  = "select distinct algo_params from predictions where algo = 'kerasnn'"
+  algo_params_d = json.loads(pd.read_sql(sql_s, conn).to_json())
+  return algo_params_d
+
 'bye'

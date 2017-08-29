@@ -397,4 +397,12 @@ class PredictionDimensions(fr.Resource):
   def get(self):
     pdim_d = pgdb.prediction_dimensions()
     return pdim_d
+
+class KerasnnDimensions(fr.Resource):
+  """
+  Return kerasnn algo_params dimensions from db.
+  """
+  def get(self):
+    algo_params_d = pgdb.kerasnn_dimensions()
+    return algo_params_d
 'bye'
