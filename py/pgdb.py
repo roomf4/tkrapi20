@@ -6,6 +6,7 @@ This script should provide sytnax to connect flask-restful to a postgres db.
 """
 
 import io
+import json
 import os
 import pdb
 import re
@@ -320,8 +321,21 @@ def prediction_counts():
 
 def prediction_dimensions():
   """This function should return prediction dimensions."""
-  sql_s = 'select distinct tkr from predictions'
-  tkr_df = pd.read_sql(sql_s, conn)
-  return tkr_df
+  sql_s  = 'select distinct tkr from predictions'
+  tkr_d  = json.loads(pd.read_sql(sql_s, conn).to_json())
+  sql_s  = 'select distinct algo from predictions'
+  algo_d = json.loads(pd.read_sql(sql_s, conn).to_json())
+  sql_s  = 'select distinct yrs from predictions'
+  yrs_d  = json.loads(pd.read_sql(sql_s, conn).to_json())
+  sql_s  = 'select distinct substring(mnth for 4) yr from predictions'
+  yr_d   = json.loads(pd.read_sql(sql_s, conn).to_json())
+  sql_s  = 'select distinct features from predictions'
+  features_d = json.loads(pd.read_sql(sql_s, conn).to_json())
+  # I should merge dictionaries into 1:
+  tkr_d.update(algo_d)
+  tkr_d.update(yrs_d)
+  tkr_d.update(yr_d)
+  tkr_d.update(features_d)
+  return tkr_d
 
 'bye'

@@ -395,10 +395,6 @@ class PredictionDimensions(fr.Resource):
   Return prediction dimensions from db.
   """
   def get(self):
-    # I should get prediction counts from pgdb.
-    pdim_df      = pgdb.prediction_dimensions()
-    pdim_df_json = pdim_df.to_json(orient='index')
-    # flask_restful wants to serve a Dictionary:
-    pdim_d       = json.loads(pdim_df_json)
+    pdim_d = pgdb.prediction_dimensions()
     return pdim_d
 'bye'
