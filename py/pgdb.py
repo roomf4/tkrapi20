@@ -318,4 +318,10 @@ def prediction_counts():
     '''
   return pd.read_sql(sql_s, conn)
 
+def prediction_dimensions():
+  """This function should return prediction dimensions."""
+  sql_s = 'select distinct tkr from predictions'
+  tkr_df = pd.read_sql(sql_s, conn)
+  return tkr_df
+
 'bye'

@@ -83,7 +83,8 @@ api.add_resource(flc.Dbtkr, '/dbtkr/<algo>/<tkr>/<int:yrs>')
 api.add_resource(flc.Db1st,    '/db1st_model2nd/<algo>/<tkr>/<int:yrs>/<mnth>')
 api.add_resource(flc.Db1stYr,  '/db1st_model2nd_yr/<algo>/<tkr>/<int:yrs>/<int:yr>')
 api.add_resource(flc.Db1stTkr, '/db1st_model2nd_tkr/<algo>/<tkr>/<int:yrs>')
-api.add_resource(flc.PredictionCounts, '/prediction_counts')
+api.add_resource(flc.PredictionCounts,     '/prediction_counts')
+api.add_resource(flc.PredictionDimensions, '/prediction_dimensions')
 
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5000))

@@ -383,11 +383,22 @@ class PredictionCounts(fr.Resource):
   Return prediction counts from db.
   """
   def get(self):
-    import json
     # I should get prediction counts from pgdb.
     pc_df      = pgdb.prediction_counts()
     pc_df_json = pc_df.to_json(orient='index')
     # flask_restful wants to serve a Dictionary:
     pc_d       = json.loads(pc_df_json)
     return pc_d
+
+class PredictionDimensions(fr.Resource):
+  """
+  Return prediction dimensions from db.
+  """
+  def get(self):
+    # I should get prediction counts from pgdb.
+    pdim_df      = pgdb.prediction_dimensions()
+    pdim_df_json = pdim_df.to_json(orient='index')
+    # flask_restful wants to serve a Dictionary:
+    pdim_d       = json.loads(pdim_df_json)
+    return pdim_d
 'bye'
