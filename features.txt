@@ -2,19 +2,15 @@
 
 NOT DONE YET:
 
-/prediction_counts
-backed by:
-select
-algo
-,tkr
-,yrs                   training_yrs
-,features              feature_group
-,substring(mnth for 4) yr
-,count(tkr)            count_tkr
-from predictions
-group by algo,tkr,yrs,features,substring(mnth for 4)
-order by algo,tkr,yrs,features,substring(mnth for 4)
-;
+/prediction_dimensions
+
+select distinct tkr from predictions;
+select distinct yrs from predictions;
+select distinct mnth from predictions;
+select distinct algo from predictions;
+
+select distinct substring(mnth for 4) yr from predictions;
+select distinct algo_params from predictions where algo = 'kerasnn';
 
 
 csv-servings:
@@ -155,3 +151,18 @@ Site should have features.txt
 prediction reports:
   group by counts:
     algo, tkr, yrs, yr, feature-group
+
+
+/prediction_counts
+backed by:
+select
+algo
+,tkr
+,yrs                   training_yrs
+,features              feature_group
+,substring(mnth for 4) yr
+,count(tkr)            count_tkr
+from predictions
+group by algo,tkr,yrs,features,substring(mnth for 4)
+order by algo,tkr,yrs,features,substring(mnth for 4)
+;
