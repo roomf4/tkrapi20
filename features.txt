@@ -5,7 +5,7 @@ NOT DONE YET:
 csv-servings:
   http://flask-restful.readthedocs.io/en/0.3.5/extending.html#response-formats
   tkrprices -- done
-  features
+  features  -- done
   predictions
 
   
