@@ -38,12 +38,10 @@ def featuresCSV(tkr):
 
 def getfeat(tkr):
   """This function should return a DataFrame full of features for a tkr."""
-  sql_s  = "SELECT csv FROM features WHERE tkr = %s LIMIT 1"
-  result = conn.execute(sql_s,[tkr])
-  if not result.rowcount:
+  csv_s = featuresCSV(tkr)
+  if csv_s == None:
     return pd.DataFrame() # empty DF offers consistent behavior to caller.
-  myrow  = [row for row in result][0]
-  feat_df = pd.read_csv(io.StringIO(myrow.csv))
+  feat_df = pd.read_csv(io.StringIO(csv_s))
   return feat_df
 
 def tkrpricesCSV(tkr):
