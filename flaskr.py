@@ -56,28 +56,7 @@ conn = sql.create_engine(db_s).connect()
 application = fl.Flask(__name__)
 api         = fr.Api(application)
 
-# try this
-# http://flask-restful.readthedocs.io/en/0.3.5/extending.html#response-formats
 
-@api.representation('text/csv')
-def output_csv(csv_data,code
-               ,csvf_s # filename to serve
-               ):
-  headers = {"Content-disposition":"attachment; filename="+csvf_s
-               ,"Content-Type"    : "text/csv; charset=utf-8"}
-  resp    = fl.make_response(csv_data, code, headers)
-  return resp
-
-class Mycsv(fr.Resource):
-  """
-  Returns some csv.
-  """
-  def get(self):
-    somecsv_s = "a,b,c\n1.1,2.2,3.3\n1.1,2.2,3.3\n"
-    respcode_i = 200
-    return output_csv(somecsv_s, respcode_i, 'my.csv')
-
-api.add_resource(Mycsv, '/my.csv')
 # I should add classes and resources:
 
 api.add_resource(flc.Demo11,    '/demo11.json')
@@ -108,6 +87,42 @@ api.add_resource(flc.Db1stTkr, '/db1st_model2nd_tkr/<algo>/<tkr>/<int:yrs>')
 api.add_resource(flc.PredictionCounts,     '/prediction_counts')
 api.add_resource(flc.PredictionDimensions, '/prediction_dimensions')
 api.add_resource(flc.KerasnnDimensions,    '/kerasnn_dimensions')
+
+# csv paths:
+
+@api.representation('text/csv')
+# ref:
+# http://flask-restful.readthedocs.io/en/0.3.5/extending.html#response-formats
+def output_csv(csv_data,code
+               ,csvf_s # filename to serve
+               ):
+  """This function helps return a csv-string as a csv-file."""
+  headers = {"Content-disposition":"attachment; filename="+csvf_s
+               ,"Content-Type"    : "text/csv; charset=utf-8"}
+  resp    = fl.make_response(csv_data, code, headers)
+  return resp
+
+class MyCSV(fr.Resource):
+  """
+  Returns some csv.
+  """
+  def get(self):
+    somecsv_s = "a,b,c\n1.1,2.2,3.3\n1.1,2.2,3.3\n"
+    respcode_i = 200
+    return output_csv(somecsv_s, respcode_i, 'my.csv')
+
+class TkrpricesCSV(fr.Resource):
+  """
+  Returns csv for a tkr from tkrprices table.
+  """
+  def get(self,tkr):
+    somecsv_s = "tkr,b,c\n1.1,2.2,3.3\n1.1,2.2,3.3\n"
+    respcode_i = 200
+    return output_csv(somecsv_s, respcode_i, 'my.csv')
+
+
+api.add_resource(MyCSV        ,'/my.csv')
+api.add_resource(TkrpricesCSV ,'/tkrprices/<tkr>'+'.csv')
 
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5000))
