@@ -120,10 +120,20 @@ class TkrpricesCSV(fr.Resource):
     tkrcsv_s   = pgdb.tkrpricesCSV(tkr)
     return output_csv(tkrcsv_s, respcode_i, tkr.upper()+'.csv')
 
+class FeaturesCSV(fr.Resource):
+  """
+  Returns csv of features for a tkr from features table.
+  """
+  def get(self,tkr):
+    respcode_i = 200
+    csv_s   = pgdb.featuresCSV(tkr)
+    return output_csv(csv_s, respcode_i, tkr.upper()+'.csv')
+
 # Should be CSV class above this line, resources below:
 
 api.add_resource(MyCSV        ,'/my.csv')
 api.add_resource(TkrpricesCSV ,'/tkrprices/<tkr>'+'.csv')
+api.add_resource(FeaturesCSV  ,'/features/<tkr>'+'.csv')
 
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5011))

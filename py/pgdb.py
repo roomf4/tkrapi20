@@ -27,6 +27,25 @@ def delete_predictions():
   conn.execute(sql_s)
   return True
 
+def featuresCSV(tkr):
+  """This function should return CSV of features for a tkr."""
+  tkru_s = tkr.upper()
+  sql_s  = "select csv from features where tkr = %s  LIMIT 1"
+  result = conn.execute(sql_s,[tkru_s])
+  if not result.rowcount:
+    return None
+  return [row for row in result][0].csv
+
+def getfeat(tkr):
+  """This function should return a DataFrame full of features for a tkr."""
+  sql_s  = "SELECT csv FROM features WHERE tkr = %s LIMIT 1"
+  result = conn.execute(sql_s,[tkr])
+  if not result.rowcount:
+    return pd.DataFrame() # empty DF offers consistent behavior to caller.
+  myrow  = [row for row in result][0]
+  feat_df = pd.read_csv(io.StringIO(myrow.csv))
+  return feat_df
+
 def tkrpricesCSV(tkr):
   """This function should return CSV prices for a tkr."""
   tkru_s = tkr.upper()
@@ -49,16 +68,6 @@ def dbtkrs():
   result   = conn.execute(sql_s)
   dbtkrs_l = [row.tkr for row in result]
   return dbtkrs_l
-
-def getfeat(tkr):
-  """This function should return a DataFrame full of features for a tkr."""
-  sql_s  = "SELECT csv FROM features WHERE tkr = %s LIMIT 1"
-  result = conn.execute(sql_s,[tkr])
-  if not result.rowcount:
-    return pd.DataFrame() # empty DF offers consistent behavior to caller.
-  myrow  = [row for row in result][0]
-  feat_df = pd.read_csv(io.StringIO(myrow.csv))
-  return feat_df
 
 def getfeatures():
   """This function should return a list of valid features."""
