@@ -27,14 +27,21 @@ def delete_predictions():
   conn.execute(sql_s)
   return True
 
+def tkrpricesCSV(tkr):
+  """This function should return CSV prices for a tkr."""
+  tkru_s = tkr.upper()
+  sql_s  = "select csvh from tkrprices where tkr = %s  LIMIT 1"
+  result = conn.execute(sql_s,[tkru_s])
+  if not result.rowcount:
+    return None
+  return [row for row in result][0].csvh
+
 def tkrprices(tkr):
   """This function should return prices for a tkr."""
-  sql_s  = "select csvh from tkrprices where tkr = %s  LIMIT 1"
-  result = conn.execute(sql_s,[tkr])
-  if not result.rowcount:
+  csv_s = tkrpricesCSV(tkr)
+  if (csv_s == None):
     return {'no': 'data found'}
-  myrow  = [row for row in result][0]
-  return {tkr: myrow.csvh.split()}
+  return {tkr.upper(): csv_s.split()}
   
 def dbtkrs():
   """This function should return a list of tickers from db."""

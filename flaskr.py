@@ -88,7 +88,7 @@ api.add_resource(flc.PredictionCounts,     '/prediction_counts')
 api.add_resource(flc.PredictionDimensions, '/prediction_dimensions')
 api.add_resource(flc.KerasnnDimensions,    '/kerasnn_dimensions')
 
-# csv paths:
+# I should setup CSV paths:
 
 @api.representation('text/csv')
 # ref:
@@ -116,15 +116,16 @@ class TkrpricesCSV(fr.Resource):
   Returns csv for a tkr from tkrprices table.
   """
   def get(self,tkr):
-    somecsv_s = "tkr,b,c\n1.1,2.2,3.3\n1.1,2.2,3.3\n"
     respcode_i = 200
-    return output_csv(somecsv_s, respcode_i, 'my.csv')
+    tkrcsv_s   = pgdb.tkrpricesCSV(tkr)
+    return output_csv(tkrcsv_s, respcode_i, tkr.upper()+'.csv')
 
+# Should be CSV class above this line, resources below:
 
 api.add_resource(MyCSV        ,'/my.csv')
 api.add_resource(TkrpricesCSV ,'/tkrprices/<tkr>'+'.csv')
 
 if __name__ == "__main__":
-  port = int(os.environ.get("PORT", 5000))
+  port = int(os.environ.get("PORT", 5011))
   application.run(host='0.0.0.0', port=port)
 'bye'
