@@ -41,6 +41,7 @@ curl -v localhost:5011/prediction_counts     > /tmp/test40.txt
 curl -v localhost:5011/prediction_dimensions > /tmp/test41.txt
 curl -v localhost:5011/kerasnn_dimensions    > /tmp/test42.txt
 
+curl -v localhost:5011/sklinear/FB/3/2017-08/'pct_lag1,slope3,dow,moy'                       > /tmp/test21.txt
 curl -v "localhost:5011/csv/sklinear/FB/3/2017-08?features='pct_lag1,slope3,dow,moy'" > /tmp/test50.txt
 
 exit
