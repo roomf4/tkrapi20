@@ -151,8 +151,8 @@ class Csv(fr.Resource):
     csv_s  = out_df.to_csv(index=False,float_format='%.3f')
     # I should serve them:
     if (algo == 'kerasnn'):
-      # I should fix this later; add hl, neurons:
-      fn_s = tkru_s + '_' + algo + '_' + str(yrs) + '_' + mnth + '_' + features3_s + 'kerasnn.csv'
+      # I should fix this later; add hl, neurons, and use join('_')
+      fn_s = tkru_s + '_' + algo + '_' + str(yrs) + '_' + mnth + '_' + features3_s + '_' + hl_s + '_' + neurons_s +'.csv'
     else:
       fn_s = tkru_s + '_' + algo + '_' + str(yrs) + '_' + mnth + '_' + features3_s + '.csv'
     return output_csv(csv_s, respcode_i, fn_s)
