@@ -9,7 +9,10 @@ csv-servings:
   predictions --  study current json prediction getters
     -- study: api.add_resource(flc.Db,    '/db/<algo>/<tkr>/<int:yrs>/<mnth>')
     good resource to build:
-      api.add_resource(Csv, '/csv/<algo>/<tkr>/<int:yrs>/<mnth>')
+      api.add_resource(Csv, '/csv/<algo>/<tkr>/<int:yrs>/<mnth>') -- done
+      api.add_resource(CsvYr, '/csvyr/<algo>/<tkr>/<int:yrs>/<int:yr>')
+
+
 
   
 website:
@@ -22,6 +25,7 @@ heroku:
     serve models
     hflaskr.bash
     hflaskr.py
+    copy postgres data to heroku
     
 list of resources:
 

@@ -148,11 +148,40 @@ class Csv(fr.Resource):
     out_df = pgdb.dbpredictions(algo,tkr,yrs,mnth,features2_s,algo_params_s)
     csv_s  = out_df.to_csv(index=False,float_format='%.3f')
     # I should serve them:
+    yrs_s = str(yrs)
     if (algo == 'kerasnn'):
-      fn_s = '_'.join([tkru_s, algo, str(yrs), mnth, features3_s, hl_s, neurons_s])
+      fn_s = '_'.join([tkru_s, algo, yrs_s, mnth, features3_s, hl_s, neurons_s])
     else: # I dont need hidden layers and neurons:
-      fn_s = '_'.join([tkru_s, algo, str(yrs), mnth, features3_s])
-    respcode_i  = 200 # Means successful response.
+      fn_s = '_'.join([tkru_s, algo, yrs_s, mnth, features3_s])
+    respcode_i = 200 # Means successful response.
+    return output_csv(csv_s, respcode_i, fn_s + '.csv')
+
+class CsvYr(fr.Resource):
+  """
+  Returns csv of predictions from predictions table.
+  """
+  def get(self,algo,tkr,yrs,yr):
+    features0_s = fl.request.args.get('features','pct_lag1,slope4,dow')
+    features1_s = features0_s.replace("'","").replace('"','')
+    features2_s = pgdb.check_features(features1_s) # needed for query
+    features3_s = features2_s.replace(",","_")     # needed for filename
+    tkru_s      = tkr.upper()
+    hl_s        = fl.request.args.get('hl',      '2') # default 2
+    neurons_s   = fl.request.args.get('neurons', '4') # default 4
+    hl_i        = int(hl_s)
+    neurons_i   = int(neurons_s)
+    algo_params_s = str([hl_i, neurons_i])
+    # I should get predictions from db:
+    yr_s  = str(yr)
+    out_df = pgdb.dbpredictions_yr(algo,tkr,yrs,yr_s,features2_s,algo_params_s)
+    csv_s  = out_df.to_csv(index=False,float_format='%.3f')
+    # I should serve them:
+    yrs_s  = str(yrs)
+    if (algo == 'kerasnn'):
+      fn_s = '_'.join([tkru_s, algo, yrs_s, yr_s, features3_s, hl_s, neurons_s])
+    else: # I dont need hidden layers and neurons:
+      fn_s = '_'.join([tkru_s, algo, yrs_s, yr_s, features3_s])
+    respcode_i = 200 # Means successful response.
     return output_csv(csv_s, respcode_i, fn_s + '.csv')
 
 # Should be CSV classes above this line, resources below:
@@ -160,7 +189,8 @@ class Csv(fr.Resource):
 api.add_resource(MyCSV        ,'/my.csv')
 api.add_resource(TkrpricesCSV ,'/tkrprices/<tkr>'+'.csv')
 api.add_resource(FeaturesCSV  ,'/features/<tkr>'+'.csv')
-api.add_resource(Csv, '/csv/<algo>/<tkr>/<int:yrs>/<mnth>')
+api.add_resource(Csv,   '/csv/<algo>/<tkr>/<int:yrs>/<mnth>')
+api.add_resource(CsvYr, '/csvyr/<algo>/<tkr>/<int:yrs>/<int:yr>')
 
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5011))
