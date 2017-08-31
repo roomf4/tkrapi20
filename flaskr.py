@@ -141,8 +141,18 @@ class Csv(fr.Resource):
     features3_s = features2_s.replace(",","_")
     tkru_s  = tkr.upper()
     csv_s   = "nada,yada,hello\n" #pgdb.db2csv(algo,tkru_s,yrs,mnth)
-    
-    fn_s = tkru_s + '_' + algo + '_' + str(yrs) + '_' + mnth + '_' + features3_s + '.csv'
+    hl_s          = fl.request.args.get('hl',      '2') # default 2
+    neurons_s     = fl.request.args.get('neurons', '4') # default 4
+    hl_i          = int(hl_s)
+    neurons_i     = int(neurons_s)
+    algo_params_s = str([hl_i, neurons_i])
+    # I should get predictions from db:
+    out_df = pgdb.dbpredictions(algo,tkr,yrs,mnth,features_s,algo_params_s)
+    csv_s = out_df.to_csv(index=False,float_format='%.3f')
+    if (algo == 'kerasnn'):
+      fn_s = tkru_s + '_' + algo + '_' + str(yrs) + '_' + mnth + '_' + features3_s + 'kerasnn.csv'
+    else:
+      fn_s = tkru_s + '_' + algo + '_' + str(yrs) + '_' + mnth + '_' + features3_s + '.csv'
     return output_csv(csv_s, respcode_i, fn_s)
 
 # Should be CSV class above this line, resources below:
