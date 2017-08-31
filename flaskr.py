@@ -129,26 +129,32 @@ class FeaturesCSV(fr.Resource):
     csv_s   = pgdb.featuresCSV(tkr)
     return output_csv(csv_s, respcode_i, tkr.upper()+'.csv')
 
+
+def gethelper(tkr,yrs):
+  """This function should make syntax in get() calls more DRY."""
+  features0_s = fl.request.args.get('features','pct_lag1,slope4,dow')
+  features1_s = features0_s.replace("'","").replace('"','')
+  features2_s = pgdb.check_features(features1_s) # needed for query
+  features3_s = features2_s.replace(",","_")     # needed for filename
+  tkru_s      = tkr.upper()
+  yrs_s       = str(yrs)
+  hl_s        = fl.request.args.get('hl',      '2') # default 2
+  neurons_s   = fl.request.args.get('neurons', '4') # default 4
+  hl_i        = int(hl_s)
+  neurons_i   = int(neurons_s)
+  algo_params_s = str([hl_i, neurons_i])
+  return features2_s,features3_s,tkru_s,yrs_s,hl_s,neurons_s,algo_params_s
+
 class Csv(fr.Resource):
   """
   Returns csv of predictions from predictions table.
   """
   def get(self,algo,tkr,yrs,mnth):
-    features0_s = fl.request.args.get('features','pct_lag1,slope4,dow')
-    features1_s = features0_s.replace("'","").replace('"','')
-    features2_s = pgdb.check_features(features1_s) # needed for query
-    features3_s = features2_s.replace(",","_")     # needed for filename
-    tkru_s      = tkr.upper()
-    hl_s        = fl.request.args.get('hl',      '2') # default 2
-    neurons_s   = fl.request.args.get('neurons', '4') # default 4
-    hl_i        = int(hl_s)
-    neurons_i   = int(neurons_s)
-    algo_params_s = str([hl_i, neurons_i])
+    features2_s,features3_s,tkru_s,yrs_s,hl_s,neurons_s,algo_params_s = gethelper(tkr,yrs)
     # I should get predictions from db:
-    out_df = pgdb.dbpredictions(algo,tkr,yrs,mnth,features2_s,algo_params_s)
+    out_df = pgdb.dbpredictions(algo,tkru_s,yrs,mnth,features2_s,algo_params_s)
     csv_s  = out_df.to_csv(index=False,float_format='%.3f')
     # I should serve them:
-    yrs_s = str(yrs)
     if (algo == 'kerasnn'):
       fn_s = '_'.join([tkru_s, algo, yrs_s, mnth, features3_s, hl_s, neurons_s])
     else: # I dont need hidden layers and neurons:
