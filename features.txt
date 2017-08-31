@@ -6,7 +6,10 @@ csv-servings:
   http://flask-restful.readthedocs.io/en/0.3.5/extending.html#response-formats
   tkrprices -- done
   features  -- done
-  predictions
+  predictions --  study current json prediction getters
+    -- study: api.add_resource(flc.Db,    '/db/<algo>/<tkr>/<int:yrs>/<mnth>')
+    good resource to build:
+      api.add_resource(Csv, '/csv/<algo>/<tkr>/<int:yrs>/<mnth>')
 
   
 website:

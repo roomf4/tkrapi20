@@ -129,11 +129,28 @@ class FeaturesCSV(fr.Resource):
     csv_s   = pgdb.featuresCSV(tkr)
     return output_csv(csv_s, respcode_i, tkr.upper()+'.csv')
 
+class Csv(fr.Resource):
+  """
+  Returns csv of predictions from predictions table.
+  """
+  def get(self,algo,tkr,yrs,mnth):
+    respcode_i  = 200
+    features0_s = fl.request.args.get('features','pct_lag1,slope4,dow')
+    features1_s = features0_s.replace("'","").replace('"','')
+    features2_s = pgdb.check_features(features1_s)
+    features3_s = features2_s.replace(",","_")
+    tkru_s  = tkr.upper()
+    csv_s   = "nada,yada,hello\n" #pgdb.db2csv(algo,tkru_s,yrs,mnth)
+    
+    fn_s = tkru_s + '_' + algo + '_' + str(yrs) + '_' + mnth + '_' + features3_s + '.csv'
+    return output_csv(csv_s, respcode_i, fn_s)
+
 # Should be CSV class above this line, resources below:
 
 api.add_resource(MyCSV        ,'/my.csv')
 api.add_resource(TkrpricesCSV ,'/tkrprices/<tkr>'+'.csv')
 api.add_resource(FeaturesCSV  ,'/features/<tkr>'+'.csv')
+api.add_resource(Csv, '/csv/<algo>/<tkr>/<int:yrs>/<mnth>')
 
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5011))
