@@ -180,13 +180,21 @@ class CsvYr(fr.Resource):
     respcode_i = 200 # Means successful response.
     return output_csv(csv_s, respcode_i, fn_s + '.csv')
 
+class CsvTkr(fr.Resource):
+  """
+  Returns csv of predictions from predictions table.
+  """
+  def get(self,algo,tkr,yrs):
+    return 'under, construction'
+
 # Should be CSV classes above this line, resources below:
 
 api.add_resource(MyCSV        ,'/my.csv')
 api.add_resource(TkrpricesCSV ,'/tkrprices/<tkr>'+'.csv')
 api.add_resource(FeaturesCSV  ,'/features/<tkr>'+'.csv')
-api.add_resource(Csv,   '/csv/<algo>/<tkr>/<int:yrs>/<mnth>')
-api.add_resource(CsvYr, '/csvyr/<algo>/<tkr>/<int:yrs>/<int:yr>')
+api.add_resource(Csv,    '/csv/<algo>/<tkr>/<int:yrs>/<mnth>')
+api.add_resource(CsvYr,  '/csvyr/<algo>/<tkr>/<int:yrs>/<int:yr>')
+api.add_resource(CsvTkr, '/csvtkr/<algo>/<tkr>/<int:yrs>')
 
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5011))
