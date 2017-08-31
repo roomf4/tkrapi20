@@ -134,30 +134,28 @@ class Csv(fr.Resource):
   Returns csv of predictions from predictions table.
   """
   def get(self,algo,tkr,yrs,mnth):
-    respcode_i  = 200
     features0_s = fl.request.args.get('features','pct_lag1,slope4,dow')
     features1_s = features0_s.replace("'","").replace('"','')
-    features2_s = pgdb.check_features(features1_s)
-    features3_s = features2_s.replace(",","_")
-    tkru_s  = tkr.upper()
-    csv_s   = "nada,yada,hello\n" #pgdb.db2csv(algo,tkru_s,yrs,mnth)
-    hl_s          = fl.request.args.get('hl',      '2') # default 2
-    neurons_s     = fl.request.args.get('neurons', '4') # default 4
-    hl_i          = int(hl_s)
-    neurons_i     = int(neurons_s)
+    features2_s = pgdb.check_features(features1_s) # needed for query
+    features3_s = features2_s.replace(",","_")     # needed for filename
+    tkru_s      = tkr.upper()
+    hl_s        = fl.request.args.get('hl',      '2') # default 2
+    neurons_s   = fl.request.args.get('neurons', '4') # default 4
+    hl_i        = int(hl_s)
+    neurons_i   = int(neurons_s)
     algo_params_s = str([hl_i, neurons_i])
     # I should get predictions from db:
     out_df = pgdb.dbpredictions(algo,tkr,yrs,mnth,features2_s,algo_params_s)
     csv_s  = out_df.to_csv(index=False,float_format='%.3f')
     # I should serve them:
     if (algo == 'kerasnn'):
-      # I should fix this later; add hl, neurons, and use join('_')
-      fn_s = tkru_s + '_' + algo + '_' + str(yrs) + '_' + mnth + '_' + features3_s + '_' + hl_s + '_' + neurons_s +'.csv'
-    else:
-      fn_s = tkru_s + '_' + algo + '_' + str(yrs) + '_' + mnth + '_' + features3_s + '.csv'
-    return output_csv(csv_s, respcode_i, fn_s)
+      fn_s = '_'.join([tkru_s, algo, str(yrs), mnth, features3_s, hl_s, neurons_s])
+    else: # I dont need hidden layers and neurons:
+      fn_s = '_'.join([tkru_s, algo, str(yrs), mnth, features3_s])
+    respcode_i  = 200 # Means successful response.
+    return output_csv(csv_s, respcode_i, fn_s + '.csv')
 
-# Should be CSV class above this line, resources below:
+# Should be CSV classes above this line, resources below:
 
 api.add_resource(MyCSV        ,'/my.csv')
 api.add_resource(TkrpricesCSV ,'/tkrprices/<tkr>'+'.csv')
