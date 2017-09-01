@@ -36,6 +36,16 @@ import flaskclasses as flc
 
 # I should connect to the DB
 db_s = os.environ['PGURL']
+
+if 'LOCALDB' in os.environ:
+    # I should set LOCALDB on my laptop.
+    'I should use PGURL'
+else:
+    # Heroku shell should not see LOCALDB
+    db_s = os.environ['HPGURL']
+
+stophere
+
 conn = sql.create_engine(db_s).connect()
 
 # I should ready flask_restful:
