@@ -170,7 +170,7 @@ class CsvYr(fr.Resource):
     features2_s,features3_s,tkru_s,yrs_s,hl_s,neurons_s,algo_params_s = gethelper(tkr,yrs)
     # I should get predictions from db:
     yr_s   = str(yr)
-    out_df = pgdb.dbpredictions_yr(algo,tkr,yrs_s,yr_s,features2_s,algo_params_s)
+    out_df = pgdb.dbpredictions_yr(algo,tkru_s,yrs_s,yr_s,features2_s,algo_params_s)
     csv_s  = out_df.to_csv(index=False,float_format='%.3f')
     # I should serve them:
     if (algo == 'kerasnn'):
@@ -187,8 +187,16 @@ class CsvTkr(fr.Resource):
   def get(self,algo,tkr,yrs):
     features2_s,features3_s,tkru_s,yrs_s,hl_s,neurons_s,algo_params_s = gethelper(tkr,yrs)
     # I should get predictions from db:
-    out_df = pgdb.dbpredictions_tkr(algo,tkr,yrs_s,features2_s,algo_params_s)
-    return 'under, construction'
+    out_df = pgdb.dbpredictions_tkr(algo,tkru_s,yrs_s,features2_s,algo_params_s)
+    csv_s  = out_df.to_csv(index=False,float_format='%.3f')
+    # I should serve them:
+    if (algo == 'kerasnn'):
+      fn_s = '_'.join([tkru_s, algo, yrs_s, features3_s, hl_s, neurons_s])
+    else: # I dont need hidden layers and neurons:
+      fn_s = '_'.join([tkru_s, algo, yrs_s, features3_s])
+    respcode_i = 200 # Means successful response.
+    return output_csv(csv_s, respcode_i, fn_s + '.csv')
+
 
 # Should be CSV classes above this line, resources below:
 
