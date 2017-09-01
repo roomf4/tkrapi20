@@ -152,7 +152,7 @@ class Csv(fr.Resource):
   def get(self,algo,tkr,yrs,mnth):
     features2_s,features3_s,tkru_s,yrs_s,hl_s,neurons_s,algo_params_s = gethelper(tkr,yrs)
     # I should get predictions from db:
-    out_df = pgdb.dbpredictions(algo,tkru_s,yrs,mnth,features2_s,algo_params_s)
+    out_df = pgdb.dbpredictions(algo,tkru_s,yrs_s,mnth,features2_s,algo_params_s)
     csv_s  = out_df.to_csv(index=False,float_format='%.3f')
     # I should serve them:
     if (algo == 'kerasnn'):
@@ -170,7 +170,7 @@ class CsvYr(fr.Resource):
     features2_s,features3_s,tkru_s,yrs_s,hl_s,neurons_s,algo_params_s = gethelper(tkr,yrs)
     # I should get predictions from db:
     yr_s   = str(yr)
-    out_df = pgdb.dbpredictions_yr(algo,tkr,yrs,yr_s,features2_s,algo_params_s)
+    out_df = pgdb.dbpredictions_yr(algo,tkr,yrs_s,yr_s,features2_s,algo_params_s)
     csv_s  = out_df.to_csv(index=False,float_format='%.3f')
     # I should serve them:
     if (algo == 'kerasnn'):
@@ -185,6 +185,9 @@ class CsvTkr(fr.Resource):
   Returns csv of predictions from predictions table.
   """
   def get(self,algo,tkr,yrs):
+    features2_s,features3_s,tkru_s,yrs_s,hl_s,neurons_s,algo_params_s = gethelper(tkr,yrs)
+    # I should get predictions from db:
+    out_df = pgdb.dbpredictions_tkr(algo,tkr,yrs_s,features2_s,algo_params_s)
     return 'under, construction'
 
 # Should be CSV classes above this line, resources below:
