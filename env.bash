@@ -23,4 +23,3 @@ export HPGURL=postgres://hpgygqtixbpwjf:70f594f2097cda735a7586cdd9b7133836d04fd6
 # Note that I can assume the above variables do not exist in my heroku env.
 # There, however, I might need to set PYTHONPATH.
 export DB_URL=postgresql-spherical-15829
-export LOCALDB=1
