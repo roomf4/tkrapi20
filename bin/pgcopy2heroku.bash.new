@@ -16,7 +16,6 @@ psql -U hpgygqtixbpwjf -h ec2-54-163-233-201.compute-1.amazonaws.com d2nebmdp327
 drop table tkrprices;
 drop table features;
 drop table predictions;
-
 EOF
 
 
@@ -25,5 +24,3 @@ psql -U hpgygqtixbpwjf \
 -f /tmp/pgdump.sql
 
 exit
-
-
