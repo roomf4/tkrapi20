@@ -1,4 +1,3 @@
-codecs
 flask
 flask-restful
 gunicorn

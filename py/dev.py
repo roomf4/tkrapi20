@@ -8,7 +8,6 @@ Demo:
 $PYTHON dev.py
 """
 
-import codecs
 import io
 import pdb
 import os
