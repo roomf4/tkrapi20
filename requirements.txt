@@ -1,7 +1,6 @@
 flask
 flask-restful
 gunicorn
-json
 keras
 numpy
 pandas
