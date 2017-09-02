@@ -1,8 +1,12 @@
+codecs
 flask
 flask-restful
 gunicorn
+json
 keras
 numpy
 pandas
 psycopg2
+requests
+sklearn
 sqlalchemy
