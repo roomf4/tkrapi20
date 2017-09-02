@@ -44,7 +44,7 @@ else:
     # Heroku shell should not see LOCALDB
     db_s = os.environ['HPGURL']
 
-stophere
+print('db_s:',db_s)
 
 conn = sql.create_engine(db_s).connect()
 
