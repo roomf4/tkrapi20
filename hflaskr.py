@@ -5,20 +5,20 @@ Demo:
 . env.bash
 $PYTHON hflaskr.py
 Other shell:
-curl localhost:5011/demo11.json
-curl localhost:5011/static/hello.json
-curl localhost:5011/demos
-curl localhost:5011/features
-curl localhost:5011/algo_demos
-curl localhost:5011/tkrs
-curl localhost:5011/tkrlist
-curl localhost:5011/istkr/IBM
-curl localhost:5011/tkrinfo/IBM
-curl localhost:5011/years
-curl localhost:5011/tkrprices/SNAP
-curl "localhost:5011/db/kerasnn/IBM/3/2017-08?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
-curl "localhost:5011/dbyr/kerasnn/IBM/3/2017?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
-curl "localhost:5011/dbtkr/kerasnn/IBM/3?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
+curl localhost:5012/demo11.json
+curl localhost:5012/static/hello.json
+curl localhost:5012/demos
+curl localhost:5012/features
+curl localhost:5012/algo_demos
+curl localhost:5012/tkrs
+curl localhost:5012/tkrlist
+curl localhost:5012/istkr/IBM
+curl localhost:5012/tkrinfo/IBM
+curl localhost:5012/years
+curl localhost:5012/tkrprices/SNAP
+curl "localhost:5012/db/kerasnn/IBM/3/2017-08?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
+curl "localhost:5012/dbyr/kerasnn/IBM/3/2017?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
+curl "localhost:5012/dbtkr/kerasnn/IBM/3?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
 """
 
 import io
