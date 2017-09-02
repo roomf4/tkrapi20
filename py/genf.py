@@ -18,7 +18,7 @@ import sqlalchemy as sql
 print('Busy generating features...')
 
 # I should connect to the DB:
-db_s = os.environ['PGURL']
+db_s = os.environ['DATABASE_URL']
 conn = sql.create_engine(db_s).connect()
 
 sql_s = "drop table if exists features"

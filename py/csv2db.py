@@ -18,7 +18,7 @@ import pandas     as pd
 import sqlalchemy as sql
 
 # I should connect to the DB
-db_s = os.environ['PGURL']
+db_s = os.environ['DATABASE_URL']
 
 conn = sql.create_engine(db_s).connect()
 

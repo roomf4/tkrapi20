@@ -5,6 +5,7 @@
 # Demo:
 # . env.bash
 
+export DATABASE_URL='postgres://tkrapi:tkrapi@127.0.0.1/tkrapi'
 export PGURL='postgres://tkrapi:tkrapi@127.0.0.1/tkrapi'
 export PYTHON=${HOME}/anaconda3/bin/python
 export PARPATH=${HOME}/tkrapi20

@@ -70,7 +70,7 @@ print('prediction2_a:')
 print( prediction2_a)
 
 # I should save the model to the db:
-db_s = os.environ['PGURL'] # from ../env.bash
+db_s = os.environ['DATABASE_URL'] # from ../env.bash
 conn = sql.create_engine(db_s).connect()
 
 sql_s = 'drop table if exists demokeras'

@@ -26,7 +26,7 @@ import sqlalchemy as sql
 from   fractions import Fraction
 
 # I should connect to the db.
-db_s = os.environ['PGURL']
+db_s = os.environ['DATABASE_URL']
 conn = sql.create_engine(db_s).connect()
 
 sql_s = "drop table if exists unsplit_prices"

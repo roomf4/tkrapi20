@@ -88,7 +88,7 @@ def load_predict_keraslinear(tkr='FB',yrs=3,mnth='2017-08', features='pct_lag1,s
   """This function should demo how to predict from a model in the db."""
   learn_predict_keraslinear(tkr,yrs,mnth,features) # Store a model in the db.
   # I should connect to the DB
-  db_s  = os.environ['PGURL']
+  db_s  = os.environ['DATABASE_URL']
   conn  = sql.create_engine(db_s).connect()
   sql_s = '''SELECT tkr,yrs,mnth,features,algo,algo_params, kmodel_h5
     FROM predictions
