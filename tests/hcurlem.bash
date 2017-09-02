@@ -5,11 +5,10 @@
 # This script should use curl to run some simple tests against tkrapi20.herokuapp.com
 
 curl -v tkrapi20.herokuapp.com/demo11.json    > /tmp/test10.txt
-exit
-curl -v tkrapi20.herokuapp.com/algo_demos     > /tmp/test11.txt
-
-curl -v tkrapi20.herokuapp.com/demos          > /tmp/test12.txt
 curl -v tkrapi20.herokuapp.com/features       > /tmp/test13.txt
+
+exit
+
 curl -v tkrapi20.herokuapp.com/tkrinfo/AAPL   > /tmp/test14.txt
 curl -v tkrapi20.herokuapp.com/tkrlist        > /tmp/test15.txt
 curl -v tkrapi20.herokuapp.com/tkrs           > /tmp/test16.txt

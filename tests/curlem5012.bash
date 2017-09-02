@@ -5,10 +5,10 @@
 # This script should use curl to run some simple tests.
 
 curl -v localhost:5012/demo11.json    > /tmp/test10.txt
+curl -v localhost:5012/features     #  > /tmp/test13.txt
+
 exit
-curl -v localhost:5012/algo_demos     > /tmp/test11.txt
-curl -v localhost:5012/demos          > /tmp/test12.txt
-curl -v localhost:5012/features       > /tmp/test13.txt
+
 curl -v localhost:5012/tkrinfo/AAPL   > /tmp/test14.txt
 curl -v localhost:5012/tkrlist        > /tmp/test15.txt
 curl -v localhost:5012/tkrs           > /tmp/test16.txt
