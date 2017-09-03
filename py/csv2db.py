@@ -25,7 +25,7 @@ conn = sql.create_engine(db_s).connect()
 sql_s = "drop table if exists tkrprices"
 conn.execute(sql_s)
 
-sql_s = "create table tkrprices(tkr varchar, csvd text, csvh text, csvs text)"
+sql_s = "create table tkrprices(tkr varchar, crtime timestamp, csvd text, csvh text, csvs text)"
 conn.execute(sql_s)
 
 # I should read csv files:
@@ -43,7 +43,7 @@ for csvf_s in sorted(glob.glob(os.environ['TKRCSVH']+'/*.csv')):
     csvfs_s = os.environ['TKRCSVS']+'/'+tkr_s+'.csv'
     csvd_s  = pd.read_csv(csvfd_s).sort_values('Date').to_csv(index=False,header=False)
     csvs_s  = pd.read_csv(csvfs_s).sort_values('Date').to_csv(index=False,header=False)
-    sql_s   = "insert into tkrprices(tkr,csvd,csvh,csvs)values(%s , %s, %s, %s)"
+    sql_s   = "insert into tkrprices(tkr,crtime,csvd,csvh,csvs)values(%s , now(), %s, %s, %s)"
     conn.execute(sql_s,[tkr_s, csvd_s, csvh_s, csvs_s] )
 
 # I should check:
