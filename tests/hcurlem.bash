@@ -15,17 +15,15 @@ curl -v tkrapi20.herokuapp.com/dbtkrs         > /tmp/htest19.txt
 
 # I should test predictions table:
 
-curl -v "localhost:5012/db/sklinear/FB/3/2017-08?features='pct_lag1,slope3,dow,moy'" > /tmp/test30.txt
-curl -v "localhost:5012/dbyr/sklinear/FB/3/2017?features='pct_lag1,slope3,dow,moy'"  > /tmp/test31.txt
-curl -v "localhost:5012/dbtkr/sklinear/FB/3?features='pct_lag1,slope3,dow,moy'"      > /tmp/test32.txt
-
-exit
-
+curl -v "tkrapi20.herokuapp.com/db/sklinear/FB/3/2017-08?features='pct_lag1,slope3,dow,moy'" > /tmp/test30.txt
+curl -v "tkrapi20.herokuapp.com/dbyr/sklinear/FB/3/2017?features='pct_lag1,slope3,dow,moy'"  > /tmp/test31.txt
+curl -v "tkrapi20.herokuapp.com/dbtkr/sklinear/FB/3?features='pct_lag1,slope3,dow,moy'"      > /tmp/test32.txt
 
 curl -v tkrapi20.herokuapp.com/prediction_counts     > /tmp/htest40.txt
 curl -v tkrapi20.herokuapp.com/prediction_dimensions > /tmp/htest41.txt
 curl -v tkrapi20.herokuapp.com/kerasnn_dimensions    > /tmp/htest42.txt
 
+exit
 
 curl -v "tkrapi20.herokuapp.com/csv/sklinear/FB/3/2017-08?features='pct_lag1,slope3,dow,moy'" > /tmp/htest50.txt
 curl -v "tkrapi20.herokuapp.com/csv/kerasnn/FB/3/2017-08?features='pct_lag1,slope4,moy'&hl=2&neurons=4" > /tmp/htest51.txt
