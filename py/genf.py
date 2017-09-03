@@ -24,7 +24,7 @@ conn = sql.create_engine(db_s).connect()
 sql_s = "drop table if exists features"
 conn.execute(sql_s)
 
-sql_s = "create table features(tkr varchar, csv text)"
+sql_s = "create table features(tkr varchar, crtime timestamp, csv text)"
 conn.execute(sql_s)
 
 # I should loop through the tkrprices table to get the csv full of price history:
@@ -60,7 +60,7 @@ for row in result:
   feat_df['moy'] = moy_l
   # I should convert to String to move it towards the db:
   csv_s = feat_df.to_csv(index=False,header=True,float_format='%.3f')
-  sql_s = "insert into features(tkr,csv)values(%s, %s)"
+  sql_s = "insert into features(tkr, crtime, csv)values(%s, now(), %s)"
   conn.execute(sql_s, [row.tkr, csv_s])
 # I should check:
 # ../bin/psql.bash

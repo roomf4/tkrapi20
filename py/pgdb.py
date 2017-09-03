@@ -174,6 +174,7 @@ def predictions2db(tkr,yrs,mnth,features,algo,predictions_df,kmodel,algo_params=
     ,features    VARCHAR
     ,algo        VARCHAR
     ,algo_params VARCHAR
+    ,crtime      TIMESTAMP
     ,csv         TEXT
     ,kmodel_h5   BYTEA
   )'''
@@ -190,8 +191,8 @@ def predictions2db(tkr,yrs,mnth,features,algo,predictions_df,kmodel,algo_params=
   conn.execute(sql_s,[tkr,yrs,mnth,features,algo,algo_params])
   # I should match %s tokens with each column:
   sql_s = '''INSERT INTO predictions(
-    tkr, yrs,mnth,features,algo,algo_params,csv  ,kmodel_h5)VALUES(
-    %s , %s ,%s  ,%s      ,%s  ,%s         ,%s   ,%s)'''
+    tkr, yrs,mnth,features,algo,algo_params,crtime,csv  ,kmodel_h5)VALUES(
+    %s , %s ,%s  ,%s      ,%s  ,%s         ,now() ,%s   ,%s)'''
   conn.execute(sql_s,[
     tkr, yrs,mnth,features,algo,algo_params,csv_s,kmodel_h5])
   return True
