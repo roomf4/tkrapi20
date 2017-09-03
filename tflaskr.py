@@ -16,6 +16,8 @@ import flask_restful as fr
 import numpy         as np
 import pandas        as pd
 import sqlalchemy    as sql
+# modules in the py folder:
+import pgdb
 
 # I should ready flask_restful:
 application = fl.Flask(__name__)
