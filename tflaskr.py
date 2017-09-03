@@ -38,7 +38,7 @@ def output_csv(csv_data,code
   resp    = fl.make_response(csv_data, code, headers)
   return resp
 
-class Demo11(fr.Resource):
+class XDemo11(fr.Resource):
   """
   This class should be a simple syntax demo.
   """
@@ -47,7 +47,7 @@ class Demo11(fr.Resource):
     my_v_s = 'world'
     return {my_k_s: my_v_s}
 
-api.add_resource(Demo11,   '/demo11.json')
+api.add_resource(flc.Demo11,   '/demo11.json')
 
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5013))
