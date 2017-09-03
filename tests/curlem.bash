@@ -14,6 +14,7 @@ curl -v localhost:5011/tkrs           > /tmp/test16.txt
 curl -v localhost:5011/istkr/AAPL     > /tmp/test17.txt
 curl -v localhost:5011/tkrprices/AAPL > /tmp/test18.txt
 curl -v localhost:5011/dbtkrs         > /tmp/test19.txt
+
 # I should test actual algos:
 curl -v localhost:5011/sklinear/FB/3/2017-08/'pct_lag1,slope3,dow,moy'                       > /tmp/test21.txt
 curl -v localhost:5011/sklinear_yr/FB/3/2017/'pct_lag1,slope3,dow,moy'                       > /tmp/test22.txt
@@ -41,11 +42,11 @@ curl -v localhost:5011/prediction_counts     > /tmp/test40.txt
 curl -v localhost:5011/prediction_dimensions > /tmp/test41.txt
 curl -v localhost:5011/kerasnn_dimensions    > /tmp/test42.txt
 
-curl -v localhost:5011/sklinear/FB/3/2017-08/'pct_lag1,slope3,dow,moy'                > /tmp/test21.txt
 curl -v "localhost:5011/csv/sklinear/FB/3/2017-08?features='pct_lag1,slope3,dow,moy'" > /tmp/test50.txt
 curl -v "localhost:5011/csv/kerasnn/FB/3/2017-08?features='pct_lag1,slope4,moy'&hl=2&neurons=4" > /tmp/test51.txt
 
 curl -v "localhost:5011/csvyr/sklinear/FB/3/2017?features='pct_lag1,slope3,dow,moy'"            > /tmp/test52.txt
 curl -v "localhost:5011/csvtkr/sklinear/FB/3?features='pct_lag1,slope3,dow,moy'"                > /tmp/test53.txt
+curl -v "localhost:5011/csvtkr/keraslinear/FB/3?features='pct_lag1,slope3,dow,moy'"             > /tmp/test54.txt
 
 exit
