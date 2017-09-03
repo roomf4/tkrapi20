@@ -160,16 +160,18 @@ api.add_resource(FeaturesCSV  ,'/features/<tkr>'+'.csv')
 api.add_resource(Csv,    '/csv/<algo>/<tkr>/<int:yrs>/<mnth>')
 api.add_resource(CsvYr,  '/csvyr/<algo>/<tkr>/<int:yrs>/<int:yr>')
 api.add_resource(CsvTkr, '/csvtkr/<algo>/<tkr>/<int:yrs>')
-
 api.add_resource(flc.Demo11,   '/demo11.json')
 api.add_resource(flc.Features, '/features')
-
 api.add_resource(flc.Tkrinfo,   '/tkrinfo/<tkr>')
 api.add_resource(flc.Tkrlist,   '/tkrlist')
 api.add_resource(flc.Tkrs,      '/tkrs')
 api.add_resource(flc.DbTkrs,    '/dbtkrs')
 api.add_resource(flc.Istkr,     '/istkr/<tkr>')
 api.add_resource(flc.Tkrprices, '/tkrprices/<tkr>')
+
+api.add_resource(flc.Db,    '/db/<algo>/<tkr>/<int:yrs>/<mnth>')
+api.add_resource(flc.Dbyr,  '/dbyr/<algo>/<tkr>/<int:yrs>/<int:yr>')
+api.add_resource(flc.Dbtkr, '/dbtkr/<algo>/<tkr>/<int:yrs>')
 
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5012))
