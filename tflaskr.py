@@ -24,6 +24,20 @@ import flaskclasses as flc
 application = fl.Flask(__name__)
 api         = fr.Api(application)
 
+# I should setup CSV paths:
+
+@api.representation('text/csv')
+# ref:
+# http://flask-restful.readthedocs.io/en/0.3.5/extending.html#response-formats
+def output_csv(csv_data,code
+               ,csvf_s # filename to serve
+               ):
+  """This function helps return a csv-string as a csv-file."""
+  headers = {"Content-disposition":"attachment; filename="+csvf_s
+               ,"Content-Type"    : "text/csv; charset=utf-8"}
+  resp    = fl.make_response(csv_data, code, headers)
+  return resp
+
 class Demo11(fr.Resource):
   """
   This class should be a simple syntax demo.
