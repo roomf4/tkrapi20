@@ -7,14 +7,14 @@
 curl -v tkrapi20.herokuapp.com/demo11.json    > /tmp/test10.txt
 curl -v tkrapi20.herokuapp.com/features       > /tmp/test13.txt
 
-exit
-
 curl -v tkrapi20.herokuapp.com/tkrinfo/AAPL   > /tmp/test14.txt
 curl -v tkrapi20.herokuapp.com/tkrlist        > /tmp/test15.txt
 curl -v tkrapi20.herokuapp.com/tkrs           > /tmp/test16.txt
 curl -v tkrapi20.herokuapp.com/istkr/AAPL     > /tmp/test17.txt
 curl -v tkrapi20.herokuapp.com/tkrprices/AAPL > /tmp/test18.txt
 curl -v tkrapi20.herokuapp.com/dbtkrs         > /tmp/test19.txt
+
+exit
 
 curl -v "tkrapi20.herokuapp.com/db/sklinear/FB/3/2017-08?features='pct_lag1,slope3,dow,moy'" > /tmp/test30.txt
 curl -v "tkrapi20.herokuapp.com/dbyr/sklinear/FB/3/2017?features='pct_lag1,slope3,dow,moy'"  > /tmp/test31.txt

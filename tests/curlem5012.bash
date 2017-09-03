@@ -5,16 +5,17 @@
 # This script should use curl to run some simple tests.
 
 curl -v localhost:5012/demo11.json    > /tmp/test10.txt
-curl -v localhost:5012/features     #  > /tmp/test13.txt
+curl -v localhost:5012/features       > /tmp/test13.txt
 
+curl -v localhost:5012/tkrinfo/AAPL  # > /tmp/test14.txt
 exit
-
-curl -v localhost:5012/tkrinfo/AAPL   > /tmp/test14.txt
 curl -v localhost:5012/tkrlist        > /tmp/test15.txt
 curl -v localhost:5012/tkrs           > /tmp/test16.txt
 curl -v localhost:5012/istkr/AAPL     > /tmp/test17.txt
 curl -v localhost:5012/tkrprices/AAPL > /tmp/test18.txt
 curl -v localhost:5012/dbtkrs         > /tmp/test19.txt
+
+exit
 # I should test actual algos:
 curl -v localhost:5012/sklinear/FB/3/2017-08/'pct_lag1,slope3,dow,moy'                       > /tmp/test21.txt
 curl -v localhost:5012/sklinear_yr/FB/3/2017/'pct_lag1,slope3,dow,moy'                       > /tmp/test22.txt
