@@ -14,7 +14,7 @@ curl -v localhost:5012/istkr/AAPL     > /tmp/test17.txt
 curl -v localhost:5012/tkrprices/AAPL > /tmp/test18.txt
 curl -v localhost:5012/dbtkrs         > /tmp/test19.txt
 
-# I should test actual algos:
+# I should test predictions table:
 
 curl -v "localhost:5012/db/sklinear/FB/3/2017-08?features='pct_lag1,slope3,dow,moy'" > /tmp/test30.txt
 curl -v "localhost:5012/dbyr/sklinear/FB/3/2017?features='pct_lag1,slope3,dow,moy'"  > /tmp/test31.txt
