@@ -13,6 +13,9 @@ import os
 import datetime      as dt
 import flask         as fl
 import flask_restful as fr
+import numpy         as np
+import pandas        as pd
+import sqlalchemy    as sql
 
 # I should ready flask_restful:
 application = fl.Flask(__name__)
