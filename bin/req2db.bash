@@ -19,4 +19,7 @@ ${SCRIPTPATH}/rmbad_cookies.bash
 # I should load prices into db:
 $PYTHON ${PYTHONPATH}/csv2db.py
 
+# I should generate features and load them into db:
+$PYTHON ${PYTHONPATH}/genf.py
+
 exit
