@@ -31,4 +31,4 @@ curl -v "tkrapi20.herokuapp.com/csv/kerasnn/FB/3/2017-08?features='pct_lag1,slop
 curl -v "tkrapi20.herokuapp.com/csvyr/sklinear/FB/3/2017?features='pct_lag1,slope3,dow,moy'"            > /tmp/htest52.txt
 curl -v "tkrapi20.herokuapp.com/csvtkr/sklinear/FB/3?features='pct_lag1,slope3,dow,moy'"                > /tmp/htest53.txt
 
-exit
+
