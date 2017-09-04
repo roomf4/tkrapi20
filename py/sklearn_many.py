@@ -8,10 +8,10 @@ Demo:
 $PYTHON py/sklearn_many.py FB 3 '["pct_lag1", "pct_lag2", "pct_lag4"]'
 """
 
-import pgdb
+import sktkr
 #learn_predict_sklinear_tkr(tkr='ABC',yrs=20, features='pct_lag1,slope4,moy')
-pgdb.learn_predict_sklinear_tkr(
-    FB
+sktkr.learn_predict_sklinear_tkr(
+    'FB'
     ,3
     ,features='"pct_lag1", "pct_lag2", "pct_lag4"'
 )
