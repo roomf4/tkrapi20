@@ -10,10 +10,11 @@ import json
 import os
 import pdb
 import re
+import flask         as fl
+import flask_restful as fr
 import numpy         as np
 import pandas        as pd
 import sqlalchemy    as sql
-# modules in the py folder:
 
 # I should connect to the DB
 db_s = os.environ['DATABASE_URL']
@@ -282,5 +283,15 @@ def kerasnn_dimensions():
   sql_s  = "select distinct algo_params from predictions where algo = 'kerasnn'"
   algo_params_d = json.loads(pd.read_sql(sql_s, conn).to_json())
   return algo_params_d
+
+
+class Demo11(fr.Resource):
+  """
+  This class should be a simple syntax demo.
+  """
+  def get(self):
+    my_k_s = 'hello'
+    my_v_s = 'world'
+    return {my_k_s: my_v_s}
 
 'bye'

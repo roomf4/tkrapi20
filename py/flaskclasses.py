@@ -40,15 +40,6 @@ def get_out_d(out_df):
   }
   return out_d
 
-class Demo11(fr.Resource):
-  """
-  This class should be a simple syntax demo.
-  """
-  def get(self):
-    my_k_s = 'hello'
-    my_v_s = 'world'
-    return {my_k_s: my_v_s}
-
 class AlgoDemos(fr.Resource):
   """
   This class should return a list of Algo Demos.

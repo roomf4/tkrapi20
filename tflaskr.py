@@ -18,7 +18,6 @@ import pandas        as pd
 import sqlalchemy    as sql
 # modules in the py folder:
 import notf
-import flaskclasses as flc
 
 # I should ready flask_restful:
 application = fl.Flask(__name__)
@@ -141,22 +140,23 @@ api.add_resource(FeaturesCSV  ,'/features/<tkr>'+'.csv')
 api.add_resource(Csv,    '/csv/<algo>/<tkr>/<int:yrs>/<mnth>')
 api.add_resource(CsvYr,  '/csvyr/<algo>/<tkr>/<int:yrs>/<int:yr>')
 api.add_resource(CsvTkr, '/csvtkr/<algo>/<tkr>/<int:yrs>')
+api.add_resource(notf.Demo11,   '/demo11.json')
+"""
+api.add_resource(notf.Features, '/features')
+api.add_resource(notf.Tkrinfo,   '/tkrinfo/<tkr>')
+api.add_resource(notf.Tkrlist,   '/tkrlist')
+api.add_resource(notf.Tkrs,      '/tkrs')
+api.add_resource(notf.DbTkrs,    '/dbtkrs')
+api.add_resource(notf.Istkr,     '/istkr/<tkr>')
+api.add_resource(notf.Tkrprices, '/tkrprices/<tkr>')
 
-api.add_resource(flc.Demo11,   '/demo11.json')
-api.add_resource(flc.Features, '/features')
-api.add_resource(flc.Tkrinfo,   '/tkrinfo/<tkr>')
-api.add_resource(flc.Tkrlist,   '/tkrlist')
-api.add_resource(flc.Tkrs,      '/tkrs')
-api.add_resource(flc.DbTkrs,    '/dbtkrs')
-api.add_resource(flc.Istkr,     '/istkr/<tkr>')
-api.add_resource(flc.Tkrprices, '/tkrprices/<tkr>')
-
-api.add_resource(flc.Db,    '/db/<algo>/<tkr>/<int:yrs>/<mnth>')
-api.add_resource(flc.Dbyr,  '/dbyr/<algo>/<tkr>/<int:yrs>/<int:yr>')
-api.add_resource(flc.Dbtkr, '/dbtkr/<algo>/<tkr>/<int:yrs>')
-api.add_resource(flc.PredictionCounts,     '/prediction_counts')
-api.add_resource(flc.PredictionDimensions, '/prediction_dimensions')
-api.add_resource(flc.KerasnnDimensions,    '/kerasnn_dimensions')
+api.add_resource(notf.Db,    '/db/<algo>/<tkr>/<int:yrs>/<mnth>')
+api.add_resource(notf.Dbyr,  '/dbyr/<algo>/<tkr>/<int:yrs>/<int:yr>')
+api.add_resource(notf.Dbtkr, '/dbtkr/<algo>/<tkr>/<int:yrs>')
+api.add_resource(notf.PredictionCounts,     '/prediction_counts')
+api.add_resource(notf.PredictionDimensions, '/prediction_dimensions')
+api.add_resource(notf.KerasnnDimensions,    '/kerasnn_dimensions')
+"""
 
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5013))
