@@ -353,11 +353,11 @@ class Tkrinfo(fr.Resource):
   This class should return info about a tkr.
   """
   def get(self, tkr):
-    tkrinfo   = None
+    tkrinfo_d = None
     torf      = tkr in tkrlist_l
     if torf:
-      tkrinfo = tkrinfo(tkr)
-    return {'istkr': torf,'tkrinfo': tkrinfo}
+      tkrinfo_d = tkrinfo(tkr)
+    return {'istkr': torf,'tkrinfo': tkrinfo_d}
 
 class Tkrlist(fr.Resource):
   """

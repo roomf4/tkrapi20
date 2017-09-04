@@ -141,9 +141,9 @@ api.add_resource(Csv,    '/csv/<algo>/<tkr>/<int:yrs>/<mnth>')
 api.add_resource(CsvYr,  '/csvyr/<algo>/<tkr>/<int:yrs>/<int:yr>')
 api.add_resource(CsvTkr, '/csvtkr/<algo>/<tkr>/<int:yrs>')
 api.add_resource(notf.Demo11,   '/demo11.json')
-"""
 api.add_resource(notf.Features, '/features')
 api.add_resource(notf.Tkrinfo,   '/tkrinfo/<tkr>')
+"""
 api.add_resource(notf.Tkrlist,   '/tkrlist')
 api.add_resource(notf.Tkrs,      '/tkrs')
 api.add_resource(notf.DbTkrs,    '/dbtkrs')

@@ -13,7 +13,6 @@ curl -v "lh:5013/csvtkr/sklinear/FB/3?features='pct_lag1,slope3,dow,moy'"     > 
 
 
 curl -v lh:5013/demo11.json    > /tmp/htest09.txt
-exit
 curl -v lh:5013/features       > /tmp/htest13.txt
 curl -v lh:5013/tkrinfo/AAPL   > /tmp/htest14.txt
 curl -v lh:5013/tkrlist        > /tmp/htest15.txt
@@ -22,6 +21,7 @@ curl -v lh:5013/istkr/AAPL     > /tmp/htest17.txt
 curl -v lh:5013/tkrprices/AAPL > /tmp/htest18.txt
 curl -v lh:5013/dbtkrs         > /tmp/htest19.txt
 
+exit
 
 # I should test predictions table:
 
