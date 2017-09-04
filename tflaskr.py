@@ -143,7 +143,6 @@ api.add_resource(CsvTkr, '/csvtkr/<algo>/<tkr>/<int:yrs>')
 api.add_resource(notf.Demo11,   '/demo11.json')
 api.add_resource(notf.Features, '/features')
 api.add_resource(notf.Tkrinfo,   '/tkrinfo/<tkr>')
-"""
 api.add_resource(notf.Tkrlist,   '/tkrlist')
 api.add_resource(notf.Tkrs,      '/tkrs')
 api.add_resource(notf.DbTkrs,    '/dbtkrs')
@@ -156,7 +155,6 @@ api.add_resource(notf.Dbtkr, '/dbtkr/<algo>/<tkr>/<int:yrs>')
 api.add_resource(notf.PredictionCounts,     '/prediction_counts')
 api.add_resource(notf.PredictionDimensions, '/prediction_dimensions')
 api.add_resource(notf.KerasnnDimensions,    '/kerasnn_dimensions')
-"""
 
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5013))

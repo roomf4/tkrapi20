@@ -19,6 +19,22 @@ import sqlalchemy    as sql
 with open('tkrlist.txt') as fh:
   tkrlist_l = fh.read().split()
 
+def get_out_d(out_df):
+  """This function should convert out_df to a dictionary."""
+  lo_acc  = sum((1+np.sign(out_df.pct_lead))/2) / out_df.accuracy.size
+  # ref:
+  # pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.to_json.html
+  pd_json = out_df.to_json(orient='records')
+  pd_d    = json.loads(pd_json)
+  out_d   = {'Prediction-Details':pd_d
+    ,'Long-Only-Accuracy'    :np.round(lo_acc, 3)
+    ,'Long-Only-Effectivness':np.round(sum(out_df.pct_lead), 3)
+    ,'Model-Effectivness'    :np.round(sum(out_df.effectiveness), 3)
+    ,'Model-Accuracy'        :np.round(sum(out_df.accuracy) / out_df.accuracy.size, 3)
+    ,'Prediction-Count'      :out_df.prediction.size
+  }
+  return out_d
+
 # I should connect to the DB
 db_s = os.environ['DATABASE_URL']
 conn = sql.create_engine(db_s).connect()
@@ -396,4 +412,83 @@ class Tkrprices(fr.Resource):
   def get(self, tkr):
     return {'tkrprices': tkrprices(tkr)}
 
+class Db(fr.Resource):
+  """
+  This class should return predictions from db.
+  """
+  def get(self,algo,tkr,yrs,mnth):
+    features0_s = fl.request.args.get('features', 'pct_lag1,slope4,dow')
+    features_s    = features0_s.replace("'","").replace('"','')
+    hl_s          = fl.request.args.get('hl',      '2') # default 2
+    neurons_s     = fl.request.args.get('neurons', '4') # default 4
+    hl_i          = int(hl_s)
+    neurons_i     = int(neurons_s)
+    algo_params_s = str([hl_i, neurons_i])
+    # I should get predictions from db:
+    out_df = dbpredictions(algo,tkr,yrs,mnth,features_s,algo_params_s)
+    out_d  = get_out_d(out_df)
+    return {'predictions': out_d}
+
+class Dbyr(fr.Resource):
+  """
+  This class should return predictions from db for a year.
+  """
+  def get(self,algo,tkr,yrs,yr):
+    features0_s = fl.request.args.get('features','pct_lag1,slope4,dow')
+    features_s    = features0_s.replace("'","").replace('"','')
+    hl_s          = fl.request.args.get('hl',      '2') # default 2
+    neurons_s     = fl.request.args.get('neurons', '4') # default 4
+    hl_i          = int(hl_s)
+    neurons_i     = int(neurons_s)
+    algo_params_s = str([hl_i, neurons_i])
+    # I should get predictions from db:
+    out_df = dbpredictions_yr(algo,tkr,yrs,yr,features_s,algo_params_s)
+    out_d  = get_out_d(out_df)
+    return {'predictions': out_d}
+
+class Dbtkr(fr.Resource):
+  """
+  This class should return predictions from db for a year.
+  """
+  def get(self,algo,tkr,yrs):
+    features0_s = fl.request.args.get('features','pct_lag1,slope4,dow')
+    features_s    = features0_s.replace("'","").replace('"','')
+    hl_s          = fl.request.args.get('hl',      '2') # default 2
+    neurons_s     = fl.request.args.get('neurons', '4') # default 4
+    hl_i          = int(hl_s)
+    neurons_i     = int(neurons_s)
+    algo_params_s = str([hl_i, neurons_i])
+    # I should get predictions from db:
+    out_df = dbpredictions_tkr(algo,tkr,yrs,features_s,algo_params_s)
+    out_d  = get_out_d(out_df)
+    return {'predictions': out_d}
+
+class PredictionCounts(fr.Resource):
+  """
+  Return prediction counts from db.
+  """
+  def get(self):
+    # I should get prediction counts from db.
+    pc_df      = prediction_counts()
+    pc_df_json = pc_df.to_json(orient='index')
+    # flask_restful wants to serve a Dictionary:
+    pc_d       = json.loads(pc_df_json)
+    return pc_d
+
+class PredictionDimensions(fr.Resource):
+  """
+  Return prediction dimensions from db.
+  """
+  def get(self):
+    pdim_d = prediction_dimensions()
+    return pdim_d
+
+class KerasnnDimensions(fr.Resource):
+  """
+  Return kerasnn algo_params dimensions from db.
+  """
+  def get(self):
+    algo_params_d = kerasnn_dimensions()
+    return algo_params_d
 'bye'
+

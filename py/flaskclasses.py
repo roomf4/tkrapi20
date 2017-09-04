@@ -145,58 +145,6 @@ class KerasNNTkr(fr.Resource):
     out_d  = get_out_d(out_df)
     return {'predictions': out_d}
 
-class Db(fr.Resource):
-  """
-  This class should return predictions from db.
-  """
-  def get(self,algo,tkr,yrs,mnth):
-    features0_s = fl.request.args.get('features', 'pct_lag1,slope4,dow')
-    features_s    = features0_s.replace("'","").replace('"','')
-    hl_s          = fl.request.args.get('hl',      '2') # default 2
-    neurons_s     = fl.request.args.get('neurons', '4') # default 4
-    hl_i          = int(hl_s)
-    neurons_i     = int(neurons_s)
-    algo_params_s = str([hl_i, neurons_i])
-    # I should get predictions from db:
-    out_df = pgdb.dbpredictions(algo,tkr,yrs,mnth,features_s,algo_params_s)
-    out_d  = get_out_d(out_df)
-    return {'predictions': out_d}
-
-class Dbyr(fr.Resource):
-  """
-  This class should return predictions from db for a year.
-  """
-  def get(self,algo,tkr,yrs,yr):
-    features0_s = fl.request.args.get('features','pct_lag1,slope4,dow')
-    features_s    = features0_s.replace("'","").replace('"','')
-    hl_s          = fl.request.args.get('hl',      '2') # default 2
-    neurons_s     = fl.request.args.get('neurons', '4') # default 4
-    hl_i          = int(hl_s)
-    neurons_i     = int(neurons_s)
-    algo_params_s = str([hl_i, neurons_i])
-    # I should get predictions from db:
-    out_df = pgdb.dbpredictions_yr(algo,tkr,yrs,yr,features_s,algo_params_s)
-    out_d  = get_out_d(out_df)
-    return {'predictions': out_d}
-
-class Dbtkr(fr.Resource):
-  """
-  This class should return predictions from db for a year.
-  """
-  def get(self,algo,tkr,yrs):
-    features0_s = fl.request.args.get('features','pct_lag1,slope4,dow')
-    features_s    = features0_s.replace("'","").replace('"','')
-    hl_s          = fl.request.args.get('hl',      '2') # default 2
-    neurons_s     = fl.request.args.get('neurons', '4') # default 4
-    hl_i          = int(hl_s)
-    neurons_i     = int(neurons_s)
-    algo_params_s = str([hl_i, neurons_i])
-    # I should get predictions from db:
-    out_df = pgdb.dbpredictions_tkr(algo,tkr,yrs,features_s,algo_params_s)
-    out_d  = get_out_d(out_df)
-    return {'predictions': out_d}
-
-
 class Db1st(fr.Resource):
   """
   Return predictions from db, if none, predictions from model.
@@ -269,32 +217,4 @@ class Db1stTkr(fr.Resource):
       else:
         out_d = SklinearTkr().get(tkr,yrs,features_s)
     return {'predictions': out_d}
-
-class PredictionCounts(fr.Resource):
-  """
-  Return prediction counts from db.
-  """
-  def get(self):
-    # I should get prediction counts from pgdb.
-    pc_df      = pgdb.prediction_counts()
-    pc_df_json = pc_df.to_json(orient='index')
-    # flask_restful wants to serve a Dictionary:
-    pc_d       = json.loads(pc_df_json)
-    return pc_d
-
-class PredictionDimensions(fr.Resource):
-  """
-  Return prediction dimensions from db.
-  """
-  def get(self):
-    pdim_d = pgdb.prediction_dimensions()
-    return pdim_d
-
-class KerasnnDimensions(fr.Resource):
-  """
-  Return kerasnn algo_params dimensions from db.
-  """
-  def get(self):
-    algo_params_d = pgdb.kerasnn_dimensions()
-    return algo_params_d
 'bye'
