@@ -18,7 +18,7 @@ import pandas        as pd
 import sqlalchemy    as sql
 # modules in the py folder:
 import pgdb
-import flaskclasses as flc
+#import flaskclasses as flc
 
 # I should ready flask_restful:
 application = fl.Flask(__name__)
@@ -142,7 +142,7 @@ api.add_resource(Csv,    '/csv/<algo>/<tkr>/<int:yrs>/<mnth>')
 api.add_resource(CsvYr,  '/csvyr/<algo>/<tkr>/<int:yrs>/<int:yr>')
 api.add_resource(CsvTkr, '/csvtkr/<algo>/<tkr>/<int:yrs>')
 
-api.add_resource(flc.Demo11,   '/demo11.json')
+#api.add_resource(flc.Demo11,   '/demo11.json')
 # api.add_resource(flc.Features, '/features')
 
 if __name__ == "__main__":
