@@ -29,10 +29,11 @@ cd ${SCRIPTPATH}/../
 
 TKR=$1
 YRS=2017
-FEATURES='"pct_lag1", "pct_lag2", "pct_lag4"'
+FEATURES='["pct_lag1", "pct_lag2", "pct_lag4"]'
 
 echo busy with:
-echo $PYTHON py/sklearn_many.py $TKR $YRS $FEATURES
+echo \
 $PYTHON py/sklearn_many.py $TKR $YRS $FEATURES
+#$PYTHON py/sklearn_many.py $TKR $YRS $FEATURES
 
 exit
