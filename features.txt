@@ -1,6 +1,15 @@
 ~/tkrapi20/features.txt
 
 NOT DONE YET:
+
+write:
+  bin/sklearn_many.bash FB
+  which should learn predict FB for dimensions:
+    - features
+    - yrs: [3,4,5,7,10,15,20,25,30]
+
+test:
+  flaskr.py
   
 website:
   keras4.us
