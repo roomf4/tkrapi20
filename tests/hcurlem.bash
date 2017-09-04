@@ -23,10 +23,11 @@ curl -v tkrapi20.herokuapp.com/dbtkrs         > /tmp/htest19.txt
 # I should test predictions table:
 
 curl -v "tkrapi20.herokuapp.com/db/sklinear/FB/3/2017-08?features='pct_lag1,slope3,dow,moy'" > /tmp/htest30.txt
-exit
 
 curl -v "tkrapi20.herokuapp.com/dbyr/sklinear/FB/3/2017?features='pct_lag1,slope3,dow,moy'"  > /tmp/htest31.txt
 curl -v "tkrapi20.herokuapp.com/dbtkr/sklinear/FB/3?features='pct_lag1,slope3,dow,moy'"      > /tmp/htest32.txt
+
+exit
 
 curl -v tkrapi20.herokuapp.com/prediction_counts     > /tmp/htest40.txt
 curl -v tkrapi20.herokuapp.com/prediction_dimensions > /tmp/htest41.txt
