@@ -144,6 +144,12 @@ api.add_resource(CsvTkr, '/csvtkr/<algo>/<tkr>/<int:yrs>')
 
 api.add_resource(flc.Demo11,   '/demo11.json')
 api.add_resource(flc.Features, '/features')
+api.add_resource(flc.Tkrinfo,   '/tkrinfo/<tkr>')
+api.add_resource(flc.Tkrlist,   '/tkrlist')
+api.add_resource(flc.Tkrs,      '/tkrs')
+api.add_resource(flc.DbTkrs,    '/dbtkrs')
+api.add_resource(flc.Istkr,     '/istkr/<tkr>')
+api.add_resource(flc.Tkrprices, '/tkrprices/<tkr>')
 
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5013))
