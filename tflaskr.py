@@ -17,7 +17,7 @@ import numpy         as np
 import pandas        as pd
 import sqlalchemy    as sql
 # modules in the py folder:
-import pgdb
+import notfdb
 import flaskclasses as flc
 
 # I should ready flask_restful:
@@ -53,7 +53,7 @@ class TkrpricesCSV(fr.Resource):
   """
   def get(self,tkr):
     respcode_i = 200
-    tkrcsv_s   = pgdb.tkrpricesCSV(tkr)
+    tkrcsv_s   = notfdb.tkrpricesCSV(tkr)
     return output_csv(tkrcsv_s, respcode_i, tkr.upper()+'.csv')
 
 class FeaturesCSV(fr.Resource):
@@ -62,7 +62,7 @@ class FeaturesCSV(fr.Resource):
   """
   def get(self,tkr):
     respcode_i = 200
-    csv_s   = pgdb.featuresCSV(tkr)
+    csv_s   = notfdb.featuresCSV(tkr)
     return output_csv(csv_s, respcode_i, tkr.upper()+'.csv')
 
 
@@ -70,7 +70,7 @@ def gethelper(tkr,yrs):
   """This function should make syntax in get() calls more DRY."""
   features0_s = fl.request.args.get('features','pct_lag1,slope4,dow')
   features1_s = features0_s.replace("'","").replace('"','')
-  features2_s = pgdb.check_features(features1_s) # needed for query
+  features2_s = notfdb.check_features(features1_s) # needed for query
   features3_s = features2_s.replace(",","_")     # needed for filename
   tkru_s      = tkr.upper()
   yrs_s       = str(yrs)
@@ -88,7 +88,7 @@ class Csv(fr.Resource):
   def get(self,algo,tkr,yrs,mnth):
     features2_s,features3_s,tkru_s,yrs_s,hl_s,neurons_s,algo_params_s = gethelper(tkr,yrs)
     # I should get predictions from db:
-    out_df = pgdb.dbpredictions(algo,tkru_s,yrs_s,mnth,features2_s,algo_params_s)
+    out_df = notfdb.dbpredictions(algo,tkru_s,yrs_s,mnth,features2_s,algo_params_s)
     csv_s  = out_df.to_csv(index=False,float_format='%.3f')
     # I should serve them:
     if (algo == 'kerasnn'):
@@ -106,7 +106,7 @@ class CsvYr(fr.Resource):
     features2_s,features3_s,tkru_s,yrs_s,hl_s,neurons_s,algo_params_s = gethelper(tkr,yrs)
     # I should get predictions from db:
     yr_s   = str(yr)
-    out_df = pgdb.dbpredictions_yr(algo,tkru_s,yrs_s,yr_s,features2_s,algo_params_s)
+    out_df = notfdb.dbpredictions_yr(algo,tkru_s,yrs_s,yr_s,features2_s,algo_params_s)
     csv_s  = out_df.to_csv(index=False,float_format='%.3f')
     # I should serve them:
     if (algo == 'kerasnn'):
@@ -123,7 +123,7 @@ class CsvTkr(fr.Resource):
   def get(self,algo,tkr,yrs):
     features2_s,features3_s,tkru_s,yrs_s,hl_s,neurons_s,algo_params_s = gethelper(tkr,yrs)
     # I should get predictions from db:
-    out_df = pgdb.dbpredictions_tkr(algo,tkru_s,yrs_s,features2_s,algo_params_s)
+    out_df = notfdb.dbpredictions_tkr(algo,tkru_s,yrs_s,features2_s,algo_params_s)
     csv_s  = out_df.to_csv(index=False,float_format='%.3f')
     # I should serve them:
     if (algo == 'kerasnn'):

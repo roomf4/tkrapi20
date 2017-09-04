@@ -1,5 +1,5 @@
 """
-pgdb.py
+notfdb.py
 
 This script should provide sytnax to connect flask-restful to a postgres db.
 
@@ -14,9 +14,6 @@ import numpy         as np
 import pandas        as pd
 import sqlalchemy    as sql
 # modules in the py folder:
-import sktkr
-import kerastkr
-import notfdb
 
 # I should connect to the DB
 db_s = os.environ['DATABASE_URL']
@@ -155,49 +152,6 @@ def getmonths4tkr(tkr,yrs):
   shortmnth_l = mnth_l[start_i:] # Should have enough history for learning.
   return shortmnth_l
 
-def predictions2db(tkr,yrs,mnth,features,algo,predictions_df,kmodel,algo_params='None Needed'):
-  """This function should copy predictions and reporting columns to db."""
-  if kmodel: # If I am using keras.
-    kmodel.save('/tmp/kmodel.h5')
-    with open('/tmp/kmodel.h5','rb') as fh:
-      kmodel_h5 = fh.read() # kmodel_h5 s.b. different than kmodel
-  else: # I am not using keras.
-    kmodel_h5   = None # db should convert this to NULL during INSERT.
-  # I should convert DF to a string
-  csv_s = predictions_df.to_csv(index=False,float_format='%.3f')
-  # I should move CREATE TABLE to an initialization script.
-  # Running this statement frequently is inefficient:
-  sql_s = '''CREATE TABLE IF NOT EXISTS
-    predictions(
-    tkr          VARCHAR
-    ,yrs         INTEGER
-    ,mnth        VARCHAR
-    ,features    VARCHAR
-    ,algo        VARCHAR
-    ,algo_params VARCHAR
-    ,crtime      TIMESTAMP
-    ,csv         TEXT
-    ,kmodel_h5   BYTEA
-  )'''
-  conn.execute(sql_s) # should be ok for now.
-  # Eventually I should replace DELETE/INSERT with UPSERT:
-  sql_s = '''DELETE FROM predictions
-    WHERE tkr         = %s
-    AND   yrs         = %s
-    AND   mnth        = %s
-    AND   features    = %s
-    AND   algo        = %s
-    AND   algo_params = %s
-    '''
-  conn.execute(sql_s,[tkr,yrs,mnth,features,algo,algo_params])
-  # I should match %s tokens with each column:
-  sql_s = '''INSERT INTO predictions(
-    tkr, yrs,mnth,features,algo,algo_params,crtime,csv  ,kmodel_h5)VALUES(
-    %s , %s ,%s  ,%s      ,%s  ,%s         ,now() ,%s   ,%s)'''
-  conn.execute(sql_s,[
-    tkr, yrs,mnth,features,algo,algo_params,csv_s,kmodel_h5])
-  return True
-
 def dbpredictions(algo  = 'sklinear'
            ,tkr         = 'FB'
            ,yrs         = 3 # years to train
@@ -288,37 +242,6 @@ def dbpredictions_tkr(algo  = 'sklinear'
   yr_df = pd.concat(yr_l, ignore_index=True)
   return yr_df
 
-def db1st_model2nd(algo   = 'sklinear'
-           ,tkr         = 'FB'
-           ,yrs         = 3 # years to train
-           ,mnth        = '2017-08'
-           ,features    = 'pct_lag1,slope4,moy'
-           ,algo_params = 'None Needed'
-           ):
-  """Predictions from db first, if none, then ML."""
-  out_df = dbpredictions(algo, tkr, yrs, mnth, features, algo_params)
-  if (out_df.size > 0):
-    return out_df
-  else: # then ML:
-    if (algo   == 'sklinear'):
-      out_df = sktkr.learn_predict_sklinear(      tkr, yrs, mnth, features)
-    elif (algo == 'keraslinear'):
-      out_df = kerastkr.learn_predict_keraslinear(tkr, yrs, mnth, features)
-    else: # algo    s.b. kerasnn
-      # algo_params s.b a string like this: '[2,4]'
-      # Which specifies 2 hidden layers with 4 neurons in each.
-      pattern_re = r'(\[)(\d+)(, )(\d+)(\])'
-      pattern_ma = re.search(pattern_re,algo_params)
-      hl_i       = int(pattern_ma[2])
-      neurons_i  = int(pattern_ma[4])
-      out_df     = kerastkr.learn_predict_kerasnn(tkr
-                                              ,yrs
-                                              ,mnth
-                                              ,features
-                                              ,hl_i
-                                              ,neurons_i)
-    return out_df
-  
 def prediction_counts():
   """This function should return aggregated prediction counts."""
   sql_s = '''
