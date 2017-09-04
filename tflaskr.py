@@ -143,7 +143,7 @@ api.add_resource(CsvYr,  '/csvyr/<algo>/<tkr>/<int:yrs>/<int:yr>')
 api.add_resource(CsvTkr, '/csvtkr/<algo>/<tkr>/<int:yrs>')
 
 api.add_resource(flc.Demo11,   '/demo11.json')
-api.add_resource(flc.Features, '/features')
+# api.add_resource(flc.Features, '/features')
 
 if __name__ == "__main__":
   port = int(os.environ.get("PORT", 5013))
