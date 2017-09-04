@@ -13,7 +13,6 @@ curl -v "tkrapi20.herokuapp.com/csv/kerasnn/FB/3/2017-08?features='pct_lag1,slop
 curl -v "tkrapi20.herokuapp.com/csvyr/sklinear/FB/3/2017?features='pct_lag1,slope3,dow,moy'" > /tmp/htest52.txt
 curl -v "tkrapi20.herokuapp.com/csvtkr/sklinear/FB/3?features='pct_lag1,slope3,dow,moy'"     > /tmp/htest53.txt
 
-
 curl -v tkrapi20.herokuapp.com/features       > /tmp/htest13.txt
 curl -v tkrapi20.herokuapp.com/tkrinfo/AAPL   > /tmp/htest14.txt
 curl -v tkrapi20.herokuapp.com/tkrlist        > /tmp/htest15.txt
@@ -21,8 +20,6 @@ curl -v tkrapi20.herokuapp.com/tkrs           > /tmp/htest16.txt
 curl -v tkrapi20.herokuapp.com/istkr/AAPL     > /tmp/htest17.txt
 curl -v tkrapi20.herokuapp.com/tkrprices/AAPL > /tmp/htest18.txt
 curl -v tkrapi20.herokuapp.com/dbtkrs         > /tmp/htest19.txt
-
-exit
 
 # I should test predictions table:
 
