@@ -10,7 +10,7 @@ $PYTHON py/sklearn_many.py FB 3 '["pct_lag1", "pct_lag2", "pct_lag4"]'
 
 import pgdb
 #learn_predict_sklinear_tkr(tkr='ABC',yrs=20, features='pct_lag1,slope4,moy')
-learn_predict_sklinear_tkr(
+pgdb.learn_predict_sklinear_tkr(
     FB
     ,3
     ,features='"pct_lag1", "pct_lag2", "pct_lag4"'
