@@ -126,7 +126,7 @@ class FeaturesCSV(fr.Resource):
   """
   def get(self,tkr):
     respcode_i = 200
-    csv_s   = notfdb.featuresCSV(tkr)
+    csv_s   = notf.featuresCSV(tkr)
     return output_csv(csv_s, respcode_i, tkr.upper()+'.csv')
 
 

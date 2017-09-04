@@ -16,7 +16,7 @@ import sqlalchemy    as sql
 # modules in the py folder:
 import sktkr
 import kerastkr
-import notfdb
+import notf
 
 # I should connect to the DB
 db_s = os.environ['DATABASE_URL']

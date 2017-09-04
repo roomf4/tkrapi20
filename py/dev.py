@@ -18,9 +18,9 @@ import numpy         as np
 import pandas        as pd
 import sqlalchemy    as sql
 # from the py folder:
-import notfdb
+import notf
 
-print(notfdb.featuresCSV('SNAP')[:77])
+print(notf.featuresCSV('SNAP')[:77])
 
 'bye'
 
