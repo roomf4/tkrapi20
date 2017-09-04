@@ -1,31 +1,13 @@
 ~/tkrapi20/features.txt
 
 NOT DONE YET:
-
-csv-servings:
-  http://flask-restful.readthedocs.io/en/0.3.5/extending.html#response-formats
-  tkrprices -- done
-  features  -- done
-  predictions --  study current json prediction getters
-    -- study: api.add_resource(flc.Db,    '/db/<algo>/<tkr>/<int:yrs>/<mnth>')
-    good resource to build:
-      api.add_resource(Csv, '/csv/<algo>/<tkr>/<int:yrs>/<mnth>') -- done
-      api.add_resource(CsvYr, '/csvyr/<algo>/<tkr>/<int:yrs>/<int:yr>')
-
-
-
   
 website:
   keras4.us
   keras4.herokuapp.com
   
 heroku:
-  - setup flask server
-    serve predictions
     serve models
-    hflaskr.bash
-    hflaskr.py
-    copy postgres data to heroku
     
 list of resources:
 
@@ -175,3 +157,22 @@ select distinct algo from predictions;
 
 select distinct substring(mnth for 4) yr from predictions;
 select distinct algo_params from predictions where algo = 'kerasnn';
+
+
+csv-servings:
+  http://flask-restful.readthedocs.io/en/0.3.5/extending.html#response-formats
+  tkrprices -- done
+  features  -- done
+  predictions --  study current json prediction getters
+    -- study: api.add_resource(flc.Db,    '/db/<algo>/<tkr>/<int:yrs>/<mnth>')
+    good resource to build:
+      api.add_resource(Csv, '/csv/<algo>/<tkr>/<int:yrs>/<mnth>') -- done
+      api.add_resource(CsvYr, '/csvyr/<algo>/<tkr>/<int:yrs>/<int:yr>')
+
+
+heroku:
+  - setup flask server
+    serve predictions
+    hflaskr.bash
+    hflaskr.py
+    copy postgres data to heroku
