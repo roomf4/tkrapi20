@@ -16,6 +16,9 @@ import numpy         as np
 import pandas        as pd
 import sqlalchemy    as sql
 
+with open('tkrlist.txt') as fh:
+  tkrlist_l = fh.read().split()
+
 # I should connect to the DB
 db_s = os.environ['DATABASE_URL']
 conn = sql.create_engine(db_s).connect()
@@ -293,5 +296,104 @@ class Demo11(fr.Resource):
     my_k_s = 'hello'
     my_v_s = 'world'
     return {my_k_s: my_v_s}
+
+class AlgoDemos(fr.Resource):
+  """
+  This class should return a list of Algo Demos.
+  """
+  def get(self):
+    algo_demos_l = [
+      "/sklinear/IBM/20/2017-08/'pct_lag1,slope3,dow,moy'"
+      ,"/sklinear_yr/IBM/20/2016/'pct_lag1,slope3,dow,moy'"
+      ,"/sklinear_tkr/IBM/20/'pct_lag1,slope3,dow,moy'"
+      ,"/keraslinear/FB/3/2017-08/'pct_lag2,slope5,moy'"
+      ,"/keraslinear_yr/IBM/20/2016/'pct_lag1,slope3,dow,moy'"
+      ,"/keraslinear_tkr/IBM/20/'pct_lag1,slope3,dow,moy'"
+      ,"/kerasnn/FB/3/2017-07?features='pct_lag1,slope4,moy'&hl=2&neurons=4"
+      ,"/kerasnn_yr/FB/3/2017?features='pct_lag1,slope4,moy'&hl=2&neurons=4"
+      ,"/kerasnn_tkr/FB/3?features='pct_lag1,slope4,moy'&hl=2&neurons=4"
+    ]
+    return {
+      'algo_demos': algo_demos_l
+      ,'features':  getfeatures()
+    }
+
+class Demos(fr.Resource):
+  """
+  This class should return a list of Demos.
+  """
+  def get(self):
+    demos_l = [
+      "/demos"
+      ,"/algo_demos"
+      ,"/features"
+      ,"/tkrs"
+      ,"/tkrlist"
+      ,"/tkrinfo/IBM"
+      ,"/tkrprices/SNAP"
+      ,"/istkr/YHOO"
+      ,"/demo11.json"
+      ,"/static/hello.json"
+      ,AlgoDemos().get()
+      ,{'database_demos':
+        ["/db/kerasnn/IBM/3/2017-08?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
+        ,"/db1st_model2nd/kerasnn/WFC/4/2017-08?features='pct_lag1,slope3,moy'&hl=3&neurons=4"]}
+    ]
+    return {'demos': demos_l}
+
+class Features(fr.Resource):
+  """
+  This class should return a list of available ML features.
+  """
+  def get(self):
+    return {'features': getfeatures()}
+
+class Tkrinfo(fr.Resource):
+  """
+  This class should return info about a tkr.
+  """
+  def get(self, tkr):
+    tkrinfo   = None
+    torf      = tkr in tkrlist_l
+    if torf:
+      tkrinfo = tkrinfo(tkr)
+    return {'istkr': torf,'tkrinfo': tkrinfo}
+
+class Tkrlist(fr.Resource):
+  """
+  This class should list all the tkrs in tkrlist.txt
+  """
+  def get(self):
+    return {'tkrlist': tkrlist_l, 'tkrcount': len(tkrlist_l)}
+
+class Tkrs(fr.Resource):
+  """
+  This class should list all the tkrs in tkrlist.txt
+  """
+  def get(self):
+    return {'tkrs': tkrlist_l, 'tkrcount': len(tkrlist_l)}
+
+class DbTkrs(fr.Resource):
+  """
+  This class should list all the tkrs in tkrprices.
+  """
+  def get(self):
+    dbtkrs_l = dbtkrs()
+    return {'tkrs': dbtkrs_l, 'tkrcount': len(dbtkrs_l)}
+
+class Istkr(fr.Resource):
+  """
+  This class should answer True, False given a tkr.
+  """
+  def get(self, tkr):
+    torf = tkr in tkrlist_l
+    return {'istkr': torf}
+
+class Tkrprices(fr.Resource):
+  """
+  This class should list prices for a tkr.
+  """
+  def get(self, tkr):
+    return {'tkrprices': tkrprices(tkr)}
 
 'bye'
