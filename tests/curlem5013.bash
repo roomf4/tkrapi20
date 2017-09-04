@@ -11,6 +11,7 @@ curl -v "lh:5013/csv/kerasnn/FB/3/2017-08?features='pct_lag1,slope4,moy'&hl=2&ne
 curl -v "lh:5013/csvyr/sklinear/FB/3/2017?features='pct_lag1,slope3,dow,moy'" > /tmp/htest52.txt
 curl -v "lh:5013/csvtkr/sklinear/FB/3?features='pct_lag1,slope3,dow,moy'"     > /tmp/htest53.txt
 
+# csc tests done, these next:
 
 curl -v lh:5013/demo11.json    > /tmp/htest09.txt
 curl -v lh:5013/features       > /tmp/htest13.txt
@@ -21,12 +22,9 @@ curl -v lh:5013/istkr/AAPL     > /tmp/htest17.txt
 curl -v lh:5013/tkrprices/AAPL > /tmp/htest18.txt
 curl -v lh:5013/dbtkrs         > /tmp/htest19.txt
 
-exit
-
 # I should test predictions table:
 
 curl -v "lh:5013/db/sklinear/FB/3/2017-08?features='pct_lag1,slope3,dow,moy'" > /tmp/htest30.txt
-
 curl -v "lh:5013/dbyr/sklinear/FB/3/2017?features='pct_lag1,slope3,dow,moy'"  > /tmp/htest31.txt
 curl -v "lh:5013/dbtkr/sklinear/FB/3?features='pct_lag1,slope3,dow,moy'"      > /tmp/htest32.txt
 
