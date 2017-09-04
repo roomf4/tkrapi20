@@ -1,28 +1,20 @@
 """
 hflaskr.py
 
+This script should run on Heroku.
+I designed it to steer clear of keras and tensorflow.
+It does rely on postgres.
+Heroku uses this script to serve CSV files and data-rich JSON to GET requests.
+
 Demo:
 . env.bash
 $PYTHON hflaskr.py
 Other shell:
-curl localhost:5012/demo11.json
-curl localhost:5012/static/hello.json
-curl localhost:5012/demos
-curl localhost:5012/features
-curl localhost:5012/algo_demos
-curl localhost:5012/tkrs
-curl localhost:5012/tkrlist
-curl localhost:5012/istkr/IBM
-curl localhost:5012/tkrinfo/IBM
-curl localhost:5012/years
-curl localhost:5012/tkrprices/SNAP
-curl "localhost:5012/db/kerasnn/IBM/3/2017-08?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
-curl "localhost:5012/dbyr/kerasnn/IBM/3/2017?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
-curl "localhost:5012/dbtkr/kerasnn/IBM/3?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
+curl localhost:5013/my.csv
+curl localhost:5013/demo11.json
 """
 
 import io
-import pdb
 import os
 import datetime      as dt
 import flask         as fl
@@ -32,12 +24,6 @@ import pandas        as pd
 import sqlalchemy    as sql
 # modules in the py folder:
 import notf
-import flaskclasses as flc
-
-# I should connect to the DB
-db_s = os.environ['DATABASE_URL']
-
-conn = sql.create_engine(db_s).connect()
 
 # I should ready flask_restful:
 application = fl.Flask(__name__)
@@ -160,25 +146,24 @@ api.add_resource(FeaturesCSV  ,'/features/<tkr>'+'.csv')
 api.add_resource(Csv,    '/csv/<algo>/<tkr>/<int:yrs>/<mnth>')
 api.add_resource(CsvYr,  '/csvyr/<algo>/<tkr>/<int:yrs>/<int:yr>')
 api.add_resource(CsvTkr, '/csvtkr/<algo>/<tkr>/<int:yrs>')
-api.add_resource(flc.Demo11,   '/demo11.json')
-api.add_resource(flc.Features, '/features')
-api.add_resource(flc.Tkrinfo,   '/tkrinfo/<tkr>')
-api.add_resource(flc.Tkrlist,   '/tkrlist')
-api.add_resource(flc.Tkrs,      '/tkrs')
-api.add_resource(flc.DbTkrs,    '/dbtkrs')
-api.add_resource(flc.Istkr,     '/istkr/<tkr>')
-api.add_resource(flc.Tkrprices, '/tkrprices/<tkr>')
+api.add_resource(notf.Demo11,   '/demo11.json')
+api.add_resource(notf.Features, '/features')
+api.add_resource(notf.Tkrinfo,   '/tkrinfo/<tkr>')
+api.add_resource(notf.Tkrlist,   '/tkrlist')
+api.add_resource(notf.Tkrs,      '/tkrs')
+api.add_resource(notf.DbTkrs,    '/dbtkrs')
+api.add_resource(notf.Istkr,     '/istkr/<tkr>')
+api.add_resource(notf.Tkrprices, '/tkrprices/<tkr>')
 
-api.add_resource(flc.Db,    '/db/<algo>/<tkr>/<int:yrs>/<mnth>')
-api.add_resource(flc.Dbyr,  '/dbyr/<algo>/<tkr>/<int:yrs>/<int:yr>')
-api.add_resource(flc.Dbtkr, '/dbtkr/<algo>/<tkr>/<int:yrs>')
-
-api.add_resource(flc.PredictionCounts,     '/prediction_counts')
-api.add_resource(flc.PredictionDimensions, '/prediction_dimensions')
-api.add_resource(flc.KerasnnDimensions,    '/kerasnn_dimensions')
+api.add_resource(notf.Db,    '/db/<algo>/<tkr>/<int:yrs>/<mnth>')
+api.add_resource(notf.Dbyr,  '/dbyr/<algo>/<tkr>/<int:yrs>/<int:yr>')
+api.add_resource(notf.Dbtkr, '/dbtkr/<algo>/<tkr>/<int:yrs>')
+api.add_resource(notf.PredictionCounts,     '/prediction_counts')
+api.add_resource(notf.PredictionDimensions, '/prediction_dimensions')
+api.add_resource(notf.KerasnnDimensions,    '/kerasnn_dimensions')
 
 if __name__ == "__main__":
-  port = int(os.environ.get("PORT", 5012))
+  port = int(os.environ.get("PORT", 5013))
   application.run(host='0.0.0.0', port=port)
 'bye'
 

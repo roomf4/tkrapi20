@@ -9,9 +9,9 @@ SCRIPTPATH=`dirname $SCRIPT`
 
 cd $SCRIPTPATH
 . env.bash
-export PORT=5012
+export PORT=5013
 
-# This server should get all data from db, not any from models:
+# This server should be a simple test.
 $PYTHON hflaskr.py
 
 exit
