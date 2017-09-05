@@ -16,8 +16,6 @@ group by tkr
 order by tkr
 ;
 
-\q
-
 select tkr
 ,yrs
 ,mnth
