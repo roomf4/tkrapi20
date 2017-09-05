@@ -16,6 +16,8 @@ tkr
 ,features
 ,crtime
 from predictions
+-- mnth s.b. like '2017-09'
+where mnth = substring(now()::varchar for 7)
 order by crtime desc
 limit 33
 ;
@@ -34,7 +36,7 @@ from predictions
 group by tkr,yrs,substring(mnth for 4),features
 order by max(crtime)
 ;
-
+-- Above query returns too many rows after I generate many feature combinations.
 \q
 
 select tkr
