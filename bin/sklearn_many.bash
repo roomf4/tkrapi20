@@ -29,12 +29,12 @@ cd ${SCRIPTPATH}/../
 
 TKR=$1
 YRS=3
-FEATURES='["pct_lag1", "pct_lag2", "pct_lag8", "dow"]'
 
 echo busy with:
 echo \
-$PYTHON py/sklearn_many.py $TKR $YRS $FEATURES
-# $PYTHON py/sklearn_many.py $TKR $YRS $FEATURES
+$PYTHON py/sklearn_many.py $TKR $YRS
+# $PYTHON py/sklearn_many.py $TKR $YRS
 
+# I should see if we have new predictions now:
 # curl -v "lh:5013/csvtkr/sklinear/FB/3?features='pct_lag1,pct_lag2,pct_lag4'"
 exit
