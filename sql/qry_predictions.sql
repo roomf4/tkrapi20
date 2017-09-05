@@ -27,6 +27,18 @@ group by tkr,yrs,mnth
 order by max(crtime)
 ;
 
+select tkr
+,yrs
+,mnth
+,features    feature_group
+,count(tkr)  count_tkr
+,min(crtime) min_crtime
+,max(crtime) max_crtime
+from predictions
+group by tkr,yrs,mnth,features
+order by max(crtime)
+;
+
 \q
 
 select tkr, count(tkr) count_tkr
