@@ -2,6 +2,9 @@
 
 NOT DONE YET:
 
+add /demos to hflask.py
+
+
 write:
   bin/sklearn_many.bash FB
   which should learn predict FB for dimensions:
