@@ -341,19 +341,22 @@ class Demos(fr.Resource):
   def get(self):
     demos_l = [
       "/demos"
-      ,"/algo_demos"
+      ,"/demo11.json"
       ,"/features"
+      ,"/prediction_counts"
+      ,"/prediction_dimensions"
+      ,"/kerasnn_dimensions"
       ,"/tkrs"
       ,"/tkrlist"
       ,"/tkrinfo/IBM"
       ,"/tkrprices/SNAP"
       ,"/istkr/YHOO"
-      ,"/demo11.json"
-      ,"/static/hello.json"
-      ,AlgoDemos().get()
+      ,{'csv_demos':
+        ["/csv/kerasnn/IBM/3/2017-08?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
+        ,"/csvtkr/sklinear/FB/3features='pct_lag1,slope4,moy'"]}
       ,{'database_demos':
         ["/db/kerasnn/IBM/3/2017-08?features='pct_lag1,slope4,moy'&hl=3&neurons=5"
-        ,"/db1st_model2nd/kerasnn/WFC/4/2017-08?features='pct_lag1,slope3,moy'&hl=3&neurons=4"]}
+        ,"/dbtkr/sklinear/FB/3features='pct_lag1,slope4,moy'"]}
     ]
     return {'demos': demos_l}
 
