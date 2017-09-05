@@ -20,11 +20,17 @@ if (len(sys.argv) < 2):
   #  sys.exit(1)
   
 # I should get the tkr from the command line
-tkr        =     sys.argv[1]
-yrs_i      = int(sys.argv[2])
-features_s = 'pct_lag1,slope4,moy'
+tkr   =     sys.argv[1]
+yrs_i = int(sys.argv[2])
+lags_s   = ',pct_lag2,pct_lag8'
+slopes_s = ',slope3,slope4,slope5,slope6,slope7,slope8,slope9'
+datef_s  = ',dow,moy'
+features_always_s    = 'pct_lag1,pct_lag4'
+features_sometimes_s = lags_s + slopes_s + datef_s
+print(features_always_s+features_sometimes_s)
+        
 #learn_predict_sklinear_tkr(tkr='ABC',yrs=20, features='pct_lag1,slope4,moy')
-sktkr.learn_predict_sklinear_tkr(tkr,yrs_i,features_s)
+#sktkr.learn_predict_sklinear_tkr(tkr,yrs_i,features_s)
 
 'bye'
 
