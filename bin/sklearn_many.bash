@@ -33,7 +33,7 @@ YRS=3
 echo busy with:
 echo \
 $PYTHON py/sklearn_many.py $TKR $YRS
-# $PYTHON py/sklearn_many.py $TKR $YRS
+$PYTHON py/sklearn_many.py $TKR $YRS
 
 # I should see if we have new predictions now:
 # curl -v "lh:5013/csvtkr/sklinear/FB/3?features='pct_lag1,pct_lag2,pct_lag4'"
