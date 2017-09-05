@@ -2,13 +2,11 @@
 
 NOT DONE YET:
 
-add /demos to hflask.py
-
 
 write:
   bin/sklearn_many.bash FB
   which should learn predict FB for dimensions:
-    - features
+    - features loop
     - yrs: [3,4,5,7,10,15,20,25,30]
 
 test:
@@ -188,3 +186,5 @@ heroku:
     hflaskr.bash
     hflaskr.py
     copy postgres data to heroku
+
+add /demos to hflask.py
