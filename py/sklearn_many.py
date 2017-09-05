@@ -36,13 +36,18 @@ features_l.remove('')
 print(features_l)
 
 combos_l = notf.list2combos(features_l)
-#print(combos_l)
+
+# I should ask which month it is now:
 mnth = datetime.datetime.now().strftime('%Y-%m')
+
+# I should collect predictions for each combo:
 for combo in combos_l:
   combo_s = ','.join(combo)
   features_s = features_always_s + combo_s
   print(features_s)
   sktkr.learn_predict_sklinear(tkr,yrs_i,mnth,features_s)
+# I should not forget this one:
+sktkr.learn_predict_sklinear(tkr,yrs_i,mnth,features_always_s)
 
 'bye'
 
