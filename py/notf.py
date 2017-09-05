@@ -35,6 +35,8 @@ def list2combos(lst):
   
 def get_out_d(out_df):
   """This function should convert out_df to a dictionary."""
+  if (out_df.empty):
+    return {'no': 'predictions for this tkr, month, features (yet).'}
   lo_acc  = sum((1+np.sign(out_df.pct_lead))/2) / out_df.accuracy.size
   # ref:
   # pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.to_json.html

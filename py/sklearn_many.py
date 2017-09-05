@@ -45,7 +45,7 @@ for combo in combos_l:
   combo_s = ','.join(combo)
   features_s = features_always_s + combo_s
   print(features_s)
-  sktkr.learn_predict_sklinear(tkr,yrs_i,mnth,features_s)
+  'sktkr.learn_predict_sklinear(tkr,yrs_i,mnth,features_s)'
 # I should not forget this one:
 sktkr.learn_predict_sklinear(tkr,yrs_i,mnth,features_always_s)
 
