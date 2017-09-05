@@ -10,7 +10,7 @@ SCRIPTPATH=`dirname $SCRIPT`
 # PGPASSWORD=tkrapi psql -aP pager=no -U tkrapi -h 127.0.0.1 tkrapi $@
 # Should be better syntax than above:
 psql -aP pager=no --dbname=$PGURL
-# Should be useful for look at data on Heroku:
+# Should be useful to see data on Heroku:
 # psql -aP pager=no --dbname=$HPGURL
 
 exit
