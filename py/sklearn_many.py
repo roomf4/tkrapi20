@@ -5,7 +5,7 @@ This script should learn-predict a tkr given some parameters.
 
 Demo:
 . env.bash
-$PYTHON py/sklearn_many.py FB 3 '["pct_lag1", "pct_lag2", "pct_lag4"]'
+$PYTHON py/sklearn_many.py FB 3
 """
 
 import datetime
@@ -28,7 +28,6 @@ slopes_s = ',slope3,slope4,slope5,slope6,slope7,slope8,slope9'
 datef_s  = ',dow,moy'
 features_always_s    = 'pct_lag1,pct_lag4'
 features_sometimes_s = lags_s + slopes_s + datef_s
-print(features_always_s+features_sometimes_s)
         
 #learn_predict_sklinear_tkr(tkr='ABC',yrs=20, features='pct_lag1,slope4,moy')
 mnth = datetime.datetime.now().strftime('%Y-%m')
