@@ -22,7 +22,8 @@ if (len(sys.argv) != 2):
   
 # I should get the tkr from the command line
 tkr = sys.argv[1]
-
+yrs_i = int(sys.argv[2])
+features_s = sys.argv[3:]
 #learn_predict_sklinear_tkr(tkr='ABC',yrs=20, features='pct_lag1,slope4,moy')
 sktkr.learn_predict_sklinear_tkr(
     'FB'

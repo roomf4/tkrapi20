@@ -85,7 +85,11 @@ def getfeatures():
 def check_features(f_s):
   """This function should check validity of f_s user input."""
   valid_features_l = getfeatures()
-  features_s       = f_s.replace("'","").replace('"','').replace(' ','')
+  features_s       = (f_s.replace("'","").
+                      replace('"','').
+                      replace(' ','').
+                      replace('[','').
+                      replace(']',''))
   features_st      = set(features_s.split(','))
   goodfeatures_st  = set(valid_features_l).intersection(features_st)
   goodfeatures_s   = ','.join(sorted(goodfeatures_st))
