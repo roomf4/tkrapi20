@@ -22,7 +22,7 @@ with open('tkrlist.txt') as fh:
 
 def list2combos(lst):
   """This function should return all combinations of a list and its sublists."""
-  combosn_l = []
+  combosn_l = [] # Nested combinations of lst
   for idx in range(len(lst)):
     combosn_l.append([mm for mm in itertools.combinations(lst,idx+1)])
   # I should remove some of the nesting:
