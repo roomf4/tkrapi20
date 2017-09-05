@@ -7,6 +7,36 @@
 -- Demo:
 -- ../bin/psql.bash -f qry_predictions.sql
 
+-- This should help me notice recent predictions:
+select
+tkr
+,algo
+,yrs
+,mnth
+,features
+,crtime
+from predictions
+order by crtime desc
+limit 33
+;
+
+\q
+
+-- This should help me notice recent predictions:
+select tkr
+,yrs
+,substring(mnth for 4) yr
+,features    feature_group
+,count(tkr)  count_tkr
+,min(crtime) min_crtime
+,max(crtime) max_crtime
+from predictions
+group by tkr,yrs,substring(mnth for 4),features
+order by max(crtime)
+;
+
+\q
+
 select tkr
 ,count(tkr)  count_tkr
 ,min(crtime) min_crtime
@@ -26,20 +56,6 @@ from predictions
 group by tkr,yrs,mnth
 order by max(crtime)
 ;
-
-select tkr
-,yrs
-,mnth
-,features    feature_group
-,count(tkr)  count_tkr
-,min(crtime) min_crtime
-,max(crtime) max_crtime
-from predictions
-group by tkr,yrs,mnth,features
-order by max(crtime)
-;
-
-\q
 
 select tkr, count(tkr) count_tkr
 from predictions
