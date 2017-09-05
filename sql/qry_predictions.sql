@@ -7,6 +7,30 @@
 -- Demo:
 -- ../bin/psql.bash -f qry_predictions.sql
 
+select tkr
+,count(tkr)  count_tkr
+,min(crtime) min_crtime
+,max(crtime) max_crtime
+from predictions
+group by tkr
+order by tkr
+;
+
+\q
+
+select tkr
+,yrs
+,mnth
+,count(tkr)  count_tkr
+,min(crtime) min_crtime
+,max(crtime) max_crtime
+from predictions
+group by tkr,yrs,mnth
+order by max(crtime)
+;
+
+\q
+
 select tkr, count(tkr) count_tkr
 from predictions
 group by tkr
