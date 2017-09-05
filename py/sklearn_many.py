@@ -8,6 +8,7 @@ Demo:
 $PYTHON py/sklearn_many.py FB 3 '["pct_lag1", "pct_lag2", "pct_lag4"]'
 """
 
+import datetime
 import pdb
 import sys
 
@@ -30,7 +31,9 @@ features_sometimes_s = lags_s + slopes_s + datef_s
 print(features_always_s+features_sometimes_s)
         
 #learn_predict_sklinear_tkr(tkr='ABC',yrs=20, features='pct_lag1,slope4,moy')
-#sktkr.learn_predict_sklinear_tkr(tkr,yrs_i,features_s)
+mnth = datetime.datetime.now().strftime('%Y-%m')
+
+sktkr.learn_predict_sklinear(tkr,yrs_i,mnth,features_always_s)
 
 'bye'
 
