@@ -29,7 +29,7 @@ cd ${SCRIPTPATH}/../
 
 TKR=$1
 YRS=3
-FEATURES='["pct_lag1", "pct_lag2", "pct_lag4"]'
+FEATURES='["pct_lag1", "pct_lag2", "pct_lag8"]'
 
 echo busy with:
 echo \
