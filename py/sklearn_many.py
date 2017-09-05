@@ -12,6 +12,7 @@ import datetime
 import pdb
 import sys
 
+import notf
 import sktkr
 
 if (len(sys.argv) < 2):
@@ -24,15 +25,24 @@ if (len(sys.argv) < 2):
 tkr   =     sys.argv[1]
 yrs_i = int(sys.argv[2])
 lags_s   = ',pct_lag2,pct_lag8'
-slopes_s = ',slope3,slope4,slope5,slope6,slope7,slope8,slope9'
+slopes_s = ',slope3,slope4' #,slope5,slope6,slope7,slope8,slope9'
 datef_s  = ',dow,moy'
-features_always_s    = 'pct_lag1,pct_lag4'
+features_always_s    = 'pct_lag1,pct_lag4,'
 features_sometimes_s = lags_s + slopes_s + datef_s
-        
-#learn_predict_sklinear_tkr(tkr='ABC',yrs=20, features='pct_lag1,slope4,moy')
-mnth = datetime.datetime.now().strftime('%Y-%m')
 
-sktkr.learn_predict_sklinear(tkr,yrs_i,mnth,features_always_s)
+# I should get all combinations of features in features_sometimes_s.
+features_l = sorted(features_sometimes_s.split(','))
+features_l.remove('')
+print(features_l)
+
+combos_l = notf.list2combos(features_l)
+#print(combos_l)
+mnth = datetime.datetime.now().strftime('%Y-%m')
+for combo in combos_l:
+  combo_s = ','.join(combo)
+  features_s = features_always_s + combo_s
+  print(features_s)
+  sktkr.learn_predict_sklinear(tkr,yrs_i,mnth,features_s)
 
 'bye'
 
