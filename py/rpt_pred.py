@@ -21,7 +21,7 @@ pdb.set_trace()
 db_s = os.environ['PGURL']
 conn = sql.create_engine(db_s).connect()
 # I should drop the table I am about to fill:
-sql_s = 'DROP TABLE predictions2'
+sql_s = 'DROP TABLE IF EXISTS predictions2'
 conn.execute(sql_s)
 # I should loop through rows in the predictions table:
 sql_s = '''SELECT
