@@ -7,6 +7,7 @@ Demo:
 $PYTHON ${PYTHONPATH}/rpt_pred.py
 """
 
+import io
 import os
 import pdb
 import datetime      as dt
@@ -20,7 +21,7 @@ import pgdb
 db_s = os.environ['PGURL'] # s.b. local db not Heroku.
 conn = sql.create_engine(db_s).connect()
 sql_s  = '''SELECT
-tkr,yrs,mnth,features, 'csv'
+tkr,yrs,mnth,features,csv
 FROM predictions
 ORDER BY tkr,yrs,mnth,features
 LIMIT 22
@@ -29,6 +30,9 @@ LIMIT 22
 result = conn.execute(sql_s)
 if not result.rowcount:
   'return None'
+
+for row in result:
+  pred_df = pd.read_csv(io.StringIO(row.csv))
 'return True'
 
 'bye'
