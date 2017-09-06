@@ -7,4 +7,17 @@ Demo:
 $PYTHON ${PYTHONPATH}/rpt_pred.py
 """
 
+import pdb
+import datetime      as dt
+import pandas        as pd
+import sqlalchemy    as sql
+# modules in the py folder:
+import pgdb
+
+
+# I should loop through rows in the predictions table:
+db_s = os.environ['PGURL'] # s.b. local db not Heroku.
+conn = sql.create_engine(db_s).connect()
+sql_s  = "SELECT tkr,yrs,mnth,features, 'csv' FROM predictions ORDER BY tkr,yrs,mnth,features LIMIT 22"
+
 'bye'
