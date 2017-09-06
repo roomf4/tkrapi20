@@ -2,7 +2,7 @@
 
 # sklearn_many.bash
 
-# This script should learn-predict a tkr over several dimensions.
+# This script should learn-predict over several dimensions.
 
 # The dimensions are:
 # features:
@@ -10,31 +10,28 @@
 #  , "slope3", "slope4", "slope5", "slope6", "slope7", "slope8", "slope9"
 #  , "dow", "moy"]
 # yrs: [3,4,5,7,10,15,20,25,30]
-
+# tkrs: ['AAPL','FB',IBM','^GSPC', ... (about 725)]
 # Demo:
-# sklearn_many.bash IBM
-
-if [ "$#" -ne 1 ]
-then
-    echo You should supply a Ticker.
-    echo Demo:
-    echo $0 IBM
-    exit 1
-fi
+# sklearn_many.bash
 
 SCRIPT=`realpath $0`
 SCRIPTPATH=`dirname $SCRIPT`
 cd ${SCRIPTPATH}/../
 . env.bash
 
-TKR=$1
-YRS=3
+# for TKR in AAPL FB IBM ^GSPC
+head -5 ${PARPATH}/tkrlist_small.txt| while read TKR
+do
+  for YRS in 3 4 # 5 7 10 15 20 15 30
+  do
+    echo busy with:
+    echo \
+    $PYTHON py/sklearn_many.py $TKR $YRS
+    $PYTHON py/sklearn_many.py $TKR $YRS
+  done
+done
 
-echo busy with:
-echo \
-$PYTHON py/sklearn_many.py $TKR $YRS
-$PYTHON py/sklearn_many.py $TKR $YRS
-
+exit
 # I should see if we have new predictions now:
 # curl -v "lh:5013/csvtkr/sklinear/FB/3?features='pct_lag1,pct_lag2,pct_lag4'"
 exit
