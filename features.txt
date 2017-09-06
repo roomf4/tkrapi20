@@ -2,13 +2,19 @@
 
 NOT DONE YET:
 
+prediction rpts:
+  g.b. tkr, yrs, mnth, moy, dow, yr, algo, features
+  copy df data into predictions2, report from predictions2
+  
+study dropout of sklinear
 
 write:
   bin/sklearn_many.bash FB
   which should learn predict FB for dimensions:
     - features loop
     - yrs: [3,4,5,7,10,15,20,25,30]
-
+    - enhancement: collect sklinear coefficents
+    
 test:
   flaskr.py
   
