@@ -11,8 +11,9 @@
 #  , "dow", "moy"]
 # yrs: [3,4,5,7,10,15,20,25,30]
 # tkrs: ['AAPL','FB',IBM','^GSPC', ... (about 725)]
+
 # Demo:
-# sklearn_many.bash
+# bin/sklearn_many.bash
 
 SCRIPT=`realpath $0`
 SCRIPTPATH=`dirname $SCRIPT`
