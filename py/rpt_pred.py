@@ -26,4 +26,9 @@ ORDER BY tkr,yrs,mnth,features
 LIMIT 22
 '''
 
+result = conn.execute(sql_s)
+if not result.rowcount:
+  'return None'
+'return True'
+
 'bye'
