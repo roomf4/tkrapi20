@@ -12,6 +12,11 @@ SCRIPTPATH=`dirname $SCRIPT`
 cd ${SCRIPTPATH}/../
 . env.bash
 
+echo $0 Busy...
+echo Time now:
+date
 $PYTHON ${PYTHONPATH}/rpt_pred.py
+echo $0 Done
+date
 
 exit

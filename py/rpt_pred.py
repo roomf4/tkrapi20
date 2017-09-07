@@ -25,7 +25,6 @@ sql_s = '''SELECT
 tkr,yrs,mnth,features,csv
 FROM predictions
 ORDER BY tkr,yrs,mnth,features
-LIMIT 22
 '''
 result = conn.execute(sql_s)
 if not result.rowcount:
