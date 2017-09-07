@@ -159,7 +159,7 @@ def getmonths4tkr(tkr,yrs):
   shortmnth_l = mnth_l[start_i:] # Should have enough history for learning.
   return shortmnth_l
 
-def predictions2db(tkr,yrs,mnth,features,algo,predictions_df,kmodel,algo_params='None Needed'):
+def predictions2db(tkr,yrs,mnth,features,algo,predictions_df,kmodel,coef=None,algo_params='None Needed'):
   """This function should copy predictions and reporting columns to db."""
   if kmodel: # If I am using keras.
     kmodel.save('/tmp/kmodel.h5')
@@ -180,6 +180,7 @@ def predictions2db(tkr,yrs,mnth,features,algo,predictions_df,kmodel,algo_params=
     ,algo        VARCHAR
     ,algo_params VARCHAR
     ,crtime      TIMESTAMP
+    ,coef        TEXT
     ,csv         TEXT
     ,kmodel_h5   BYTEA
   )'''
@@ -194,12 +195,16 @@ def predictions2db(tkr,yrs,mnth,features,algo,predictions_df,kmodel,algo_params=
     AND   algo_params = %s
     '''
   conn.execute(sql_s,[tkr,yrs,mnth,features,algo,algo_params])
-  # I should match %s tokens with each column:
+  if coef:
+    coef_s = str(coef)
+  else:
+    coef_s = None # s. become NULL in db.
+    # I should match %s tokens with each column:
   sql_s = '''INSERT INTO predictions(
-    tkr, yrs,mnth,features,algo,algo_params,crtime,csv  ,kmodel_h5)VALUES(
-    %s , %s ,%s  ,%s      ,%s  ,%s         ,now() ,%s   ,%s)'''
+    tkr, yrs,mnth,features,algo,algo_params,crtime,coef,csv  ,kmodel_h5)VALUES(
+    %s , %s ,%s  ,%s      ,%s  ,%s         ,now() ,%s    ,%s ,%s)'''
   conn.execute(sql_s,[
-    tkr, yrs,mnth,features,algo,algo_params,csv_s,kmodel_h5])
+    tkr, yrs,mnth,features,algo,algo_params,       coef_s,csv_s,kmodel_h5])
   return True
 
 def dbpredictions(algo  = 'sklinear'

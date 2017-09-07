@@ -14,10 +14,11 @@ tkr
 ,yrs
 ,mnth
 ,features
+,coef
 ,crtime
 from predictions
 -- mnth s.b. like '2017-09'
-where mnth = substring(now()::varchar for 7)
+-- where mnth = substring(now()::varchar for 7)
 order by crtime desc
 limit 33
 ;

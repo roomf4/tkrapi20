@@ -19,7 +19,14 @@ import pandas        as pd
 import sqlalchemy    as sql
 # from the py folder:
 import notf
+import sktkr
+import kerastkr
 
+pdb.set_trace()
+#sktkr.learn_predict_sklinear('FB',4,'2017-08','pct_lag1,slope4,moy')
+kerastkr.learn_predict_keraslinear('FB',4,'2017-08','pct_lag1,slope4,moy')
+
+stophere
 print(notf.tkrprices('SNAP'))
 print(notf.featuresCSV('SNAP')[:77])
 print(notf.getfeat('SNAP').tail())
