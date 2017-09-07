@@ -56,7 +56,7 @@ def learn_predict_keraslinear(tkr='FB',yrs=4,mnth='2017-08', features='pct_lag1,
   # I should return a DataFrame useful for reporting on the predictions.
   return out_df
 
-out_df = learn_predict_keraslinear('FB','2017-08', 'pct_lag1,slope4,moy')
+out_df = learn_predict_keraslinear('FB',4,'2017-08', 'pct_lag1,slope4,moy')
 print(out_df)
 
 'bye'
