@@ -21,9 +21,9 @@ cd ${SCRIPTPATH}/../
 . env.bash
 
 # for TKR in AAPL FB IBM ^GSPC
-head -5 ${PARPATH}/tkrlist_small.txt| while read TKR
+cat ${PARPATH}/tkrlist_small.txt| while read TKR
 do
-  for YRS in 3 4 # 5 7 10 15 20 15 30
+  for YRS in 3 4 5 7 # 10 15 20 15 30
   do
     echo busy with:
     echo \

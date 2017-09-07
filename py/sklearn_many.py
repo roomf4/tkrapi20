@@ -26,7 +26,7 @@ tkr   =     sys.argv[1]
 yrs_i = int(sys.argv[2])
 # I should declare various dimensions of predictions I want to generate:
 lags_s   = ',pct_lag2,pct_lag8'
-slopes_s = ',slope3,slope4' #,slope5,slope6,slope7,slope8,slope9'
+slopes_s = ',slope3,slope4,slope5' #,slope6,slope7,slope8,slope9'
 datef_s  = ',dow,moy'
 features_always_s    = 'pct_lag1,pct_lag4,' # Always use these to predict.
 features_sometimes_s = lags_s + slopes_s + datef_s
