@@ -20,7 +20,7 @@ import notf
 db_s = os.environ['PGURL']
 conn = sql.create_engine(db_s).connect()
 # I should declare GROUP BY columns:
-gbcol_l  = ['tkr','yrs']
+gbcol_l  = ['tkr','yrs','features']
 # I should get all combinations of them:
 combos_l = notf.list2combos(gbcol_l)
 for combo_tpl in combos_l:
