@@ -22,9 +22,9 @@ import pgdb
 
 # https://keras.io/models/model/#methods
 batch_size_i = 256 # Doc: Number of samples per gradient update.
-epochs_i     = 128 # Doc: Number of epochs to train the model.
+epochs_i     = 2 # Doc: Number of epochs to train the model.
 
-def learn_predict_keraslinear(tkr='FB',yrs=4,mnth='2017-08'):
+def learn_predict_keraslinear(tkr='FB',yrs=4,mnth='2017-08',dropout=True):
   """This function should use keras to learn, predict."""
   features_l = pgdb.getfeatures()
   features_s =','.join(sorted(features_l))
@@ -41,6 +41,10 @@ def learn_predict_keraslinear(tkr='FB',yrs=4,mnth='2017-08'):
   kmodel.add(keras.layers.core.Dense(features_i, input_shape=(features_i,)))
   # https://keras.io/activations/
   kmodel.add(keras.layers.core.Activation('linear'))
+  if dropout:
+    # Activations should have 'Dropout' to reduce overfitting:
+    kmodel.add(keras.layers.core.Dropout(0.1))
+    #
   # I should have 1 linear-output:
   kmodel.add(keras.layers.core.Dense(1)) 
   kmodel.add(keras.layers.core.Activation('linear'))
@@ -54,10 +58,13 @@ def learn_predict_keraslinear(tkr='FB',yrs=4,mnth='2017-08'):
   out_df['effectiveness'] = np.sign(out_df.pct_lead*out_df.prediction)*np.abs(out_df.pct_lead)
   out_df['accuracy']      = (1+np.sign(out_df.effectiveness))/2
   algo                    = 'keraslinear'
+  # I should save predictions:
+  csvn_s = '/home/dan/dfcsv/dropout_'+str(dropout)+'/predictions.csv'  
+  out_df.to_csv(csvn_s,index=False,float_format='%.3f')
   # I should return a DataFrame useful for reporting on the predictions.
   return out_df
 
-out_df = learn_predict_keraslinear('FB',4,'2017-08')
+out_df = learn_predict_keraslinear('FB',4,'2017-08',True)
 print(out_df)
 
 'bye'
