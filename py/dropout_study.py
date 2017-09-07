@@ -60,8 +60,13 @@ def learn_predict_keraslinear(tkr='FB',yrs=4,mnth='2017-08',dropout=True):
   algo                    = 'keraslinear'
   # I should save predictions:
   dfcsv_s = os.environ['HOME']+'/dfcsv'
-  csvn_s  = dfcsv_s+'/dropout_'+str(dropout)+'/predictions.csv'  
-  out_df.to_csv(csvn_s,index=False,float_format='%.3f')
+  csvn_s  = dfcsv_s+'/dropout_'+str(dropout)+'/predictions.csv'
+  # I should append with False-header if file exists:
+  if os.path.isfile(csvn_s):
+    out_df.to_csv(csvn_s,index=False,float_format='%.3f', mode='a', header=False)
+  else:
+    out_df.to_csv(csvn_s,index=False,float_format='%.3f')
+
   # I should return a DataFrame useful for reporting on the predictions.
   return out_df
 
