@@ -75,6 +75,6 @@ yrs = 4
 mnth_l = pgdb.getmonths4tkr(tkr,yrs)
 for torf in [True,False]:
   for mnth_s in mnth_l:
-    m_df = learn_predict_kerasnn(tkr,yrs,mnth_s,torf)
+    m_df = learn_predict_keraslinear(tkr,yrs,mnth_s,torf)
 
 'bye'
