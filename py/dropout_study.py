@@ -24,13 +24,10 @@ import pgdb
 batch_size_i = 256 # Doc: Number of samples per gradient update.
 epochs_i     = 128 # Doc: Number of epochs to train the model.
 
-def learn_predict_keraslinear(tkr='FB',yrs=4,mnth='2017-08', features='pct_lag1,slope4,moy'):
+def learn_predict_keraslinear(tkr='FB',yrs=4,mnth='2017-08'):
   """This function should use keras to learn, predict."""
-  features_s = pgdb.check_features(features)
-  # debug
-  pdb.set_trace()
   features_l = pgdb.getfeatures()
-  # debug
+  features_s =','.join(sorted(features_l))
   # I should get train, test data.
   # Also get copy of test data in a DataFrame for later reporting:
   xtrain_a, ytrain_a, xtest_a, out_df = pgdb.get_train_test(tkr,yrs,mnth,features_s)
@@ -60,7 +57,7 @@ def learn_predict_keraslinear(tkr='FB',yrs=4,mnth='2017-08', features='pct_lag1,
   # I should return a DataFrame useful for reporting on the predictions.
   return out_df
 
-out_df = learn_predict_keraslinear('FB',4,'2017-08', 'pct_lag1,slope4,moy')
+out_df = learn_predict_keraslinear('FB',4,'2017-08')
 print(out_df)
 
 'bye'
