@@ -75,6 +75,14 @@ yrs = 4
 mnth_l = pgdb.getmonths4tkr(tkr,yrs)
 for torf in [True,False]:
   for mnth_s in mnth_l:
-    m_df = learn_predict_keraslinear(tkr,yrs,mnth_s,torf)
-
+    'm_df = learn_predict_keraslinear(tkr,yrs,mnth_s,torf)'
+  dfcsv_s = os.environ['HOME']+'/dfcsv'
+  csvn_s  = dfcsv_s+'/dropout_'+str(torf)+'/predictions.csv'
+  t_df   = pd.read_csv(csvn_s)
+  pdb.set_trace()
+  eff_ratio = t_df.effectiveness.sum()/t_df.pct_lead.sum()
+  print('When dropout is ', torf, 'eff_ratio is ', eff_ratio)
+  print(t_df.head())
 'bye'
+
+
