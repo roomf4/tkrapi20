@@ -66,11 +66,15 @@ def learn_predict_keraslinear(tkr='FB',yrs=4,mnth='2017-08',dropout=True):
     out_df.to_csv(csvn_s,index=False,float_format='%.3f', mode='a', header=False)
   else:
     out_df.to_csv(csvn_s,index=False,float_format='%.3f')
-
   # I should return a DataFrame useful for reporting on the predictions.
   return out_df
 
-out_df = learn_predict_keraslinear('FB',4,'2017-08',False)
-print(out_df)
+# I should use loop to study dropout:
+tkr = 'FB'
+yrs = 4
+mnth_l = pgdb.getmonths4tkr(tkr,yrs)
+for torf in [True,False]:
+  for mnth_s in mnth_l:
+    m_df = learn_predict_kerasnn(tkr,yrs,mnth_s,torf)
 
 'bye'
