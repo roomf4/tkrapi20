@@ -3,6 +3,11 @@ sktkr.py
 
 This script should use sklearn to learn from stock market data.
 
+Demo:
+. env.bash
+$PYTHON
+import  sktkr
+sktkr.learn_predict_sklinear('FB',4,'2017-08','pct_lag1,slope4,moy')
 """
 
 import io
@@ -28,6 +33,7 @@ def learn_predict_sklinear(tkr='ABC',yrs=20,mnth='2016-11', features='pct_lag1,s
   if ((xtrain_a.size == 0) or (ytrain_a.size == 0) or (xtest_a.size == 0)):
     return out_df # probably empty too.
   # I should fit a model to xtrain_a, ytrain_a
+  # I should get intercept and coefficients:
   linr_model.fit(xtrain_a,ytrain_a)
   # I should predict xtest_a then update out_df
   out_df['prediction']    = np.round(linr_model.predict(xtest_a),3).tolist()
@@ -36,7 +42,11 @@ def learn_predict_sklinear(tkr='ABC',yrs=20,mnth='2016-11', features='pct_lag1,s
   algo   = 'sklinear'
   kmodel = None # sklearn has no kmodel, keras does.
   # I should save work to the db:
-  pgdb.predictions2db(tkr,yrs,mnth,features_s,algo,out_df,kmodel)
+  features_l = features_s.split(',')
+  # I should give each coef_ a name:
+  zip_l = [tpl for tpl in zip(features_l,linr_model.coef_)]
+  sklinear_d = {'intercept': linr_model.intercept_, 'coefficients': zip_l}
+  pgdb.predictions2db(tkr,yrs,mnth,features_s,algo,out_df,kmodel,sklinear_d)
   return out_df
 
 def learn_predict_sklinear_yr(tkr='ABC',yrs=20,yr=2016, features='pct_lag1,slope4,moy'):

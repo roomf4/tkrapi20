@@ -16,11 +16,16 @@ import sqlalchemy    as sql
 # local:
 import notf
 
+# I have a large screen:
+pd.options.display.max_rows    = 200
+pd.options.display.max_columns = 240
+pd.set_option('expand_frame_repr', False)
+
 # I should connect to local db, not Heroku:
 db_s = os.environ['PGURL']
 conn = sql.create_engine(db_s).connect()
 # I should declare GROUP BY columns:
-gbcol_l  = ['tkr','yrs','features']
+gbcol_l  = ['tkr','yrs']
 # I should get all combinations of them:
 combos_l = notf.list2combos(gbcol_l)
 for combo_tpl in combos_l:
@@ -30,11 +35,13 @@ for combo_tpl in combos_l:
   sql_s = '''
   SELECT
   {}
-  ,SUM(pct_lead)      sum_pct_lead
-  ,SUM(effectiveness) sum_effectiveness
+  ,SUM(effectiveness)/SUM(pct_lead) eff_ratio
+  ,SUM(effectiveness) effectiveness
   ,MIN(cdate)         min_cdate
   ,MAX(cdate)         max_cdate
+  ,COUNT(cdate)       prediction_count
   FROM predictions2
+  WHERE cdate > '1990-01-01'
   GROUP BY {}
   ORDER BY {}
   '''.format(gbcols_s,gbcols_s,gbcols_s)
