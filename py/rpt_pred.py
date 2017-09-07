@@ -45,4 +45,7 @@ for row in result:
   pred_df.to_sql('predictions2', conn.engine, index=False, if_exists='append')
 'return True'
 
+# Now I should use SQL scripts to run reports:
+# bin/psql.bash -f sql/rpt_pred.sql
+
 'bye'
