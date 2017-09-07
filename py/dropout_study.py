@@ -59,12 +59,13 @@ def learn_predict_keraslinear(tkr='FB',yrs=4,mnth='2017-08',dropout=True):
   out_df['accuracy']      = (1+np.sign(out_df.effectiveness))/2
   algo                    = 'keraslinear'
   # I should save predictions:
-  csvn_s = '/home/dan/dfcsv/dropout_'+str(dropout)+'/predictions.csv'  
+  dfcsv_s = os.environ['HOME']+'/dfcsv'
+  csvn_s  = dfcsv_s+'/dropout_'+str(dropout)+'/predictions.csv'  
   out_df.to_csv(csvn_s,index=False,float_format='%.3f')
   # I should return a DataFrame useful for reporting on the predictions.
   return out_df
 
-out_df = learn_predict_keraslinear('FB',4,'2017-08',True)
+out_df = learn_predict_keraslinear('FB',4,'2017-08',False)
 print(out_df)
 
 'bye'
