@@ -2,7 +2,7 @@
 
 # rpt_pred.bash
 
-# This script should copy predictions into predictions2 and then report.
+# This script should report on predictions in predictions2 table.
 
 # Demo:
 # bin/rpt_pred.bash
