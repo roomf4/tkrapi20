@@ -14,7 +14,7 @@ tkr
 ,yrs
 ,mnth
 ,features
-,coef
+,sklinear_coef
 ,crtime
 from predictions
 -- mnth s.b. like '2017-09'

@@ -23,7 +23,7 @@ import sktkr
 import kerastkr
 
 pdb.set_trace()
-#sktkr.learn_predict_sklinear('FB',4,'2017-08','pct_lag1,slope4,moy')
+sktkr.learn_predict_sklinear('FB',4,'2017-08','pct_lag1,slope4,moy')
 kerastkr.learn_predict_keraslinear('FB',4,'2017-08','pct_lag1,slope4,moy')
 
 stophere

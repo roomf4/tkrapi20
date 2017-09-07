@@ -42,11 +42,10 @@ def learn_predict_sklinear(tkr='ABC',yrs=20,mnth='2016-11', features='pct_lag1,s
   algo   = 'sklinear'
   kmodel = None # sklearn has no kmodel, keras does.
   # I should save work to the db:
-  features_l = features_s.split(',')
-  # I should give each coef_ a name:
-  zip_l = [tpl for tpl in zip(features_l,linr_model.coef_)]
-  sklinear_d = {'intercept': linr_model.intercept_, 'coefficients': zip_l}
-  pgdb.predictions2db(tkr,yrs,mnth,features_s,algo,out_df,kmodel,sklinear_d)
+  coef_f_l = [linr_model.intercept_] + linr_model.coef_.tolist()
+  coef_l   = [str(mem_s) for mem_s in coef_f_l]
+  coef_s   = ','.join(coef_l)
+  pgdb.predictions2db(tkr,yrs,mnth,features_s,algo,out_df,kmodel,coef_s)
   return out_df
 
 def learn_predict_sklinear_yr(tkr='ABC',yrs=20,yr=2016, features='pct_lag1,slope4,moy'):
