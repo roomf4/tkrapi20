@@ -13,9 +13,6 @@ import pdb
 import datetime      as dt
 import pandas        as pd
 import sqlalchemy    as sql
-# modules in the py folder:
-import pgdb
-pdb.set_trace()
 
 # I should connect to local db, not Heroku:
 db_s = os.environ['PGURL']
