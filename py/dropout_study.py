@@ -70,19 +70,19 @@ def learn_predict_keraslinear(tkr='FB',yrs=4,mnth='2017-08',dropout=True):
   return out_df
 
 # I should use loop to study dropout:
-tkr = 'FB'
-yrs = 4
-mnth_l = pgdb.getmonths4tkr(tkr,yrs)
-for torf in [True,False]:
-  for mnth_s in mnth_l:
-    'm_df = learn_predict_keraslinear(tkr,yrs,mnth_s,torf)'
-  dfcsv_s = os.environ['HOME']+'/dfcsv'
-  csvn_s  = dfcsv_s+'/dropout_'+str(torf)+'/predictions.csv'
-  t_df   = pd.read_csv(csvn_s)
-  pdb.set_trace()
-  eff_ratio = t_df.effectiveness.sum()/t_df.pct_lead.sum()
-  print('When dropout is ', torf, 'eff_ratio is ', eff_ratio)
-  print(t_df.head())
+tkr     = '^GSPC'
+dfcsv_s = os.environ['HOME']+'/dfcsv'
+for yrs in [5,10]:
+  mnth_l = pgdb.getmonths4tkr(tkr,yrs)
+  for torf in [True,False]:
+    csvn_s = dfcsv_s+'/dropout_'+str(torf)+'/predictions.csv'
+    os.system('rm -f '+ csvn_s)
+    for mnth_s in mnth_l:
+      m_df = learn_predict_keraslinear(tkr,yrs,mnth_s,torf)
+    # I should report:
+    t_df   = pd.read_csv(csvn_s)
+    eff_ratio = t_df.effectiveness.sum()/t_df.pct_lead.sum()
+    print('When yrs is '+str(yrs)+' and dropout is ', torf, ', eff_ratio is ', eff_ratio)
 'bye'
 
 
