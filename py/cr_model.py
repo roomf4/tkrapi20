@@ -21,9 +21,22 @@ import kerastkr
 import pgdb
 import sktkr
 
-def model2db(tkr,yrs,mnth,features_s,algo,coef_s):
+# I should connect to the DB
+db_s = os.environ['DATABASE_URL']
+conn = sql.create_engine(db_s).connect()
+
+def model2db(tkr,yrs,mnth,features,algo,coef_s):
   """This function should save ML-model to db table: mlmodels."""
   # This function depends on: sql/cr_mlmodels.sql
+  # Eventually I should replace DELETE/INSERT with UPSERT:
+  sql_s = '''DELETE FROM mlmodels
+    WHERE tkr         = %s
+    AND   yrs         = %s
+    AND   mnth        = %s
+    AND   features    = %s
+    AND   algo        = %s
+    '''
+  conn.execute(sql_s,[tkr,yrs,mnth,features,algo])
   
   return True
 
