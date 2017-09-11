@@ -37,8 +37,15 @@ def model2db(tkr,yrs,mnth,features,algo,coef_s):
     AND   algo        = %s
     '''
   conn.execute(sql_s,[tkr,yrs,mnth,features,algo])
-  
+  # I should insert coef_s into mlmodels:
+  sql_s = '''INSERT INTO mlmodels(
+    tkr, yrs,mnth,features,algo,crtime,sklinear_coef)VALUES(
+    %s , %s ,%s  ,%s      ,%s  ,now() ,%s)'''
+  conn.execute(sql_s,[
+    tkr, yrs,mnth,features,algo       ,coef_s])
+  # check: select * from mlmodels order by crtime desc limit 3;
   return True
+
 
 def cr_sklinear_model(tkr='^GSPC', yrs=20, mnth='2017-08', features='pct_lag1,slope3,moy'):
   """This function should use sklearn to create a model."""
