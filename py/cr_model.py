@@ -23,6 +23,8 @@ import sktkr
 
 def model2db(tkr,yrs,mnth,features_s,algo,coef_s):
   """This function should save ML-model to db table: mlmodels."""
+  # This function depends on: sql/cr_mlmodels.sql
+  
   return True
 
 def cr_sklinear_model(tkr='^GSPC', yrs=20, mnth='2017-08', features='pct_lag1,slope3,moy'):
