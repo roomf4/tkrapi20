@@ -46,7 +46,6 @@ def model2db(tkr,yrs,mnth,features,algo,coef_s):
   # check: select * from mlmodels order by crtime desc limit 3;
   return True
 
-
 def cr_sklinear_model(tkr='^GSPC', yrs=20, mnth='2017-08', features='pct_lag1,slope3,moy'):
   """This function should use sklearn to create a model."""
   features_s = pgdb.check_features(features)
@@ -71,7 +70,6 @@ def cr_sklinear_model(tkr='^GSPC', yrs=20, mnth='2017-08', features='pct_lag1,sl
   model2db(tkr,yrs,mnth,features_s,algo,coef_s)
   return out_df
 
-pdb.set_trace()
-cr_sklinear_model()
+
 
 'bye'
