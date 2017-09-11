@@ -9,7 +9,10 @@ SCRIPTPATH=`dirname $SCRIPT`
 cd ${SCRIPTPATH}/../
 
 . env.bash
+date
+echo busy...
 $PYTHON py/cr_models.py
+date
 
 exit
 
