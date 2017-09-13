@@ -11,6 +11,7 @@ SCRIPTPATH=`dirname $SCRIPT`
 cd ${SCRIPTPATH}/../
 
 . env.bash
+bin/rmbad_cookies.bash
 $PYTHON py/csv2db.py
 
 exit
