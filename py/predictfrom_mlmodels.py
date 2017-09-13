@@ -47,5 +47,20 @@ for row in result:
 feat_df = pgdb.getfeat(tkr)
 print(feat_df.tail())
 
+# I should extract a numpy array from feat_df
+
+print(tkr,5,mnth)
+print(pgdb.check_features(features))
+xtrain_a, ytrain_a, xtest_a, out_df = pgdb.get_train_test(tkr,5,mnth,pgdb.check_features(features))
+print(out_df)
+print(xtest_a)
+
+# I should transform coef_s into array:
+print(coef_s)
+coef_a = np.array(coef_s.split(','))
+print(coef_a)
+
+
+
 'bye'
 
