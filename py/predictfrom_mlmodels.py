@@ -30,10 +30,11 @@ conn = sql.create_engine(db_s).connect()
 
 # select * from mlmodels order by crtime desc limit 1;
 
-sql_s = "select * from mlmodels order by crtime desc limit 1"
+sql_s  = "select * from mlmodels order by crtime desc limit 1"
+
+result = conn.execute(sql_s)
 
 # I should use python to get suitable test data from features table.
-
 
 'bye'
 
