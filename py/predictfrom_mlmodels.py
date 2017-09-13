@@ -1,15 +1,14 @@
-#!/bin/bash
-
-# predictfrom_mlmodels.bash
+"""
+predictfrom_mlmodels.py
 
 # This script should demo how to generate predictions from mlmodels table.
 
-SCRIPT=`realpath $0`
-SCRIPTPATH=`dirname $SCRIPT`
-cd ${SCRIPTPATH}/../
+# Demo:
 
 . env.bash
 
 $PYTHON py/predictfrom_mlmodels.py
+"""
 
-exit
+'bye'
+
