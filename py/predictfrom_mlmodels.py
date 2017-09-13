@@ -42,14 +42,10 @@ for row in result:
   coef_s   = row.sklinear_coef
   
 # I should use python to get suitable test data from features table,
-# using tkr,mnth,features
+# using tkr:
 
-sql_s = "select tkr from features where tkr = %s limit 1"
+feat_df = pgdb.getfeat(tkr)
+print(feat_df.tail())
 
-result = conn.execute(sql_s,[tkr])
-
-for row in result:
-  print(row.tkr)
-  
 'bye'
 
