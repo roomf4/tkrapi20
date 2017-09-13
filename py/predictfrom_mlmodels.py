@@ -10,5 +10,13 @@ predictfrom_mlmodels.py
 $PYTHON py/predictfrom_mlmodels.py
 """
 
+import pdb
+import cr_model
+import pgdb
+
+# I should use python to get a model from  mlmodels table.
+# I should use python to get suitable test data from features table.
+
+
 'bye'
 
