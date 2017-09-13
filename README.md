@@ -10,21 +10,11 @@ After you install VirtualBox, download the file listed below and then import it 
 
 https://drive.google.com/file/d/0Bx3iDDAtxxI4VUtZcTRxTnZKZlk/
 
-It is a large 10GB file.
-
-After you import the above file, you should use the green-arrow in the VirtualBox GUI to boot Ubuntu 16.
-
-After you boot Ubuntu 16, you should see a login screen for an account named: 'ann'.
-
-The password is: 'a'
-
-After I did the above steps, I logged in as 'ann' with password 'a'.
-
 Next, I cloned this repo using a simple shell command:
 
 ```bash
-cd ~ann
-git clone https://github.com/danbikle/tkrapi20
+cd ~dan
+git clone ssh://git@bitbucket.org/bikle/tkrapi20.git
 ```
 
 I ran the first demo by issuing some shell commands:
@@ -61,17 +51,6 @@ Next, I ran this shell command:
 conda install flask-restful -c conda-forge
 ```
 
-Then, I checked that the above packages were installed with shell commands:
-
-```bash
-conda list flask
-conda list keras
-conda list numpy
-conda list pandas
-conda list psycopg2
-conda list sqlalchemy
-```
-
 Next, I worked with Postgres so this repo could interact with database tables.
 
 I issued some shell commands:
@@ -92,117 +71,6 @@ create role tkrapi with login superuser password 'tkrapi';
 \q
 ```
 
-I typed exit at the shell prompt to exit the postgres Linux account and return to the ann account:
-
-```bash
-exit
-```
-
-In the py folder of this repo, I wrote some demos of packages:
-
-* SQLAlchemy
-* Keras
-* FlaskRESTful
-
-The shell commands for the first demo are listed below:
-
-```bash
-cd ~/tkrapi20/py
-. ../env.bash
-~/anaconda3/bin/python demosql.py
-```
-
-The above demo worked well so I stepped through the script with the pdb-debugger:
-
-```bash
-~/anaconda3/bin/python -m pdb demosql.py
-```
-
-The above demo worked well so I pointed demosql.py at a Postgres database on Heroku:
-
-```bash
-cd ~/tkrapi20/py
-heroku create myapp2017abc
-heroku addons:create heroku-postgresql:hobby-dev
-heroku config
-export PGURL='postgres://afizipm:33abc8@ec2-23-13-220-251.compute-1.amazonaws.com:5432/ddrpugf'
-~/anaconda3/bin/python demosql.py
-heroku pg:psql
-select * from dropme;
-\q
-unset PGURL
-```
-
-The above demo worked well so I ran some shell commands to start the Keras demo:
-
-```bash
-cd ~/tkrapi20/py
-. ../env.bash
-~/anaconda3/bin/python demokeras.py
-```
-
-The above demo worked well so I stepped through the script with the pdb-debugger:
-
-```bash
-~/anaconda3/bin/python -m pdb demokeras.py
-```
-
-The above demo worked well so I ran some shell commands to start the FlaskRESTful demo:
-
-```bash
-cd ~/tkrapi20/py
-. ../env.bash
-export PORT=5050
-export FLASK_DEBUG=1
-~/anaconda3/bin/python demoflask_restful.py
-```
-
-The above shell became locked. I call it Shell-1.
-
-I started another shell, called Shell-2, and issued curl commands:
-
-```bash
-curl                            localhost:5050/hello.json
-curl -d 'msg2flask=hello-flask' localhost:5050/hello.json
-```
-
-I saw this:
-
-```bash
-ann@ub16aug:~/tkrapi20/py$ curl http://0.0.0.0:5050/hello.json
-{
-    "hello": "world"
-}
-ann@ub16aug:~/tkrapi20/py$ 
-ann@ub16aug:~/tkrapi20/py$ 
-ann@ub16aug:~/tkrapi20/py$ 
-
-
-
-ann@ub16aug:~/tkrapi20/py$ curl -d 'msg2flask=hello-flask' localhost:5050/hello.json
-{
-    "post-hello": "world",
-    "curlmsg": "hello-flask"
-}
-ann@ub16aug:~/tkrapi20/py$ 
-ann@ub16aug:~/tkrapi20/py$ 
-ann@ub16aug:~/tkrapi20/py$ 
-```
-
-When I study the behavior of the above curl commands, I see that the get() method in demoflask_restful.py responds to the first curl command.
-
-And I see that the post() method responds to the second.
-
-These methods get() and post() correspond to HTTP verbs: GET, POST.
-
-https://www.google.com/search?q=what+are+HTTP+verbs
-
-So, that concludes the discussion about the three demos.
-
-We have a sense of how the Python APIs work for SQLAlchemy, Keras, and FlaskRESTful.
-
-Later we will blend the above three APIs into a simple API server.
-
 But first we need to get some data.
 
 # Get Data
@@ -212,49 +80,6 @@ I used shell commands listed below to get stock price data:
 ```bash
 cd ~/tkrapi20
 bin/request_tkr.bash
-```
-
-While the above command was running, I captured a partial screen shot:
-
-```bash
-ann@ub16aug:~/tkrapi20$ 
-ann@ub16aug:~/tkrapi20$ bin/request_tkr.bash
-Thu Aug 24 00:11:38 PDT 2017
-busy with ^GSPC
-Wrote: /home/ann/tkrcsv/div/^GSPC.csv
-Wrote: /home/ann/tkrcsv/history/^GSPC.csv
-Wrote: /home/ann/tkrcsv/split/^GSPC.csv
-busy with ^IXIC
-Wrote: /home/ann/tkrcsv/div/^IXIC.csv
-Wrote: /home/ann/tkrcsv/history/^IXIC.csv
-Wrote: /home/ann/tkrcsv/split/^IXIC.csv
-busy with ^RUT
-Wrote: /home/ann/tkrcsv/div/^RUT.csv
-Wrote: /home/ann/tkrcsv/history/^RUT.csv
-Wrote: /home/ann/tkrcsv/split/^RUT.csv
-busy with A
-GET request of  A  failed. So I am trying again...
-GET request of  A  failed. Maybe try later.
-GET request of  A  failed. So I am trying again...
-Wrote: /home/ann/tkrcsv/history/A.csv
-GET request of  A  failed. So I am trying again...
-Wrote: /home/ann/tkrcsv/split/A.csv
-busy with AA
-Wrote: /home/ann/tkrcsv/div/AA.csv
-Wrote: /home/ann/tkrcsv/history/AA.csv
-Wrote: /home/ann/tkrcsv/split/AA.csv
-busy with AAL
-Wrote: /home/ann/tkrcsv/div/AAL.csv
-Wrote: /home/ann/tkrcsv/history/AAL.csv
-Wrote: /home/ann/tkrcsv/split/AAL.csv
-busy with AAP
-Wrote: /home/ann/tkrcsv/div/AAP.csv
-Wrote: /home/ann/tkrcsv/history/AAP.csv
-Wrote: /home/ann/tkrcsv/split/AAP.csv
-busy with AAPL
-Wrote: /home/ann/tkrcsv/div/AAPL.csv
-Wrote: /home/ann/tkrcsv/history/AAPL.csv
-Wrote: /home/ann/tkrcsv/split/AAPL.csv
 ```
 
 The above script needs between 5 and 6 hours to run.
@@ -371,17 +196,30 @@ I'm not sure why Yahoo is serving crumbs and cookies which frequently change but
 
 After the above script finishes, I run another script to copy all the CSV data into a Postgres table.
 
-That script is named: csv2db.py
+That script is named: csv2db.bash which wraps csv2db.py
 
-I should run csv2db.py after request_tkr.bash finishes.
+I should run csv2db.bash after request_tkr.bash finishes.
 
-The shell commands to run csv2db.py are listed below:
+The shell commands in csv2db.bash are listed below:
 
 ```bash
-cd ~/tkrapi20
+#!/bin/bash
+
+# csv2db.bash
+
+# This script should insert csv files into a table.
+# This script will hang if the FlaskRESTful server is running.
+# So I should shutdown the server before I run this script.
+
+SCRIPT=`realpath $0`
+SCRIPTPATH=`dirname $SCRIPT`
+cd ${SCRIPTPATH}/../
+
 . env.bash
 bin/rmbad_cookies.bash
-~/anaconda3/bin/python py/csv2db.py
+$PYTHON py/csv2db.py
+
+exit
 ```
 
 I ran the above script on my laptop and it finished in about 30 seconds.
@@ -391,16 +229,6 @@ The script rmbad_cookies.bash removes CSV files which contain error messages fro
 After I run csv2db.py, I am ready to generate machine learning features from dates and prices of each ticker.
 
 # Generate Features
-
-When I started working with stock market data many years ago I quickly saw that other people making decisions based on trendlines and candlesticks.
-
-Also I saw some people making decisions based on what I call 'calendar events'.
-
-For example some people like to sell in May and buy in October.
-
-Or maybe they want to buy on Monday and sell on Friday.
-
-I saw this behavior and used it to guide my efforts to create machine learning features from time series of prices.
 
 The features I use in this repo are listed below:
 
@@ -420,16 +248,25 @@ The features I use in this repo are listed below:
 
 Counting them up, we see that this repo has 13 features.
 
-One feature I don't have but would like is daily interest rate.
+The script which generates the above features from the CSV files is genf.bash which wraps genf.py
 
-The script which generates the above features from the CSV files is genf.py
-
-The shell command to run genf.py is listed below
+The script genf.bash is listed below
 
 ```bash
-cd ~/tkrapi20/py
-. ../env.bash
-~/anaconda3/bin/python genf.py
+#!/bin/bash
+
+# genf.bash
+
+# This script should generate features from dates and prices.
+
+SCRIPT=`realpath $0`
+SCRIPTPATH=`dirname $SCRIPT`
+cd ${SCRIPTPATH}/../
+
+. env.bash
+$PYTHON py/genf.py
+
+exit
 ```
 
 I ran the above script on my laptop and it finished after 5 minutes.
@@ -484,735 +321,18 @@ ann@ub16aug:~/tkrapi20$
 
 # Learn, Predict
 
-After the features are ready, I can learn and predict from them.
+After the features are ready, I can learn from them.
 
-A demonstration of the Python API which supports both Learn and Predict is listed below:
+I use the script below to create models and save them to the db:
 
-```python
-cd ~/tkrapi20
-~/anaconda3/bin/python
-import kerastkr
-kerastkr.learn_predict_kerasnn('^GSPC',25,'2017-08')
-```
+bin/cr_models.bash
 
-The above syntax should predict one-day percent gain, a variable I call: 'pct_lead', for each day in the month 2017-08.
+Note that the above script depends on a table which I need to create beforehand:
 
-The predictions are for a ticker called: '^GSPC' which tracks the S&P 500 index.
+sql/cr_mlmodels.sql
 
-The Keras model which calculates the predictions learns from 25 years of ^GSPC features (created from dates and prices).
+After I run bin/cr_models.bash, I can query information about the models with SQL:
 
-I ran the above syntax on my laptop and captured a screenshot:
-
-```python
-ann@ub16aug:~$ 
-ann@ub16aug:~$ cd ~/tkrapi20
-
-
-ann@ub16aug:~/tkrapi20$ . env.bash
-
-
-ann@ub16aug:~/tkrapi20$ ~/anaconda3/bin/python
-Python 3.6.1 |Anaconda custom (64-bit)| (default, May 11 2017, 13:09:58) 
-[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)] on linux
-Type "help", "copyright", "credits" or "license" for more information.
->>>
-
-
->>> import kerastkr
-Using TensorFlow backend.
-
-
-
->>> kerastkr.learn_predict_kerasnn('^GSPC',25,'2017-08')
-Epoch 1/1024
-2017-08-24 14:17:04.077248: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
-2017-08-24 14:17:04.077279: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
-2017-08-24 14:17:04.077288: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
-6301/6301 [==============================] - 0s - loss: 2.3986     
-Epoch 2/1024
-6301/6301 [==============================] - 0s - loss: 1.8951
-
-SNIP...
-
-Epoch 1023/1024
-6301/6301 [==============================] - 0s - loss: 1.2835     
-Epoch 1024/1024
-6301/6301 [==============================] - 0s - loss: 1.2787     
-            cdate       cp  pct_lead  prediction  effectiveness  accuracy
-17004  2017-08-01  2476.35     0.049       0.029          0.049       1.0
-17005  2017-08-02  2477.57    -0.218       0.034         -0.218       0.0
-17006  2017-08-03  2472.16     0.189       0.046          0.189       1.0
-17007  2017-08-04  2476.83     0.165       0.024          0.165       1.0
-17008  2017-08-07  2480.91    -0.241       0.027         -0.241       0.0
-17009  2017-08-08  2474.92    -0.036       0.050         -0.036       0.0
-17010  2017-08-09  2474.02    -1.447       0.037         -1.447       0.0
-17011  2017-08-10  2438.21     0.128       0.131          0.128       1.0
-17012  2017-08-11  2441.32     1.004       0.067          1.004       1.0
-17013  2017-08-14  2465.84    -0.050       0.004         -0.050       0.0
-17014  2017-08-15  2464.61     0.142       0.048          0.142       1.0
-17015  2017-08-16  2468.11    -1.544       0.005         -1.544       0.0
-17016  2017-08-17  2430.01    -0.184       0.111         -0.184       0.0
-17017  2017-08-18  2425.55     0.116       0.081          0.116       1.0
-17018  2017-08-21  2428.37     0.994       0.065          0.994       1.0
-17019  2017-08-22  2452.51    -0.345       0.011         -0.345       0.0
-17020  2017-08-23  2444.04     0.000       0.039          0.000       0.5
->>> quit()
-ann@ub16aug:~/tkrapi20$ 
-ann@ub16aug:~/tkrapi20$ 
-ann@ub16aug:~/tkrapi20$
-```
-
-The above tabular report is output from a Pandas DataFrame.
-
-In a middle column I see the predictions from my Keras model.
-
-In this example all of the predictions are above zero so they are bullish predictions.
-
-The most bullish prediction was issued for 2017-08-10.
-
-When I look to the right of that prediction I see it was an accurate predicition.
-
-I consider any prediction which can predict the sign of pct_lead, to be an accurate prediction.
-
-Lets attach this Python syntax to a FlaskRESTful API server.
-
-# FlaskRESTful
-
-I use the syntax below to start the FlaskRESTful API server:
-
-```bash
-cd ~/tkrapi20
-./flaskr.bash
-```
-
-I ran the above syntax on my laptop and captured a screenshot:
-
-```bash
-ann@ub16aug:~/tkrapi20$ 
-ann@ub16aug:~/tkrapi20$ ./flaskr.bash 
-Using TensorFlow backend.
- * Running on http://0.0.0.0:5011/ (Press CTRL+C to quit)
- * Restarting with stat
-Using TensorFlow backend.
- * Debugger is active!
- * Debugger PIN: 167-686-399
-```
-
-So, that shell became locked.
-
-I started another shell and issued a simple curl command.
-
-I captured a screenshot:
-
-```json
-ann@ub16aug:~/tkrapi20$ curl localhost:5011/demos
-{
-    "demos": [
-        "/demos",
-        "/algo_demos",
-        "/features",
-        "/tkrs",
-        "/tkrlist",
-        "/years",
-        "/tkrinfo/IBM",
-        "/tkrprices/SNAP",
-        "/istkr/YHOO",
-        "/demo11.json",
-        "/static/hello.json",
-        {
-            "algo_demos": [
-                "/sklinear/IBM/20/2017-08/'pct_lag1,slope3,dow,moy'",
-                "/sklinear_yr/IBM/20/2016/'pct_lag1,slope3,dow,moy'",
-                "/sklinear_tkr/IBM/20/'pct_lag1,slope3,dow,moy'",
-                "/keraslinear/FB/3/2017-08/'pct_lag2,slope5,moy'",
-                "/keraslinear_yr/IBM/20/2016/'pct_lag1,slope3,dow,moy'",
-                "/keraslinear_tkr/IBM/20/'pct_lag1,slope3,dow,moy'",
-                "/keras_nn/FB/3/2017-07?features='pct_lag1,slope4,moy'&hl=2&neurons=4",
-                "/keras_nn_yr/FB/3/2017?features='pct_lag1,slope4,moy'&hl=2&neurons=4",
-                "/keras_nn_tkr/FB/3?features='pct_lag1,slope4,moy'&hl=2&neurons=4"
-            ],
-            "features": [
-                "pct_lag1",
-                "pct_lag2",
-                "pct_lag4",
-                "pct_lag8",
-                "slope3",
-                "slope4",
-                "slope5",
-                "slope6",
-                "slope7",
-                "slope8",
-                "slope9",
-                "dow",
-                "moy"
-            ]
-        }
-    ]
-}
-ann@ub16aug:~/tkrapi20$ 
-ann@ub16aug:~/tkrapi20$ 
-ann@ub16aug:~/tkrapi20$
-```
-
-Also I noticed that FlaskRESTful added a line to its shell:
-
-```bash
-ann@ub16aug:~/tkrapi20$ ./flaskr.bash 
-Using TensorFlow backend.
- * Running on http://0.0.0.0:5011/ (Press CTRL+C to quit)
- * Restarting with stat
-Using TensorFlow backend.
- * Debugger is active!
- * Debugger PIN: 167-686-399
-127.0.0.1 - - [24/Aug/2017 14:51:54] "GET /demos HTTP/1.1" 200 -
-```
-
-The above output tells me that FlaskRESTful saw a GET request for /demos and the response code was 200 which usually means good news.
-
-Remember above that I had asked for a month of predictions using Python syntax:
-
-```python
-kerastkr.learn_predict_kerasnn('^GSPC',25,'2017-08')
-```
-
-I sent a similar request to FlaskRESTful using curl and captured a screenshot:
-
-```json
-ann@ub16aug:~/tkrapi20$ curl localhost:5011"/keras_nn/^GSPC/25/2017-08?features='pct_lag1,slope4,moy'&hl=2&neurons=4"
-{
-    "predictions": {
-        "Long-Only-Accuracy": 0.5,
-        "Long-Only-Effectivness": -1.278,
-        "Model-Effectivness": -1.278,
-        "Model-Accuracy": 0.5,
-        "Prediction-Count": 17,
-        "Prediction-Details": [
-            {
-                "date,price": [
-                    "2017-08-01",
-                    2476.35
-                ],
-                "pct_lead": 0.049,
-                "prediction,effectiveness,accuracy": [
-                    0.032999999821186066,
-                    0.049,
-                    1.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-02",
-                    2477.57
-                ],
-                "pct_lead": -0.218,
-                "prediction,effectiveness,accuracy": [
-                    0.03700000047683716,
-                    -0.218,
-                    0.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-03",
-                    2472.16
-                ],
-                "pct_lead": 0.18899999999999997,
-                "prediction,effectiveness,accuracy": [
-                    0.04800000041723251,
-                    0.18899999999999997,
-                    1.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-04",
-                    2476.83
-                ],
-                "pct_lead": 0.165,
-                "prediction,effectiveness,accuracy": [
-                    0.02800000086426735,
-                    0.165,
-                    1.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-07",
-                    2480.91
-                ],
-                "pct_lead": -0.24100000000000002,
-                "prediction,effectiveness,accuracy": [
-                    0.03099999949336052,
-                    -0.24100000000000002,
-                    0.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-08",
-                    2474.92
-                ],
-                "pct_lead": -0.036000000000000004,
-                "prediction,effectiveness,accuracy": [
-                    0.050999999046325684,
-                    -0.036000000000000004,
-                    0.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-09",
-                    2474.02
-                ],
-                "pct_lead": -1.4469999999999998,
-                "prediction,effectiveness,accuracy": [
-                    0.03999999910593033,
-                    -1.4469999999999998,
-                    0.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-10",
-                    2438.21
-                ],
-                "pct_lead": 0.128,
-                "prediction,effectiveness,accuracy": [
-                    0.12200000137090683,
-                    0.128,
-                    1.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-11",
-                    2441.32
-                ],
-                "pct_lead": 1.004,
-                "prediction,effectiveness,accuracy": [
-                    0.06700000166893005,
-                    1.004,
-                    1.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-14",
-                    2465.84
-                ],
-                "pct_lead": -0.05,
-                "prediction,effectiveness,accuracy": [
-                    0.012000000104308128,
-                    -0.05,
-                    0.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-15",
-                    2464.61
-                ],
-                "pct_lead": 0.142,
-                "prediction,effectiveness,accuracy": [
-                    0.04899999871850014,
-                    0.142,
-                    1.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-16",
-                    2468.11
-                ],
-                "pct_lead": -1.544,
-                "prediction,effectiveness,accuracy": [
-                    0.010999999940395355,
-                    -1.544,
-                    0.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-17",
-                    2430.01
-                ],
-                "pct_lead": -0.184,
-                "prediction,effectiveness,accuracy": [
-                    0.10300000011920929,
-                    -0.184,
-                    0.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-18",
-                    2425.55
-                ],
-                "pct_lead": 0.11599999999999999,
-                "prediction,effectiveness,accuracy": [
-                    0.07900000363588333,
-                    0.11599999999999999,
-                    1.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-21",
-                    2428.37
-                ],
-                "pct_lead": 0.9940000000000001,
-                "prediction,effectiveness,accuracy": [
-                    0.06499999761581421,
-                    0.9940000000000001,
-                    1.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-22",
-                    2452.51
-                ],
-                "pct_lead": -0.345,
-                "prediction,effectiveness,accuracy": [
-                    0.017999999225139618,
-                    -0.345,
-                    0.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-23",
-                    2444.04
-                ],
-                "pct_lead": 0.0,
-                "prediction,effectiveness,accuracy": [
-                    0.04100000113248825,
-                    0.0,
-                    0.5
-                ]
-            }
-        ]
-    }
-}
-ann@ub16aug:~/tkrapi20$ 
-ann@ub16aug:~/tkrapi20$ 
-```
-
-Also I noticed that FlaskRESTful added many lines to its shell:
-
-```bash
-Epoch 1/1024
-6301/6301 [==============================] - 0s - loss: 1.3696     
-Epoch 2/1024
-6301/6301 [==============================] - 0s - loss: 1.3760     
-Epoch 3/1024
-6301/6301 [==============================] - 0s - loss: 1.3214     
-
-SNIP ....
-
-6301/6301 [==============================] - 0s - loss: 1.2838     
-Epoch 1024/1024
-6301/6301 [==============================] - 0s - loss: 1.2814     
-127.0.0.1 - - [24/Aug/2017 15:03:45] "GET /keras_nn/^GSPC/25/2017-08?features='pct_lag1,slope4,moy'&hl=2&neurons=4 HTTP/1.1" 200 -
-```
-
-Next, I tried calling a different algorithm for a different ticker and different features, but same month:
-
-```json
-ann@ub16aug:~/tkrapi20$ curl localhost:5011/sklinear/^RUT/25/2017-08/'pct_lag1,pct_lag4,slope3,slope6,dow,moy'
-{
-    "predictions": {
-        "Long-Only-Accuracy": 0.38235294117647056,
-        "Long-Only-Effectivness": -4.123,
-        "Model-Effectivness": -3.9910000000000005,
-        "Model-Accuracy": 0.4411764705882353,
-        "Prediction-Count": 17,
-        "Prediction-Details": [
-            {
-                "date,price": [
-                    "2017-08-01",
-                    1428.33
-                ],
-                "pct_lead": -1.08,
-                "prediction,effectiveness,accuracy": [
-                    0.063,
-                    -1.08,
-                    0.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-02",
-                    1412.9
-                ],
-                "pct_lead": -0.5429999999999999,
-                "prediction,effectiveness,accuracy": [
-                    0.125,
-                    -0.5429999999999999,
-                    0.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-03",
-                    1405.23
-                ],
-                "pct_lead": 0.505,
-                "prediction,effectiveness,accuracy": [
-                    0.087,
-                    0.505,
-                    1.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-04",
-                    1412.32
-                ],
-                "pct_lead": 0.131,
-                "prediction,effectiveness,accuracy": [
-                    0.023,
-                    0.131,
-                    1.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-07",
-                    1414.17
-                ],
-                "pct_lead": -0.284,
-                "prediction,effectiveness,accuracy": [
-                    0.095,
-                    -0.284,
-                    0.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-08",
-                    1410.15
-                ],
-                "pct_lead": -0.9359999999999999,
-                "prediction,effectiveness,accuracy": [
-                    0.105,
-                    -0.9359999999999999,
-                    0.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-09",
-                    1396.95
-                ],
-                "pct_lead": -1.7469999999999999,
-                "prediction,effectiveness,accuracy": [
-                    0.125,
-                    -1.7469999999999999,
-                    0.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-10",
-                    1372.54
-                ],
-                "pct_lead": 0.12300000000000001,
-                "prediction,effectiveness,accuracy": [
-                    0.103,
-                    0.12300000000000001,
-                    1.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-11",
-                    1374.23
-                ],
-                "pct_lead": 1.4609999999999999,
-                "prediction,effectiveness,accuracy": [
-                    0.015,
-                    1.4609999999999999,
-                    1.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-14",
-                    1394.31
-                ],
-                "pct_lead": -0.794,
-                "prediction,effectiveness,accuracy": [
-                    0.059,
-                    -0.794,
-                    0.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-15",
-                    1383.24
-                ],
-                "pct_lead": 0.021,
-                "prediction,effectiveness,accuracy": [
-                    0.14,
-                    0.021,
-                    1.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-16",
-                    1383.53
-                ],
-                "pct_lead": -1.777,
-                "prediction,effectiveness,accuracy": [
-                    0.12,
-                    -1.777,
-                    0.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-17",
-                    1358.94
-                ],
-                "pct_lead": -0.085,
-                "prediction,effectiveness,accuracy": [
-                    0.131,
-                    -0.085,
-                    0.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-18",
-                    1357.79
-                ],
-                "pct_lead": -0.066,
-                "prediction,effectiveness,accuracy": [
-                    -0.004,
-                    0.066,
-                    1.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-21",
-                    1356.9
-                ],
-                "pct_lead": 1.079,
-                "prediction,effectiveness,accuracy": [
-                    0.081,
-                    1.079,
-                    1.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-22",
-                    1371.54
-                ],
-                "pct_lead": -0.131,
-                "prediction,effectiveness,accuracy": [
-                    0.073,
-                    -0.131,
-                    0.0
-                ]
-            },
-            {
-                "date,price": [
-                    "2017-08-23",
-                    1369.74
-                ],
-                "pct_lead": 0.0,
-                "prediction,effectiveness,accuracy": [
-                    0.1,
-                    0.0,
-                    0.5
-                ]
-            }
-        ]
-    }
-}
-ann@ub16aug:~/tkrapi20$ 
-ann@ub16aug:~/tkrapi20$ 
-```
-
-After I ran the above curl command I summarized the output:
-
-* sklinear is much faster than keras_nn
-* The above model was less bullish (bearish prediction on 2017-08-18)
-* The bearish prediction on 2017-08-18 was True but not very effective.
-
-# Keras + Postgres
-
-Next, I ran a demo which saves a keras model into a Postgres table which holds predictions for each month.
-
-Then, I captured a screenshot:
-
-```bash
-ann@ub16aug:~/tkrapi20$ python py/demoload_keras_fromdb.py 
-Using TensorFlow backend.
-Epoch 1/128
-2017-08-24 16:38:52.457999: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
-2017-08-24 16:38:52.458030: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
-2017-08-24 16:38:52.458036: W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
-757/757 [==============================] - 0s - loss: 3.8787     
-Epoch 2/128
-757/757 [==============================] - 0s - loss: 3.8289     
-
-SNIP ...
-
-757/757 [==============================] - 0s - loss: 2.4529     
-Epoch 126/128
-757/757 [==============================] - 0s - loss: 2.4527     
-Epoch 127/128
-757/757 [==============================] - 0s - loss: 2.4527     
-Epoch 128/128
-757/757 [==============================] - 0s - loss: 2.4526     
-           cdate      cp  pct_lead  prediction  effectiveness  accuracy
-1308  2017-08-01  169.86    -0.330       0.027         -0.330       0.0
-1309  2017-08-02  169.30    -0.419       0.144         -0.419       0.0
-1310  2017-08-03  168.59     0.611       0.220          0.611       1.0
-1311  2017-08-04  169.62     1.391       0.159          1.391       1.0
-1312  2017-08-07  171.98    -0.436       0.157         -0.436       0.0
-1313  2017-08-08  171.23    -0.029       0.045         -0.029       0.0
-1314  2017-08-09  171.18    -2.208       0.052         -2.208       0.0
-1315  2017-08-10  167.40     0.406       0.055          0.406       1.0
-1316  2017-08-11  168.08     1.589       0.275          1.589       1.0
-1317  2017-08-14  170.75     0.146       0.248          0.146       1.0
-1318  2017-08-15  171.00    -0.585       0.146         -0.585       0.0
-1319  2017-08-16  170.00    -1.818       0.015         -1.818       0.0
-1320  2017-08-17  166.91     0.300       0.049          0.300       1.0
-1321  2017-08-18  167.41     0.221       0.252          0.221       1.0
-1322  2017-08-21  167.78     1.109       0.243          1.109       1.0
-1323  2017-08-22  169.64    -0.548       0.214         -0.548       0.0
-1324  2017-08-23  168.71     0.000       0.041          0.000       0.5
-ann@ub16aug:~/tkrapi20$ 
-ann@ub16aug:~/tkrapi20$ 
-ann@ub16aug:~/tkrapi20$ 
-```
-
-If we have time in the Meetup we will step through the above code in the debugger.
-
-The ability to store Keras models in a database is an attractive feature.
-
-It allows me to generate models on a cluster of cheap or free hardware.
-
-Then, I can deploy the models to an API server so they can be used by many users.
-
-Also, technology exists which allows me to convert the models into a format suitable for running in a browser:
-
-https://github.com/transcranial/keras-js
-
-Perhaps a demo of some details behind this theme would make a good Meetup presentation in the future.
+qry_mlmodels.sql
 
 If you have questions, e-me: bikle101 at gmail
-
-If you want to wrestle with this technology in a classroom environment I invite you to attend my classes at Santa Clara Adult Education.
-
-They are easy to find with google or send me an e-mail.
-
-I look forward to working with you on your Machine Learning Applications/Projects.
-
