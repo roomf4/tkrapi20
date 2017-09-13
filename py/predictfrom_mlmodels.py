@@ -57,9 +57,17 @@ print(xtest_a)
 
 # I should transform coef_s into array:
 print(coef_s)
-coef_a = np.array(coef_s.split(','))
+pdb.set_trace()
+coef_l = coef_s.split(',')
+coef_a = np.array(coef_l).reshape(len(coef_l),-1).astype(float)
 print(coef_a)
 
+# I should calc predictions using matmul:
+
+# I should add a column of 1s to xtest_a
+a1_a  = np.ones((len(xtest_a),1), dtype=np.float)
+test_a = np.concatenate((a1_a,xtest_a), axis=1)# horizontally
+predictions_a = np.matmul(test_a,coef_a)
 
 
 'bye'
