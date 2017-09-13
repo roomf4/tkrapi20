@@ -34,7 +34,22 @@ sql_s  = "select * from mlmodels order by crtime desc limit 1"
 
 result = conn.execute(sql_s)
 
-# I should use python to get suitable test data from features table.
+for row in result:
+  print(row.tkr)
+  tkr  = row.tkr
+  mnth = row.mnth
+  features = row.features
+  coef_s   = row.sklinear_coef
+  
+# I should use python to get suitable test data from features table,
+# using tkr,mnth,features
 
+sql_s = "select tkr from features where tkr = %s limit 1"
+
+result = conn.execute(sql_s,[tkr])
+
+for row in result:
+  print(row.tkr)
+  
 'bye'
 
