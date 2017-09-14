@@ -78,13 +78,10 @@ print('predictions_a from matmul:')
 print(predictions_a)
 
 # I should use sklearn too:
-
 out_df = sktkr.learn_predict_sklinear(tkr,yrs,mnth,features)
-pdb.set_trace()
 print(out_df.prediction)
 
 # I should print diff tween 2 methods:
-
 diff_a = predictions_a.reshape(1,-1) - np.array(out_df.prediction.tolist())
 print(diff_a)
 print('Above numbers should be small.')
