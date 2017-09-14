@@ -1,24 +1,3 @@
-// js10.js
-
-// This script should demo nodejs.
-
-function p(inp) {
-  console.log(inp)
-}
-
-debugger
-var hello = 123.4
-hello = 123.45
-p(hello)
-
-my_a = [1.1,2.2,3.2,4.4,5.1,6.2,7.7,8.3,9.9]
-p(my_a)
-
-// Ref:
-// https://www.npmjs.com/package/timeseries-analysis
-
-var timeseries = require("timeseries-analysis");
-
 var ts_a = [
 ['2017-03-02'],[24.00]
 ,['2017-03-03'],[26.38]
@@ -43,8 +22,3 @@ var ts_a = [
 ,['2017-03-30'],[22.54]
 ,['2017-03-31'],[22.04]
 ]
-
-// Load the data
-var my_ts = new timeseries.main(ts_a)
-
-'bye'
