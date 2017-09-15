@@ -12,7 +12,7 @@ function d3csv_rowparse(row) {
     row
     row.Date
     row.Close
-    [row.Date, row.Close]
+    return [row.Date, +row.Close]
 }
 
 d3.csv('/static/^GSPC.csv',d3csv_rowparse,d3csv_callback)
