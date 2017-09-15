@@ -1,5 +1,6 @@
 /* my.js
 This script should copy CSV data into an array and then create an array full of features.
+The features should match features created by Pandas.
 */
 
 function prt(inp){console.log(inp)}
@@ -21,6 +22,7 @@ function mvgavg(input_a,window_i) {
     }
     return output_a
 }
+
 function d3csv_callback(csv_a) {
     /* This function should expose CSV data from d3.csv().
         The data appears in parameter: csv_a. */
@@ -29,12 +31,22 @@ function d3csv_callback(csv_a) {
     mvgavg_a
 }
 
+function d3csv_callback2(csv_a) {
+    /* This function should expose CSV data from d3.csv().
+        The data appears in parameter: csv_a. */
+    csv_a
+}
+
 function d3csv_rowparse(row) {
     // This function should operate on each row in CSV data from d3.csv()
     return [row.Date, +row.Close]
 }
-
+/* First method:
 d3.csv('/static/^GSPC.csv',d3csv_rowparse,d3csv_callback)
+*/
+
+d3.csv('/static/features.csv',d3csv_callback2)
+
 
 'bye'
 /*
