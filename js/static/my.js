@@ -4,29 +4,29 @@ This script should copy CSV data into an array and then create an array full of 
 
 function prt(inp){console.log(inp)}
 
+function mvgavg(input_a,window_i) {
+    // This function should create a moving avg from a time series of numbers.
+    // input_a s.b. like: [['2017-01-02',44.4],['2017-01-03',45.8]]
+    var outer_i
+    var inner_i
+    var l = input_a.length
+    var sum    = 0
+    var buffer = input_a.slice(0, window_i-1)
+    for (outer_i=window_i;outer_i<l+1;outer_i++) {
+	sum= 0
+	for (inner_i=window_i;inner_i>0;inner_i--) {
+	    sum += input_a[outer_i-inner_i][1]
+	}
+	    buffer[outer_i-1] = [input_a[outer_i-1][0], sum/window_i]
+    }
+    return buffer
+}
 function d3csv_callback(csv_a) {
     /* This function should expose CSV data from d3.csv().
         The data appears in parameter: csv_a. */
     csv_a
-    // I should move syntax below into a func:
-    var data   = csv_a
-    var period = 3
-    var i
-    var j
-    var l = data.length
-    var sum    = 0
-    var buffer = data.slice(0, period-1)
-
-    for (i=period;i<l+1;i++) {
-	sum= 0
-	for (j=period;j>0;j--) {
-	    sum += data[i-j][1];
-	}
-	    buffer[i-1] = [data[i-1][0], sum/period];
-    }
-
-    buffer // mvg avg s.b. in buffer now?
-    // I should move syntax above into a func:
+    var mvgavg_a = mvgavg(csv_a,3)
+    mvgavg_a
 }
 
 function d3csv_rowparse(row) {
