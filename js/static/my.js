@@ -13,16 +13,16 @@ function d3csv_callback(csv_a) {
     var period = 3
     var i
     var j
-    var l = csv_a.length
+    var l = data.length
     var sum    = 0
-    var buffer = data.slice(0, period)
+    var buffer = data.slice(0, period-1)
 
-    for (i=period;i<l;i++) {
+    for (i=period;i<l+1;i++) {
 	sum= 0
 	for (j=period;j>0;j--) {
 	    sum += data[i-j][1];
 	}
-	    buffer[i] = [data[i][0], sum/period];
+	    buffer[i-1] = [data[i-1][0], sum/period];
     }
 
     buffer // mvg avg s.b. in buffer now?
