@@ -2,10 +2,11 @@
 
 NOT DONE YET:
 
-predictfrom_mlmodels.bash
-# This script should demo how to generate predictions from mlmodels table.
+js/static/mldemo.html
+This script should read a gspc.csv and create features from it which match the features in features table.
 
-  
+
+
 website:
   keras4.us
   keras4.herokuapp.com
@@ -203,3 +204,7 @@ write:
     - yrs: [3,4,5,7,10,15,20,25,30]
     - enhancement: collect sklinear coefficents
     
+
+predictfrom_mlmodels.bash
+# This script should demo how to generate predictions from mlmodels table.
+

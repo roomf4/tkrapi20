@@ -42,10 +42,21 @@ var ts_a = [
 ,['2017-03-30',22.54]
 ,['2017-03-31',22.04]
 ]
-debugger
+
 // Load the data
 var my_ts = new timeseries.main(ts_a)
+// fails?: my_ts.chart()
+// var mychart = my_ts.chart() // this work?
 
-p(ts_a)
+// p(ts_a)
+//p(my_ts.output())
+
+// my_ts.save('sv10')
+// p(my_ts.saved)
+
+// mvg avg:
+debugger
+var ur_ts = my_ts.ma({period: 3})
+p(ur_ts)
 
 'bye'
