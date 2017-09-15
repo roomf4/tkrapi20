@@ -11,15 +11,15 @@ function mvgavg(input_a,window_i) {
     var inner_i
     var l = input_a.length
     var sum    = 0
-    var buffer = input_a.slice(0, window_i-1)
+    var output_a = input_a.slice(0, window_i-1)
     for (outer_i=window_i;outer_i<l+1;outer_i++) {
 	sum= 0
 	for (inner_i=window_i;inner_i>0;inner_i--) {
 	    sum += input_a[outer_i-inner_i][1]
 	}
-	    buffer[outer_i-1] = [input_a[outer_i-1][0], sum/window_i]
+	output_a[outer_i-1] = [input_a[outer_i-1][0], sum/window_i]
     }
-    return buffer
+    return output_a
 }
 function d3csv_callback(csv_a) {
     /* This function should expose CSV data from d3.csv().
