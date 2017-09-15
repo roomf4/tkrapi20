@@ -45,6 +45,11 @@ def getfeat(tkr):
   feat_df = pd.read_csv(io.StringIO(csv_s))
   return feat_df
 
+def getfeat2file(tkr):
+  """This function should write a CSV-file full of features for a tkr."""
+  feat_df = getfeat(tkr)
+  feat_df.tocsv('/tmp/feat.csv', index=False, float_format='%.3f')
+  
 def tkrpricesCSV(tkr):
   """This function should return CSV prices for a tkr."""
   tkru_s = tkr.upper()
