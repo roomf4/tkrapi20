@@ -35,6 +35,9 @@ function d3csv_callback2(csv_a) {
     /* This function should expose CSV data from d3.csv().
         The data appears in parameter: csv_a. */
     csv_a
+    // I should copy cdate into a simple array:
+    var cdate_a = csv_a.map(function(row) {return row.cdate})
+    cdate_a
 }
 
 function d3csv_rowparse(row) {
