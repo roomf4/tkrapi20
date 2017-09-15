@@ -48,7 +48,8 @@ def getfeat(tkr):
 def getfeat2file(tkr):
   """This function should write a CSV-file full of features for a tkr."""
   feat_df = getfeat(tkr)
-  feat_df.to_csv('/tmp/feat.csv', index=False, float_format='%.3f')
+  csvf_s  = '/tmp/feat'+tkr+'.csv'
+  feat_df.to_csv(csvf_s, index=False, float_format='%.3f')
   
 def tkrpricesCSV(tkr):
   """This function should return CSV prices for a tkr."""

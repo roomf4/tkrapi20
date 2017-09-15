@@ -45,7 +45,7 @@ function d3csv_rowparse(row) {
 d3.csv('/static/^GSPC.csv',d3csv_rowparse,d3csv_callback)
 */
 
-d3.csv('/static/fb_features.csv',d3csv_callback2)
+d3.csv('/static/featFB.csv',d3csv_callback2)
 
 
 'bye'
