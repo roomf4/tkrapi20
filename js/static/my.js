@@ -14,11 +14,11 @@ function mvgavg(input_a,window_i) {
     var sum    = 0
     var output_a = input_a.slice(0, window_i-1)
     for (outer_i=window_i;outer_i<l+1;outer_i++) {
-	sum= 0
-	for (inner_i=window_i;inner_i>0;inner_i--) {
-	    sum += input_a[outer_i-inner_i][1]
-	}
-	output_a[outer_i-1] = [input_a[outer_i-1][0], sum/window_i]
+        sum= 0
+        for (inner_i=window_i;inner_i>0;inner_i--) {
+            sum += input_a[outer_i-inner_i][1]
+        }
+        output_a[outer_i-1] = [input_a[outer_i-1][0], sum/window_i]
     }
     return output_a
 }
@@ -37,7 +37,21 @@ function d3csv_callback2(csv_a) {
     csv_a
     // I should copy cdate into a simple array:
     var cdate_a = csv_a.map(function(row) {return row.cdate})
-    cdate_a
+    len_i = csv_a.length
+    csv_o = {}
+    // I should loop through column names:
+    
+    for (col_s in csv_a.columns) {
+	prt(col_s)
+	csv_o[col_s] = []
+	// I should loop csv_a to create an array for each column:
+	for (c_i=0; c_i<len_i; c_i++) {
+	    // I should convert array full of objects into
+	    // object full of arrays:
+            csv_o[col_s][c_i] = csv_a[c_i][col_s]
+	    csv_o
+	}
+    }
 }
 
 function d3csv_rowparse(row) {
@@ -58,28 +72,28 @@ https://github.com/26medias/timeseries-analysis
 
 // Moving Average
 timeseries.prototype.ma = function(options) {
-	options = _.extend({
-		period:		12
-	}, options);
-	var i;
-	var j;
-	var l 	= this.data.length;
-	var sum	= 0;
-	
-	// Reset the buffer
-	this.buffer 	= [];
-	
-	// Leave the datapoints [0;period[ intact
-	this.buffer = this.data.slice(0, options.period);
-	
-	for (i=options.period;i<l;i++) {
-		sum	= 0;
-		for (j=options.period;j>0;j--) {
-			sum += this.data[i-j][1];
-		}
-		this.buffer[i] = [this.data[i][0], sum/options.period];
-	}
-	this.data = this.buffer;
-	return this;
+        options = _.extend({
+                period:         12
+        }, options);
+        var i;
+        var j;
+        var l   = this.data.length;
+        var sum = 0;
+        
+        // Reset the buffer
+        this.buffer     = [];
+        
+        // Leave the datapoints [0;period[ intact
+        this.buffer = this.data.slice(0, options.period);
+        
+        for (i=options.period;i<l;i++) {
+                sum     = 0;
+                for (j=options.period;j>0;j--) {
+                        sum += this.data[i-j][1];
+                }
+                this.buffer[i] = [this.data[i][0], sum/options.period];
+        }
+        this.data = this.buffer;
+        return this;
 }
 */
