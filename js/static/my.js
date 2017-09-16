@@ -34,23 +34,21 @@ function d3csv_callback(csv_a) {
 function d3csv_callback2(csv_a) {
     /* This function should expose CSV data from d3.csv().
         The data appears in parameter: csv_a. */
-    csv_a
-    // I should copy cdate into a simple array:
-    var cdate_a = csv_a.map(function(row) {return row.cdate})
-    len_i = csv_a.length
-    csv_o = {}
+    csvlen_i = csv_a.length
+    col_a    = csv_a.columns
+    collen_i = col_a.length
+    csv_o = {} // w.b. object full of arrays
+    // I should convert array full of objects into
+    // object full of arrays:            
     // I should loop through column names:
-    
-    for (col_s in csv_a.columns) {
-	prt(col_s)
-	csv_o[col_s] = []
-	// I should loop csv_a to create an array for each column:
-	for (c_i=0; c_i<len_i; c_i++) {
-	    // I should convert array full of objects into
-	    // object full of arrays:
-            csv_o[col_s][c_i] = csv_a[c_i][col_s]
-	    csv_o
-	}
+    for (col_i=0; col_i<collen_i; col_i++) {
+        col_s        = col_a[col_i]
+        csv_o[col_s] = []
+        // I should loop through csv_a:
+        for(row_i=0; row_i<csvlen_i; row_i++) {
+            var row = csv_a[row_i]
+            csv_o[col_s].push(row[col_s])
+        }
     }
 }
 
