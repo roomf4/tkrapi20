@@ -50,6 +50,8 @@ function d3csv_callback2(csv_a) {
             csv_o[col_s].push(row[col_s])
         }
     }
+    csv_o
+    'bye'
 }
 
 function d3csv_rowparse(row) {
