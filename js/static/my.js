@@ -3,6 +3,26 @@ This script should copy CSV data into an array and then create an array full of 
 The features should match features created by Pandas.
 */
 
+function csva2o(csv_a) {
+    csvlen_i = csv_a.length
+    col_a    = csv_a.columns
+    collen_i = col_a.length
+    csv_o = {} // w.b. object full of arrays
+    // I should convert array full of objects into
+    // object full of arrays:            
+    // I should loop through column names:
+    for (col_i=0; col_i<collen_i; col_i++) {
+        col_s        = col_a[col_i]
+        csv_o[col_s] = []
+        // I should loop through csv_a:
+        for(row_i=0; row_i<csvlen_i; row_i++) {
+            var row = csv_a[row_i]
+            csv_o[col_s].push(row[col_s])
+        }
+    }
+    return csv_o
+}
+
 function prt(inp){console.log(inp)}
 
 function mvgavg(input_a,window_i) {
@@ -27,45 +47,19 @@ function d3csv_callback(csv_a) {
     /* This function should expose CSV data from d3.csv().
         The data appears in parameter: csv_a. */
     csv_a
-    var mvgavg_a = mvgavg(csv_a,3)
-    mvgavg_a
-}
-
-function d3csv_callback2(csv_a) {
-    /* This function should expose CSV data from d3.csv().
-        The data appears in parameter: csv_a. */
-    csvlen_i = csv_a.length
-    col_a    = csv_a.columns
-    collen_i = col_a.length
-    csv_o = {} // w.b. object full of arrays
-    // I should convert array full of objects into
-    // object full of arrays:            
-    // I should loop through column names:
-    for (col_i=0; col_i<collen_i; col_i++) {
-        col_s        = col_a[col_i]
-        csv_o[col_s] = []
-        // I should loop through csv_a:
-        for(row_i=0; row_i<csvlen_i; row_i++) {
-            var row = csv_a[row_i]
-            csv_o[col_s].push(row[col_s])
-        }
-    }
+    csv_o = csva2o(csv_a)
     csv_o
-    'bye'
 }
 
 function d3csv_rowparse(row) {
     // This function should operate on each row in CSV data from d3.csv()
     return [row.Date, +row.Close]
 }
-/* First method:
-d3.csv('/static/^GSPC.csv',d3csv_rowparse,d3csv_callback)
-*/
 
-d3.csv('/static/featFB.csv',d3csv_callback2)
-
+d3.csv('/static/featFB.csv',d3csv_callback)
 
 'bye'
+
 /*
 Ref:
 https://github.com/26medias/timeseries-analysis
