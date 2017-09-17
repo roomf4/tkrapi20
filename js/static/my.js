@@ -45,13 +45,27 @@ function mvgavg(input_a,window_i) {
 
 function lag(col_a,wdw_i) {
     // This function should return array which lags col_a by wdw_i.
-    var lag_a = col_a
+    var lag_a = col_a.slice()
     var len_i = col_a.length
     var start_lag_i = wdw_i // I should start filling lag_a here.
     for (c_i=start_lag_i; c_i<len_i; c_i++) {
-	lag_a[c_i] = col_a[c_i - wdw_i]
+        lag_a[c_i] = col_a[c_i - wdw_i]
     }
     return lag_a
+}
+
+function pctlag(col_a,wdw_i) {
+    // This function should return array which has pctlags between values in col_a.
+    // I should assume col_a contains numbers.
+    var pctlag_a    = col_a.slice()
+    var len_i       = col_a.length
+    var start_lag_i = wdw_i // I should start filling lag_a here.
+    for (c_i=start_lag_i; c_i<len_i; c_i++) {
+        head_f        = col_a[c_i]
+        lag_f         = col_a[c_i - wdw_i]
+        pctlag_a[c_i] = 100*(head_f-lag_f)/lag_f
+    }
+    return pctlag_a
 }
 
 
@@ -63,8 +77,8 @@ function d3csv_callback(csv_a) {
     csv_o
     var cdate_a = csv_o.cdate
     var wdw_i   = 1
-    lag_a   = lag(cdate_a,wdw_i)
-    lag_a // should lag cdate_a by wde_i
+    pctlag_a    = pctlag(cdate_a,wdw_i)
+    pctlag_a // s.b. pctlag by wde_i
 }
 
 function d3csv_rowparse(row) {
