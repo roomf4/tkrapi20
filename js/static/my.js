@@ -75,11 +75,12 @@ function pctlag(col_a,wdw_i) {
 function pctlead(col_a) {
     // This function should return array which has pctleads between values in col_a.
     // I should assume col_a contains numbers.
-    var pctlead_a      = col_a.slice()
-    var len_i          = col_a.length
-    pctlead_a[len_i-1] = 0.0 // s.b. good default
+    var pctlead_a = col_a.slice()
+    var len_i     = col_a.length
+    var end_i     = len_i - 1 // s.b. place to stop
+    pctlead_a[end_i] = 0.0    // s.b. good default
     // I should start filling:
-    for (c_i=0; c_i<start_lead_i-1; c_i++) {
+    for (c_i=0; c_i<end_i; c_i++) {
         head_f         = col_a[c_i+1]   
         lag_f          = col_a[c_i  ]
         pctlead_a[c_i] = 100*(head_f-lag_f)/lag_f
