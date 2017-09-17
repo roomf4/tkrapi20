@@ -62,7 +62,8 @@ function mvav(col_a,wdw_i) {
     for (c_i=start_mvav_i; c_i<len_i; c_i++) {
 	var wdwstart_i = c_i - wdw_i
 	var wdwend_i   = c_i
-        mvav_a[c_i] = d3.mean(col_a.slice(c_i,wdw_i))
+	// I should calc mean over window:
+        mvav_a[c_i] = d3.mean(col_a.slice(wdwstart_i,wdwend_i))
     }
     return mvav_a
 }
