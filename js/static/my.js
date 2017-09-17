@@ -60,6 +60,10 @@ function pctlag(col_a,wdw_i) {
     var pctlag_a    = col_a.slice()
     var len_i       = col_a.length
     var start_lag_i = wdw_i // I should start filling lag_a here.
+    for (c_i=0; c_i<start_lag_i; c_i++) {
+        pctlag_a[c_i] = 0.0 // s.b. good default
+    }
+    // I should start filling:
     for (c_i=start_lag_i; c_i<len_i; c_i++) {
         head_f        = col_a[c_i]
         lag_f         = col_a[c_i - wdw_i]
@@ -75,9 +79,9 @@ function d3csv_callback(csv_a) {
     csv_a
     var csv_o = csva2o(csv_a)
     csv_o
-    var cdate_a = csv_o.cdate
-    var wdw_i   = 1
-    pctlag_a    = pctlag(cdate_a,wdw_i)
+    var cp_a  = csv_o.cp
+    var wdw_i = 1
+    pctlag_a  = pctlag(cp_a,wdw_i)
     pctlag_a // s.b. pctlag by wde_i
 }
 
