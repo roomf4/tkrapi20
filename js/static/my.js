@@ -25,7 +25,7 @@ function csva2o(csv_a) {
 
 function prt(inp){console.log(inp)}
 
-function mvgavg(input_a,window_i) {
+function mvgavg0(input_a,window_i) {
     // This function should create a moving avg from a time series of numbers.
     // input_a s.b. like: [['2017-01-02',44.4],['2017-01-03',45.8]]
     var outer_i
@@ -52,6 +52,19 @@ function lag(col_a,wdw_i) {
         lag_a[c_i] = col_a[c_i - wdw_i]
     }
     return lag_a
+}
+
+function mvav(col_a,wdw_i) {
+    // This function should return array with mvg avg over wdw_i.
+    var mvav_a       = col_a.slice()
+    var len_i        = col_a.length
+    var start_mvav_i = wdw_i // I should start filling mvav_a here.
+    for (c_i=start_mvav_i; c_i<len_i; c_i++) {
+	var wdwstart_i = c_i - wdw_i
+	var wdwend_i   = c_i
+        mvav_a[c_i] = d3.mean(col_a.slice(c_i,wdw_i))
+    }
+    return mvav_a
 }
 
 function pctlag(col_a,wdw_i) {
@@ -102,6 +115,8 @@ function d3csv_callback(csv_a) {
     csv_o.pct_lead
     var pctlead_a = pctlead(cp_a)
     pctlead_a
+    var mvav2_a   = mvav(cp_a,2)
+    mvav2_a
 }
 
 function d3csv_rowparse(row) {
