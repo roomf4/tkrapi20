@@ -43,15 +43,25 @@ function mvgavg(input_a,window_i) {
     return output_a
 }
 
+function lag(col_a,wdw_i) {
+    // This function should return array which lags col_a by wdw_i.
+    return col_a
+}
+
+
 function d3csv_callback(csv_a) {
     /* This function should expose CSV data from d3.csv().
         The data appears in parameter: csv_a. */
     csv_a
     csv_o = csva2o(csv_a)
     csv_o
+    cdate_a = csv_o.cdate
+    lag_a   = lag(col_a,wdw_i)
+    lag_a
 }
 
 function d3csv_rowparse(row) {
+    // Currently this function is not used.
     // This function should operate on each row in CSV data from d3.csv()
     return [row.Date, +row.Close]
 }
