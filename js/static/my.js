@@ -60,9 +60,12 @@ function mvav(col_a,wdw_i) {
     var len_i        = col_a.length
     var start_mvav_i = wdw_i // I should start filling mvav_a here.
     for (c_i=start_mvav_i; c_i<len_i; c_i++) {
-	var wdwstart_i = c_i - wdw_i
-	var wdwend_i   = c_i
-	// I should calc mean over window:
+        var wdwstart_i = c_i - wdw_i
+        var wdwend_i   = c_i
+        // I should calc mean over window:
+	// debug
+	col_a.slice(wdwstart_i,wdwend_i)
+	// debug
         mvav_a[c_i] = d3.mean(col_a.slice(wdwstart_i,wdwend_i))
     }
     return mvav_a
