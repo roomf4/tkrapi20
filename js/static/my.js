@@ -78,11 +78,12 @@ function d3csv_callback(csv_a) {
         The data appears in parameter: csv_a. */
     csv_a
     var csv_o = csva2o(csv_a)
-    csv_o
     var cp_a  = csv_o.cp
-    var wdw_i = 1
-    pctlag_a  = pctlag(cp_a,wdw_i)
-    pctlag_a // s.b. pctlag by wde_i
+    var pctlag1_a = pctlag(cp_a,1)
+    var pctlag2_a = pctlag(cp_a,2)
+    var pctlag4_a = pctlag(cp_a,4)
+    var pctlag8_a = pctlag(cp_a,8)
+    csv_o.pct_lag1
 }
 
 function d3csv_rowparse(row) {
