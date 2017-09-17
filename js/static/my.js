@@ -45,9 +45,9 @@ function mvgavg(input_a,window_i) {
 
 function lag(col_a,wdw_i) {
     // This function should return array which lags col_a by wdw_i.
-    lag_a = col_a
-    len_i = col_a.length
-    start_lag_i = wdw_i // I should start filling lag_a here.
+    var lag_a = col_a
+    var len_i = col_a.length
+    var start_lag_i = wdw_i // I should start filling lag_a here.
     for (c_i=start_lag_i; c_i<len_i; c_i++) {
 	lag_a[c_i] = col_a[c_i - wdw_i]
     }
@@ -59,10 +59,10 @@ function d3csv_callback(csv_a) {
     /* This function should expose CSV data from d3.csv().
         The data appears in parameter: csv_a. */
     csv_a
-    csv_o = csva2o(csv_a)
+    var csv_o = csva2o(csv_a)
     csv_o
-    cdate_a = csv_o.cdate
-    wdw_i   = 1
+    var cdate_a = csv_o.cdate
+    var wdw_i   = 1
     lag_a   = lag(cdate_a,wdw_i)
     lag_a // should lag cdate_a by wde_i
 }
