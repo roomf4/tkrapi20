@@ -54,23 +54,6 @@ function lag(col_a,wdw_i) {
     return lag_a
 }
 
-function mvav(cp_a,wdw_i) {
-    // This function should return array with mvg avg over wdw_i.
-    var mvav_a       = cp_a.slice()
-    var len_i        = cp_a.length
-    var start_mvav_i = wdw_i // I should start filling mvav_a here.
-    for (c_i=start_mvav_i; c_i<len_i; c_i++) {
-        var wdwstart_i = c_i - wdw_i
-        var wdwend_i   = c_i
-        // I should calc mean over window:
-        // debug
-        var lastem_a = cp_a.slice(wdwstart_i,wdwend_i)
-        // debug
-        mvav_a[c_i] = d3.mean(lastem_a)
-    }
-    return mvav_a
-}
-
 function slopemv(cp_a, wdw_i) {
     // This function should return a normalized slope of a price mvg avg over a window.
     // Output should match output of py/genf.py
@@ -122,9 +105,29 @@ function pctlead(col_a) {
 }
 
 
+function mvav(cp_a,wdw_i) {
+    // This function should return array with mvg avg over wdw_i.
+    var mvav_a       = cp_a.slice()
+    var len_i        = cp_a.length
+    var start_mvav_i = wdw_i-1 // I should start filling mvav_a here.
+    for (c_i=start_mvav_i; c_i<len_i; c_i++) {
+        var wdwstart_i = c_i - wdw_i+1
+        var wdwend_i   = c_i+1
+        // I should calc mean over window:
+        var wdw_a   = cp_a.slice(wdwstart_i,wdwend_i)
+        mvav_a[c_i] = d3.mean(wdw_a)
+    }
+    return mvav_a
+}
+
 function d3csv_callback(csv_a) {
     /* This function should expose CSV data from d3.csv().
         The data appears in parameter: csv_a. */
+    var tst_a = [0,1,2,3,4,5,6,7,8,9]
+    mvav3_a = mvav(tst_a,3)
+    mvav3_a
+    var slp3_a = slopemv(tst_a, 3)
+    slp3_a
     csv_a
     var csv_o = csva2o(csv_a)
     var cp_a  = csv_o.cp
@@ -132,13 +135,11 @@ function d3csv_callback(csv_a) {
     var pctlag2_a = pctlag(cp_a,2)
     var pctlag4_a = pctlag(cp_a,4)
     var pctlag8_a = pctlag(cp_a,8)
-    csv_o.pct_lead
     var pctlead_a = pctlead(cp_a)
     pctlead_a
-    var mvav3_a   = mvav(cp_a,3)
-    mvav3_a
     var slp3_a = slopemv(cp_a, 3)
     slp3_a
+    csv_o.slope3
 }
 
 function d3csv_rowparse(row) {

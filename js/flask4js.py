@@ -4,10 +4,10 @@ flask4js.py
 This script should run a flask server which serves static HTML and JS.
 
 Demo:
-echo hello > static/my.html
+echo hello > static/ur.html
 export FLASK_DEBUG=1
 python flask4js.py
-curl 127.0.0.1:5000/static/my.html
+curl 127.0.0.1:5000/static/.html
 """
 
 import os
