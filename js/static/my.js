@@ -64,9 +64,9 @@ function mvav(cp_a,wdw_i) {
         var wdwend_i   = c_i
         // I should calc mean over window:
         // debug
-        cp_a.slice(wdwstart_i,wdwend_i)
+        var lastem_a = cp_a.slice(wdwstart_i,wdwend_i)
         // debug
-        mvav_a[c_i] = d3.mean(cp_a.slice(wdwstart_i,wdwend_i))
+        mvav_a[c_i] = d3.mean(lastem_a)
     }
     return mvav_a
 }
@@ -82,7 +82,7 @@ function slopemv(cp_a, wdw_i) {
     for (c_i=1; c_i<len_i; c_i++) {
         var diff_f = 100*(mvav_a[c_i]-mvav_a[c_i-1])/mvav_a[c_i]
         // Assuming mvav_a[c_i] != 0
-        slp_a.push(diff_f)
+        slp_a[c_i] = diff_f
     }
     return slp_a
 }
