@@ -54,21 +54,37 @@ function lag(col_a,wdw_i) {
     return lag_a
 }
 
-function mvav(col_a,wdw_i) {
+function mvav(cp_a,wdw_i) {
     // This function should return array with mvg avg over wdw_i.
-    var mvav_a       = col_a.slice()
-    var len_i        = col_a.length
+    var mvav_a       = cp_a.slice()
+    var len_i        = cp_a.length
     var start_mvav_i = wdw_i // I should start filling mvav_a here.
     for (c_i=start_mvav_i; c_i<len_i; c_i++) {
         var wdwstart_i = c_i - wdw_i
         var wdwend_i   = c_i
         // I should calc mean over window:
-	// debug
-	col_a.slice(wdwstart_i,wdwend_i)
-	// debug
-        mvav_a[c_i] = d3.mean(col_a.slice(wdwstart_i,wdwend_i))
+        // debug
+        cp_a.slice(wdwstart_i,wdwend_i)
+        // debug
+        mvav_a[c_i] = d3.mean(cp_a.slice(wdwstart_i,wdwend_i))
     }
     return mvav_a
+}
+
+function slopemv(cp_a, wdw_i) {
+    // This function should return a normalized slope of a price mvg avg over a window.
+    // Output should match output of py/genf.py
+    // I should get mvg avg:
+    var mvav_a = mvav(cp_a,wdw_i)
+    // I should get normalized diff:
+    var len_i = mvav_a.length
+    var slp_a = [0] // Initially slope s.b. 0.0
+    for (c_i=1; c_i<len_i; c_i++) {
+        var diff_f = 100*(mvav_a[c_i]-mvav_a[c_i-1])/mvav_a[c_i]
+        // Assuming mvav_a[c_i] != 0
+        slp_a.push(diff_f)
+    }
+    return slp_a
 }
 
 function pctlag(col_a,wdw_i) {
@@ -119,8 +135,10 @@ function d3csv_callback(csv_a) {
     csv_o.pct_lead
     var pctlead_a = pctlead(cp_a)
     pctlead_a
-    var mvav2_a   = mvav(cp_a,2)
-    mvav2_a
+    var mvav3_a   = mvav(cp_a,3)
+    mvav3_a
+    var slp3_a = slopemv(cp_a, 3)
+    slp3_a
 }
 
 function d3csv_rowparse(row) {
