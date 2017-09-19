@@ -120,17 +120,27 @@ function mvav(cp_a,wdw_i) {
     return mvav_a
 }
 
+function genf(cdate_a,cp_a) {
+    // This function should generate features from cdate_a and cp_a.
+    features = {}
+    return features
+}
+
 function d3csv_callback(csv_a) {
     /* This function should expose CSV data from d3.csv().
         The data appears in parameter: csv_a. */
+    var csv_o   = csva2o(csv_a)
+    // I should get cdate_a and cp_a for genf():
+    var cp_a    = csv_o.cp
+    var cdate_a = csv_o.cdate
+    'bye'
+    /* debug:
     var tst_a = [0,1,2,3,4,5,6,7,8,9]
     mvav3_a = mvav(tst_a,3)
     mvav3_a
     var slp3_a = slopemv(tst_a, 3)
     slp3_a
     csv_a
-    var csv_o = csva2o(csv_a)
-    var cp_a  = csv_o.cp
     var pctlag1_a = pctlag(cp_a,1)
     var pctlag2_a = pctlag(cp_a,2)
     var pctlag4_a = pctlag(cp_a,4)
@@ -140,6 +150,7 @@ function d3csv_callback(csv_a) {
     var slp3_a = slopemv(cp_a, 3)
     slp3_a
     csv_o.slope3
+    */
 }
 
 function d3csv_rowparse(row) {
