@@ -122,14 +122,19 @@ function mvav(cp_a,wdw_i) {
 
 function genf(cdate_a,cp_a) {
     // This function should generate features from cdate_a and cp_a.
-    // I should convert cdate_a from strings to dates
-    var cdt_a = cdate_a.map(function(d_s) {return new Date(d_s+'T20:00:00Z')})
-    cdt_a
-    // I should generate Month-of-year:
+    // I should generate pct_lead:
+    var pctlead_a = pctlead(cp_a)
+    var pctlag1_a = pctlag(cp_a,1)
+    var pctlag2_a = pctlag(cp_a,2)
+    var pctlag4_a = pctlag(cp_a,4)
+    var pctlag8_a = pctlag(cp_a,8)
+    pctlead_a
+
+
+    // I should generate Month-of-year, Day-of-week:
     var moy_a = cdate_a.map(function(d_s) {return +d_s.substring(5,7)/100.0})
-    moy_a
     var dow_a = cdate_a.map(function(d_s) {return new Date(d_s+'T20:00:00Z').getDay()/100.0})
-    dow_a
+    
     var features = {}
     return features
 }
