@@ -128,6 +128,8 @@ function genf(cdate_a,cp_a) {
     // I should generate Month-of-year:
     var moy_a = cdate_a.map(function(d_s) {return +d_s.substring(5,7)/100.0})
     moy_a
+    var dow_a = cdate_a.map(function(d_s) {return new Date(d_s+'T20:00:00Z').getDay()/100.0})
+    dow_a
     var features = {}
     return features
 }
