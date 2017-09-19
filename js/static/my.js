@@ -122,7 +122,13 @@ function mvav(cp_a,wdw_i) {
 
 function genf(cdate_a,cp_a) {
     // This function should generate features from cdate_a and cp_a.
-    features = {}
+    // I should convert cdate_a from strings to dates
+    var cdt_a = cdate_a.map(function(d_s) {return new Date(d_s+'T20:00:00Z')})
+    cdt_a
+    // I should generate Month-of-year:
+    var moy_a = cdate_a.map(function(d_s) {return +d_s.substring(5,7)/100.0})
+    moy_a
+    var features = {}
     return features
 }
 
@@ -133,6 +139,7 @@ function d3csv_callback(csv_a) {
     // I should get cdate_a and cp_a for genf():
     var cp_a    = csv_o.cp
     var cdate_a = csv_o.cdate
+    var feat_o  = genf(cdate_a,cp_a)
     'bye'
     /* debug:
     var tst_a = [0,1,2,3,4,5,6,7,8,9]
