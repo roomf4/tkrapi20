@@ -124,23 +124,22 @@ function genf(cdate_a,cp_a) {
     // This function should generate features from cdate_a and cp_a.
     var features_o = {} // I should fill this
     // I should generate pct_lead:
-    var pctlead_a = pctlead(cp_a)
-    var pctlag1_a = pctlag(cp_a,1)
-    var pctlag2_a = pctlag(cp_a,2)
-    var pctlag4_a = pctlag(cp_a,4)
-    var pctlag8_a = pctlag(cp_a,8)
-    pctlead_a
+    features_o['cdate']   = cdate_a
+    features_o['cp']      = cp_a
+    features_o['pctlead'] = pctlead(cp_a)
+    features_o['pctlag1'] = pctlag(cp_a,1)
+    features_o['pctlag2'] = pctlag(cp_a,2)
+    features_o['pctlag4'] = pctlag(cp_a,4)
+    features_o['pctlag8'] = pctlag(cp_a,8)
     var slp_a = [3,4,5,6,7,8,9]
     for (s_i=0; s_i<slp_a.length; s_i++){
         var slp_s   = 'slope'+slp_a[s_i]
         var slope_a = slopemv(cp_a, slp_a[s_i])
         features_o[slp_s] = slope_a
     }
-
-    // I should generate Month-of-year, Day-of-week:
-    var moy_a = cdate_a.map(function(d_s) {return +d_s.substring(5,7)/100.0})
-    var dow_a = cdate_a.map(function(d_s) {return new Date(d_s+'T20:00:00Z').getDay()/100.0})
-    
+    // I should generate Day-of-week, Month-of-year:
+    features_o['dow'] = cdate_a.map(function(d_s) {return new Date(d_s+'T20:00:00Z').getDay()/100.0})
+    features_o['moy'] = cdate_a.map(function(d_s) {return +d_s.substring(5,7)/100.0})
     return features_o
 }
 
