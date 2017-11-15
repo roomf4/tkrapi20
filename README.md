@@ -17,40 +17,6 @@ cd ~dan
 git clone ssh://git@bitbucket.org/bikle/tkrapi20.git
 ```
 
-I ran the first demo by issuing some shell commands:
-
-```bash
-cd ~ann
-cd tkrapi20
-. env.bash
-python
-```
-
-I saw in the Python banner that I was running this:
-
-```bash
-ann@ub16aug:~/tkrapi20$ python
-Python 3.6.1 |Anaconda 4.4.0 (64-bit)| (default, May 11 2017, 13:09:58) 
-[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)] on linux
-Type "help", "copyright", "credits" or "license" for more information.
->>> quit()
-ann@ub16aug:~/tkrapi20$
-```
-
-The next demo I ran was a single shell command which is listed below:
-
-```bash
-conda install flask keras numpy pandas psycopg2 sqlalchemy
-```
-
-The above command finished after 90 seconds.
-
-Next, I ran this shell command:
-
-```bash
-conda install flask-restful -c conda-forge
-```
-
 Next, I worked with Postgres so this repo could interact with database tables.
 
 I issued some shell commands:
@@ -69,6 +35,39 @@ I typed three commands:
 create database tkrapi;
 create role tkrapi with login superuser password 'tkrapi';
 \q
+```
+
+Next, I ran the first demo by issuing some shell commands:
+
+```bash
+cd ~ann
+cd tkrapi20
+. env.bash
+python
+```
+
+I saw in the Python banner that I was running this:
+
+```
+ann@tkrapi:~/tkrapi20 $ python
+Python 3.6.3 |Anaconda, Inc.| (default, Oct 13 2017, 12:02:49) 
+[GCC 7.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> quit()
+```
+
+The next demo I ran was a single shell command which is listed below:
+
+```bash
+conda install flask keras numpy pandas psycopg2 sqlalchemy
+```
+
+The above command finished after 90 seconds.
+
+Next, I ran this shell command:
+
+```bash
+conda install flask-restful -c conda-forge
 ```
 
 But first we need to get some data.
