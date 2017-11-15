@@ -8,7 +8,7 @@ If you are on Mac or windows, a straightforward way to do this is to install Vir
 
 After you install VirtualBox, download the file listed below and then import it into VirtualBox.
 
-https://drive.google.com/file/d/0Bx3iDDAtxxI4VUtZcTRxTnZKZlk/
+https://drive.google.com/file/d/1LMoQWKFtcBAj6B1vYSrLK_b4ZdbgDniR/
 
 Next, I cloned this repo using a simple shell command:
 
