@@ -5,7 +5,7 @@ This script should demonstrate how to load a keras model from db and use it to p
 
 Demo:
 . ../env.bash
-~/anaconda3/bin/python demoload_keras_fromdb
+~/anaconda3/bin/python demoload_keras_fromdb.py
 
 """
 
