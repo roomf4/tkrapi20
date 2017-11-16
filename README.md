@@ -59,7 +59,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 The next demo I ran was a single shell command which is listed below:
 
 ```bash
-conda install flask keras numpy pandas psycopg2 sqlalchemy
+conda install keras psycopg2
 ```
 
 The above command finished after 90 seconds.
