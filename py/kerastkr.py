@@ -24,6 +24,7 @@ epochs_i     = 128 # Doc: Number of epochs to train the model.
 
 def learn_predict_keraslinear(tkr='ABC',yrs=20,mnth='2016-11', features='pct_lag1,slope4,moy'):
   """This function should use keras to learn, predict."""
+  # I should both check and format features to be consistent:
   features_s = pgdb.check_features(features)
   # I should get train, test data.
   # Also get copy of test data in a DataFrame for later reporting:

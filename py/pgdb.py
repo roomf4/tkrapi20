@@ -141,7 +141,7 @@ def get_train_test(tkr,yrs,mnth,features):
     return xtrain_a, ytrain_a, xtest_a, out_df
   train_df = feat_df.loc[min_train_loc_i:max_train_loc_i]
   # I should format features to make them consistent:
-  features_s = pgdb.check_features(features)
+  features_s = check_features(features)
   # I should get training and testing data:
   features_l = features_s.split(',')
   xtrain_df  = train_df[features_l]
@@ -170,7 +170,7 @@ def getmonths4tkr(tkr,yrs):
 def predictions2db(tkr,yrs,mnth,features,algo,predictions_df,kmodel,coef=None,algo_params='None Needed'):
   """This function should copy predictions and reporting columns to db."""
   # I should format features to make them consistent:
-  features_s = pgdb.check_features(features)
+  features_s = check_features(features)
   if coef:
     coef_s = str(coef)
   else:
