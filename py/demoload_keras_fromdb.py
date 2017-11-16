@@ -10,7 +10,9 @@ Demo:
 """
 
 import kerastkr
+import pdb
 
+pdb.set_trace()
 out_df = kerastkr.load_predict_keraslinear()
 print(out_df)
 
