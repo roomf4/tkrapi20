@@ -86,7 +86,9 @@ def learn_predict_keraslinear_tkr(tkr='ABC',yrs=20, features='pct_lag1,slope4,mo
 
 def load_predict_keraslinear(tkr='FB',yrs=3,mnth='2017-08', features='pct_lag1,slope4,moy'):
   """This function should demo how to predict from a model in the db."""
-  learn_predict_keraslinear(tkr,yrs,mnth,features) # Store a model in the db.
+  # I should format features to make them consistent:
+  features_s = pgdb.check_features(features)
+  learn_predict_keraslinear(tkr,yrs,mnth,features_s) # Store a model in the db.
   # I should connect to the DB
   db_s  = os.environ['DATABASE_URL']
   conn  = sql.create_engine(db_s).connect()
@@ -97,7 +99,7 @@ def load_predict_keraslinear(tkr='FB',yrs=3,mnth='2017-08', features='pct_lag1,s
     AND   mnth     = %s
     AND   features = %s
     LIMIT 1'''
-  result = conn.execute(sql_s,[tkr,yrs,mnth,features])
+  result = conn.execute(sql_s,[tkr,yrs,mnth,features_s])
   if not result.rowcount:
     return ['no result'] # Probably, a problem.
   myrow     = [row for row in result][0]
@@ -106,7 +108,7 @@ def load_predict_keraslinear(tkr='FB',yrs=3,mnth='2017-08', features='pct_lag1,s
     fh.write(kmodel_h5)
   kmodel = keras.models.load_model('/tmp/kmodel2.h5')
   
-  xtrain_a, ytrain_a, xtest_a, out_df = pgdb.get_train_test(tkr,yrs,mnth,features)
+  xtrain_a, ytrain_a, xtest_a, out_df = pgdb.get_train_test(tkr,yrs,mnth,features_s)
   if ((xtrain_a.size == 0) or (ytrain_a.size == 0) or (xtest_a.size == 0)):
     return out_df # probably empty too.
   # Start using Keras here.

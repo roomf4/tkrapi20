@@ -167,6 +167,8 @@ def getmonths4tkr(tkr,yrs):
 
 def predictions2db(tkr,yrs,mnth,features,algo,predictions_df,kmodel,coef=None,algo_params='None Needed'):
   """This function should copy predictions and reporting columns to db."""
+  # I should format features to make them consistent:
+  features_s = pgdb.check_features(features)
   if coef:
     coef_s = str(coef)
   else:
@@ -204,13 +206,13 @@ def predictions2db(tkr,yrs,mnth,features,algo,predictions_df,kmodel,coef=None,al
     AND   algo        = %s
     AND   algo_params = %s
     '''
-  conn.execute(sql_s,[tkr,yrs,mnth,features,algo,algo_params])
+  conn.execute(sql_s,[tkr,yrs,mnth,features_s,algo,algo_params])
     # I should match %s tokens with each column:
   sql_s = '''INSERT INTO predictions(
     tkr, yrs,mnth,features,algo,algo_params,crtime,sklinear_coef,csv,kmodel_h5)VALUES(
     %s , %s ,%s  ,%s      ,%s  ,%s         ,now() ,%s           ,%s ,%s)'''
   conn.execute(sql_s,[
-    tkr, yrs,mnth,features,algo,algo_params,       coef_s,csv_s,kmodel_h5])
+    tkr, yrs,mnth,features_s,algo,algo_params,       coef_s,csv_s,kmodel_h5])
   return True
 
 def dbpredictions(algo  = 'sklinear'
