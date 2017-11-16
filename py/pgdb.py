@@ -140,8 +140,10 @@ def get_train_test(tkr,yrs,mnth,features):
     # I should return empty objects:
     return xtrain_a, ytrain_a, xtest_a, out_df
   train_df = feat_df.loc[min_train_loc_i:max_train_loc_i]
-  # I should train:
-  features_l = features.split(',')
+  # I should format features to make them consistent:
+  features_s = pgdb.check_features(features)
+  # I should get training and testing data:
+  features_l = features_s.split(',')
   xtrain_df  = train_df[features_l]
   xtrain_a   = np.array(xtrain_df)
   ytrain_a   = np.array(train_df)[:,2 ]
@@ -223,6 +225,7 @@ def dbpredictions(algo  = 'sklinear'
            ,algo_params = 'None Needed'
            ):
   """This function should return saved predictions."""
+  # I should format features to make them consistent:
   features_s = check_features(features)
   sql_s  = '''SELECT tkr, csv
     FROM predictions
@@ -250,6 +253,7 @@ def dbpredictions_yr(algo  = 'sklinear'
            ,algo_params = 'None Needed'
            ):
   """This function should return saved predictions."""
+  # I should format features to make them consistent:
   features_s = check_features(features)
   sql_s  = '''SELECT tkr, csv
     FROM predictions
@@ -282,6 +286,7 @@ def dbpredictions_tkr(algo  = 'sklinear'
            ,algo_params = 'None Needed'
            ):
   """This function should return saved predictions."""
+  # I should format features to make them consistent:
   features_s = check_features(features)
   sql_s  = '''SELECT tkr, csv
     FROM predictions
@@ -313,6 +318,8 @@ def db1st_model2nd(algo   = 'sklinear'
            ,algo_params = 'None Needed'
            ):
   """Predictions from db first, if none, then ML."""
+  # I should format features to make them consistent:
+  features_s = check_features(features)
   out_df = dbpredictions(algo, tkr, yrs, mnth, features, algo_params)
   if (out_df.size > 0):
     return out_df
