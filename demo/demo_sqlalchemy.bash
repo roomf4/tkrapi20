@@ -40,12 +40,12 @@ conn.execute(sql_s,['IBM',100.05])
 sql_s  = 'SELECT * FROM dropme'
 print(sql_s)
 result = conn.execute(sql_s)
-print([row for row in result])
+print(list(result))
 # Notice how I use a python list to fill %s parameters:
 sql_s  = 'SELECT * FROM dropme WHERE tkr = %s AND cp > %s'
 print(sql_s)
 result = conn.execute(sql_s,['GOOG',100.1])
-print([row for row in result])
+print(list(result))
 EOF
 
 exit
