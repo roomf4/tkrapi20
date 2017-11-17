@@ -2,10 +2,6 @@
 cr_model.py
 
 This script should create ML-models and save them to db table: mlmodels.
-
-Demo:
-. ../env.bash
-$PYTHON cr_model.py
 """
 
 import io
