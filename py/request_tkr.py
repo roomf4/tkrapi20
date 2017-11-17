@@ -6,7 +6,10 @@ Ref:
 https://stackoverflow.com/questions/21736970/using-requests-module-how-to-handle-set-cookie-in-request-response
 
 Demo:
-~/anaconda3/bin/python request_tkr.py IBM
+cd ~/tkrapi20/
+. env.bash
+mkdir -p $TKRCSVD $TKRCSVH $TKRCSVS
+~/anaconda3/bin/python py/request_tkr.py IBM
 """
 
 import datetime
