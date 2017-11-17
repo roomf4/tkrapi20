@@ -12,7 +12,7 @@ import cr_model
 tkr  = 'FB'
 yrs  = 4
 mnth = '2017-10'
-tkr,yrs,mnth,features_s = 'pct_lag1,pct_lag4,slope3,slope6,moy'
+features_s = 'pct_lag1,pct_lag4,slope3,slope6,moy'
 cr_model.cr_sklinear_model(tkr,yrs,mnth,features_s)
 EOF
 
