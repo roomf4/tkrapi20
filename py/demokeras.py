@@ -52,7 +52,7 @@ kmodel.add(keras.layers.core.Activation('linear'))
 kmodel.compile(loss='mean_squared_error', optimizer='adam')
 kmodel.fit(x_a,y_a, batch_size=4, epochs=128)
 xtest_a      = np.array([2.4,3.6]).reshape(1,2) # 1 row, 2 columns
-prediction_a = kmodel.predict(xtest_a) # s.b. about 2.5
+prediction_a = kmodel.predict(xtest_a) # s.b. about 2.8
 
 print('prediction_a:')
 print( prediction_a)
@@ -64,7 +64,7 @@ kmodel.save('/tmp/kmodel.h5')
 kmodel2       = keras.models.load_model('/tmp/kmodel.h5')
 
 # I should use it to predict again:
-prediction2_a = kmodel2.predict(xtest_a) # s.b. about 2.5
+prediction2_a = kmodel2.predict(xtest_a) # s.b. about 2.8
 
 print('prediction2_a:')
 print( prediction2_a)
@@ -104,7 +104,7 @@ with open('/tmp/kmodel4.h5','wb') as fh:
 kmodel5 = keras.models.load_model('/tmp/kmodel4.h5')
 
 # I should use it to predict again:
-prediction3_a = kmodel5.predict(xtest_a) # s.b. about 2.5
+prediction3_a = kmodel5.predict(xtest_a) # s.b. about 2.8
 
 print('prediction3_a:')
 print( prediction3_a)
