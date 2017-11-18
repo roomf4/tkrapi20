@@ -50,6 +50,7 @@ def getfeat2file(tkr):
   feat_df = getfeat(tkr)
   csvf_s  = '/tmp/feat'+tkr+'.csv'
   feat_df.to_csv(csvf_s, index=False, float_format='%.3f')
+  print('Wrote:',csvf_s)
   
 def tkrpricesCSV(tkr):
   """This function should return CSV prices for a tkr."""
